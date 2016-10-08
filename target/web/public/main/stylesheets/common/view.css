@@ -1,0 +1,87 @@
+.well {
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    padding: 7px;
+}
+
+.well-md {
+    padding : 1px;
+    border-color : #a0a0a0;
+    background-color: #fefefe;
+}
+
+
+.container-fluid{
+    background-color:#3B5998;
+}
+
+
+body {
+    background-image: url("/assets/images/si.jpg");
+     overflow-x: hidden;
+}
+
+.sidenav {
+      padding-top: 20px;
+      background-color: #E3F2F9;
+      height: auto;
+   }
+
+.logo {
+    height : 50px;
+}
+
+
+.text-right {
+    margin-top : 2px;
+}
+
+.text-center {
+    margin-bottom : 2px;
+}
+
+.list-group{
+padding-left: 0px;
+}
+
+
+.list-group-item {
+    word-wrap: break-word;
+}
+
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.editmsgs {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #ee0000;
+}
+
+.who {
+    color: #00aa00;
+}
+
+.group {
+    color: #00aa00;
+}
+
+.error {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #ee0000;
+}
+
+.success {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #00ee00;
+}
+.list-group-item-success{
+background-color: #DFF1F5;
+}
+a.list-group-item-success{
+color: #1C83AB;
+}
