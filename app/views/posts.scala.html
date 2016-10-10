@@ -178,9 +178,8 @@
 
                 <div class="text-center">
                     <h4 id="summarytitle">users List <span class="badge">{{users.length}}</span></h4>
-                    <a href="#" ng-click="showUsers()" class="btn btn-info btn-xs">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                    </a>
+                   
+                
                 </div>
                 <div class="text-left">
                 <ul class="list-group">
@@ -260,10 +259,11 @@
                 $location.path("@routes.GroupController.showGroupsPage").replace();
                 $window.location.href = $location.absUrl();
             };
-
+              // change the group
             $scope.changeGroup= function(gId) {
-                // change the group
+
                 $scope.conerror = "";
+                $scope.showUsers(gId);
                 $scope.changegrouperror = "";
                 $("#changegroupError").html("");
                 $http({
@@ -291,7 +291,7 @@
              }
 
              $scope.showUsers = function() {
-                if ($scope.mGroupId == 'None')
+                if ($scope.gId == 'None')
                     $scope.loadAllUsers()
                 else
                     $scope.loadAllGroupUsers()
