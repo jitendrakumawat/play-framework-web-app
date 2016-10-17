@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href=@routes.Assets.versioned("stylesheets/common/view.css")>
+    <link rel="stylesheet" href=@routes.Assets.versioned("stylesheets/main.css")>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.min.js"></script>
+
+    <title>Si2chip Setup</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src=@routes.Assets.versioned("images/l46.png") class="logo">
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" class="active"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+        </ul>
+
+    </div>
+</nav>
+
+<div class="container" ng-app="login" ng-controller="loginCtrl">
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <div class="well well-lg">
+                <div class="text-center">
+                    <h4 id="logintitle">Login</h4>
+                </div>
+                <form role="form" name="lf">
+                    <div class="form-group">
+                        <input type="email" class="form-control" maxlength="255" ng-model="userId" placeholder="Email Address" required name="userId">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" ng-model="password" placeholder="Password" required  name="password">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-default btn-sm" ng-click="submit($event)">Login</button>
+                    </div>
+
+                </form>
+                <span ng-show="lf.userId.$error.email" class="editmsgs">Not a valid e-mail address</span><br>
+                <span ng-show="lf.userId.$touched && lf.userId.$error.required" class="editmsgs">UserId required. Enter a valid email id</span><br>
+                <span ng-if="!(lf.userId.$dirty || lf.password.$dirty)" ng-bind="error" class="error"></span>
+            </div>
+         </div>
+    </div>
+</div>
+<script>
+        //todo: progress indicator
+
+        var app = angular.module('login',  ['ngCookies','ngAnimate']);
+        app.config(['$locationProvider', function AppConfig($locationProvider) {
+            $locationProvider.html5Mode({enabled: true, requireBase: false}).hashPrefix('*');
+        }]);
+
+
+        app.controller('loginCtrl', function($scope, $http, $location, $window, $cookies) {
+            // Initialize the view
+            $scope.error="";
+            $scope.conerror = "";
+            $scope.bConerror = false;
+            $scope.users=[];
+            $scope.userId = "";
+
+
+
+
+
+           // Login as no group with username password
+             $scope.submit  = function(event) {
+                event.preventDefault();
+
+                // validate the login form
+                if ($scope.lf.userId.$error.required || $scope.lf.userId.$error.email || !($scope.lf.userId.$dirty || $scope.lf.password.$dirty)) {
+                    $scope.lf.userId.$touched = true;
+                    return;
+
+                }
+                // set user cookies
+                $cookies.put("tzoffset", new Date().getTimezoneOffset().toString());
+                $cookies.put("userId", $scope.userId);
+                  alert('fine');
+
+                $scope.conerror = "";
+                $scope.bConerror = false;
+                $http({
+                        method : "POST",
+                        url : "@routes.AdminController.showSetup",
+                        data : {"userId" : $scope.userId,"password" : $scope.password},
+                        headers : {
+                            "Content-Type" : "application/json"
+                        }
+                    }).then(function successCallback(response) {
+                         $scope.UserId = "";
+                        $scope.Password = "";
+                    }, function errorCallback(response) {
+                        $cookies.remove("userId");
+                        $cookies.remove("tzoffset");
+                        if (response.status == 400) {
+                            $scope.error = response.data.error;
+                            $scope.lf.$setPristine();
+                        } else {
+                            $scope.bConerror = true;
+                            $scope.conerror = "Error trying to login. Retry.";
+                            $('#conError').modal('show');
+                        }
+                    });
+            };
+
+        });
+    </script>
+</body>
+</html>

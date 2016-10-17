@@ -93,12 +93,21 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
                             <div class="well well-md" ng-show="!angular.isUndefined(bShowAUE) && bShowAUE">
                                 <form role="form" name="auf">
                                     <div class="form-group">
+                                        <input type="text" class="form-control" maxlength="25" ng-model="nUserName" placeholder="Enter name" required name="name">
+                                    </div>
+                                    <div class="form-group">
                                         <input type="email" class="form-control" maxlength="255" ng-model="nUserId" placeholder="Enter email id here" required name="userId">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control" ng-model="nPassword" placeholder="Enter password here" name="password">
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" maxlength="25" ng-model="nuserDesignation" placeholder="Designation" required name="userDesignation">
+                                    </div>
                                     <div class="text-center">
+                                        <div class="form-group">
+                                            <input type="DATE" class="form-control" maxlength="255" ng-model="nuserbirth" placeholder="dd/MM/yyyy" required name="userbirth">
+                                        </div>
                                         <button type="submit" class="btn btn-default btn-md" ng-click="addUser($event)">Add</button>
                                     </div>
                                 </form>
@@ -146,33 +155,33 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
 </div>
 <script type="text/javascript">
         var app = angular.module('admin',  []);
-        app.config(['$locationProvider', function AppConfig($locationProvider) """),format.raw/*119.80*/("""{"""),format.raw/*119.81*/("""
-            """),format.raw/*120.13*/("""$locationProvider.html5Mode("""),format.raw/*120.41*/("""{"""),format.raw/*120.42*/("""enabled: true, requireBase: false"""),format.raw/*120.75*/("""}"""),format.raw/*120.76*/(""").hashPrefix('*');
-        """),format.raw/*121.9*/("""}"""),format.raw/*121.10*/("""]);
+        app.config(['$locationProvider', function AppConfig($locationProvider) """),format.raw/*128.80*/("""{"""),format.raw/*128.81*/("""
+            """),format.raw/*129.13*/("""$locationProvider.html5Mode("""),format.raw/*129.41*/("""{"""),format.raw/*129.42*/("""enabled: true, requireBase: false"""),format.raw/*129.75*/("""}"""),format.raw/*129.76*/(""").hashPrefix('*');
+        """),format.raw/*130.9*/("""}"""),format.raw/*130.10*/("""]);
 
-        app.service("AdminSvc", function ($http, $q) """),format.raw/*123.54*/("""{"""),format.raw/*123.55*/("""
-            """),format.raw/*124.13*/("""var deferred;
-            this.getAdmins = function () """),format.raw/*125.42*/("""{"""),format.raw/*125.43*/("""
-                """),format.raw/*126.17*/("""deferred = $q.defer();
-                return $http("""),format.raw/*127.30*/("""{"""),format.raw/*127.31*/("""
-                        """),format.raw/*128.25*/("""method : "GET",
-                        url : """"),_display_(/*129.33*/routes/*129.39*/.AdminController.getAdminUsers),format.raw/*129.69*/("""",
-                        headers : """),format.raw/*130.35*/("""{"""),format.raw/*130.36*/("""
-                        """),format.raw/*131.25*/(""""Content-Type" : "application/json"
-                        """),format.raw/*132.25*/("""}"""),format.raw/*132.26*/("""
-                    """),format.raw/*133.21*/("""}"""),format.raw/*133.22*/(""")
-                    .then(function (response) """),format.raw/*134.47*/("""{"""),format.raw/*134.48*/("""
-                        """),format.raw/*135.25*/("""deferred.resolve(response);
+        app.service("AdminSvc", function ($http, $q) """),format.raw/*132.54*/("""{"""),format.raw/*132.55*/("""
+            """),format.raw/*133.13*/("""var deferred;
+            this.getAdmins = function () """),format.raw/*134.42*/("""{"""),format.raw/*134.43*/("""
+                """),format.raw/*135.17*/("""deferred = $q.defer();
+                return $http("""),format.raw/*136.30*/("""{"""),format.raw/*136.31*/("""
+                        """),format.raw/*137.25*/("""method : "GET",
+                        url : """"),_display_(/*138.33*/routes/*138.39*/.AdminController.getAdminUsers),format.raw/*138.69*/("""",
+                        headers : """),format.raw/*139.35*/("""{"""),format.raw/*139.36*/("""
+                        """),format.raw/*140.25*/(""""Content-Type" : "application/json"
+                        """),format.raw/*141.25*/("""}"""),format.raw/*141.26*/("""
+                    """),format.raw/*142.21*/("""}"""),format.raw/*142.22*/(""")
+                    .then(function (response) """),format.raw/*143.47*/("""{"""),format.raw/*143.48*/("""
+                        """),format.raw/*144.25*/("""deferred.resolve(response);
                         return deferred.promise;
-                    """),format.raw/*137.21*/("""}"""),format.raw/*137.22*/(""", function (response) """),format.raw/*137.44*/("""{"""),format.raw/*137.45*/("""
-                        """),format.raw/*138.25*/("""deferred.reject(response);
+                    """),format.raw/*146.21*/("""}"""),format.raw/*146.22*/(""", function (response) """),format.raw/*146.44*/("""{"""),format.raw/*146.45*/("""
+                        """),format.raw/*147.25*/("""deferred.reject(response);
                         return deferred.promise;
-                    """),format.raw/*140.21*/("""}"""),format.raw/*140.22*/(""");
-            """),format.raw/*141.13*/("""}"""),format.raw/*141.14*/(""";
-        """),format.raw/*142.9*/("""}"""),format.raw/*142.10*/(""");
+                    """),format.raw/*149.21*/("""}"""),format.raw/*149.22*/(""");
+            """),format.raw/*150.13*/("""}"""),format.raw/*150.14*/(""";
+        """),format.raw/*151.9*/("""}"""),format.raw/*151.10*/(""");
 
-        app.controller('adminCtrl', function($scope, $http, $location, $window, AdminSvc) """),format.raw/*144.91*/("""{"""),format.raw/*144.92*/("""
-            """),format.raw/*145.13*/("""// Initialize the view
+        app.controller('adminCtrl', function($scope, $http, $location, $window, AdminSvc) """),format.raw/*153.91*/("""{"""),format.raw/*153.92*/("""
+            """),format.raw/*154.13*/("""// Initialize the view
             $scope.adderror="";
             $scope.moderror="";
             $scope.conerror = "";
@@ -182,127 +191,127 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
             $scope.addSuccess = false;
             $scope.modSuccess = false;
 
-            $scope.showHome = function(event) """),format.raw/*155.47*/("""{"""),format.raw/*155.48*/("""
-                """),format.raw/*156.17*/("""event.preventDefault();
-                $location.path(""""),_display_(/*157.34*/routes/*157.40*/.HomeController.showHomePage),format.raw/*157.68*/("""").replace();
+            $scope.showHome = function(event) """),format.raw/*164.47*/("""{"""),format.raw/*164.48*/("""
+                """),format.raw/*165.17*/("""event.preventDefault();
+                $location.path(""""),_display_(/*166.34*/routes/*166.40*/.HomeController.showHomePage),format.raw/*166.68*/("""").replace();
                 $window.location.href = $location.absUrl();
-            """),format.raw/*159.13*/("""}"""),format.raw/*159.14*/(""";
+            """),format.raw/*168.13*/("""}"""),format.raw/*168.14*/(""";
 
-            $scope.addUser  = function(event) """),format.raw/*161.47*/("""{"""),format.raw/*161.48*/("""
-                """),format.raw/*162.17*/("""event.preventDefault();
+            $scope.addUser  = function(event) """),format.raw/*170.47*/("""{"""),format.raw/*170.48*/("""
+                """),format.raw/*171.17*/("""event.preventDefault();
 
                 // validate the add user form
-                if ($scope.auf.userId.$error.required || $scope.auf.userId.$error.email || !($scope.auf.userId.$dirty || $scope.auf.password.$dirty)) """),format.raw/*165.151*/("""{"""),format.raw/*165.152*/("""
-                    """),format.raw/*166.21*/("""$scope.auf.userId.$touched = true;
+                if ($scope.auf.userId.$error.required || $scope.auf.userId.$error.email || !($scope.auf.userId.$dirty || $scope.auf.password.$dirty)) """),format.raw/*174.151*/("""{"""),format.raw/*174.152*/("""
+                    """),format.raw/*175.21*/("""$scope.auf.userId.$touched = true;
                     return;
-                """),format.raw/*168.17*/("""}"""),format.raw/*168.18*/("""
+                """),format.raw/*177.17*/("""}"""),format.raw/*177.18*/("""
 
-                """),format.raw/*170.17*/("""$scope.conerror = "";
+                """),format.raw/*179.17*/("""$scope.conerror = "";
                 $scope.adderror = "";
                 $scope.addSuccess = false;
-                $http("""),format.raw/*173.23*/("""{"""),format.raw/*173.24*/("""
-                        """),format.raw/*174.25*/("""method : "POST",
-                        url : """"),_display_(/*175.33*/routes/*175.39*/.AdminController.addAdmin),format.raw/*175.64*/("""",
-                        data : """),format.raw/*176.32*/("""{"""),format.raw/*176.33*/(""""userId" : $scope.nUserId, "password" : $scope.nPassword"""),format.raw/*176.89*/("""}"""),format.raw/*176.90*/(""",
-                        headers : """),format.raw/*177.35*/("""{"""),format.raw/*177.36*/("""
-                            """),format.raw/*178.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*179.25*/("""}"""),format.raw/*179.26*/("""
-                    """),format.raw/*180.21*/("""}"""),format.raw/*180.22*/(""").then(function successCallback(response) """),format.raw/*180.64*/("""{"""),format.raw/*180.65*/("""
-                        """),format.raw/*181.25*/("""$scope.nUserId = "";
+                $http("""),format.raw/*182.23*/("""{"""),format.raw/*182.24*/("""
+                        """),format.raw/*183.25*/("""method : "POST",
+                        url : """"),_display_(/*184.33*/routes/*184.39*/.AdminController.addAdmin),format.raw/*184.64*/("""",
+                        data : """),format.raw/*185.32*/("""{"""),format.raw/*185.33*/(""""name" : $scope.nUserName, "userId" : $scope.nUserId, "password" : $scope.nPassword, "userDesignation" : $scope.nuserDesignation, "userbirth" : $scope.nuserbirth"""),format.raw/*185.194*/("""}"""),format.raw/*185.195*/(""",
+                        headers : """),format.raw/*186.35*/("""{"""),format.raw/*186.36*/("""
+                            """),format.raw/*187.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*188.25*/("""}"""),format.raw/*188.26*/("""
+                    """),format.raw/*189.21*/("""}"""),format.raw/*189.22*/(""").then(function successCallback(response) """),format.raw/*189.64*/("""{"""),format.raw/*189.65*/("""
+                        """),format.raw/*190.25*/("""$scope.nUserId = "";
                         $scope.nPassword = "";
                         $scope.auf.userId.$touched = false;
                         $scope.auf.password.$touched = false;
                         $scope.addSuccess = true;
-                    """),format.raw/*186.21*/("""}"""),format.raw/*186.22*/(""", function errorCallback(response) """),format.raw/*186.57*/("""{"""),format.raw/*186.58*/("""
-                        """),format.raw/*187.25*/("""if (response.status == 400) """),format.raw/*187.53*/("""{"""),format.raw/*187.54*/("""
-                            """),format.raw/*188.29*/("""$scope.adderror = response.data.error;
+                    """),format.raw/*195.21*/("""}"""),format.raw/*195.22*/(""", function errorCallback(response) """),format.raw/*195.57*/("""{"""),format.raw/*195.58*/("""
+                        """),format.raw/*196.25*/("""if (response.status == 400) """),format.raw/*196.53*/("""{"""),format.raw/*196.54*/("""
+                            """),format.raw/*197.29*/("""$scope.adderror = response.data.error;
                             $scope.auf.$setPristine();
-                        """),format.raw/*190.25*/("""}"""),format.raw/*190.26*/(""" """),format.raw/*190.27*/("""else """),format.raw/*190.32*/("""{"""),format.raw/*190.33*/("""
-                            """),format.raw/*191.29*/("""$scope.conerror = "Error trying to add the admin user. Retry.";
+                        """),format.raw/*199.25*/("""}"""),format.raw/*199.26*/(""" """),format.raw/*199.27*/("""else """),format.raw/*199.32*/("""{"""),format.raw/*199.33*/("""
+                            """),format.raw/*200.29*/("""$scope.conerror = "Error trying to add the admin user. Retry.";
                             $('#conError').modal('show');
-                        """),format.raw/*193.25*/("""}"""),format.raw/*193.26*/("""
-                    """),format.raw/*194.21*/("""}"""),format.raw/*194.22*/(""");
-            """),format.raw/*195.13*/("""}"""),format.raw/*195.14*/(""";
+                        """),format.raw/*202.25*/("""}"""),format.raw/*202.26*/("""
+                    """),format.raw/*203.21*/("""}"""),format.raw/*203.22*/(""");
+            """),format.raw/*204.13*/("""}"""),format.raw/*204.14*/(""";
 
-            $scope.toggleAddAdminEditor = function(event) """),format.raw/*197.59*/("""{"""),format.raw/*197.60*/("""
-                """),format.raw/*198.17*/("""event.preventDefault();
-                if(angular.isUndefined($scope.bShowAUE)) """),format.raw/*199.58*/("""{"""),format.raw/*199.59*/("""
-                    """),format.raw/*200.21*/("""$scope.bShowAUE = true;
+            $scope.toggleAddAdminEditor = function(event) """),format.raw/*206.59*/("""{"""),format.raw/*206.60*/("""
+                """),format.raw/*207.17*/("""event.preventDefault();
+                if(angular.isUndefined($scope.bShowAUE)) """),format.raw/*208.58*/("""{"""),format.raw/*208.59*/("""
+                    """),format.raw/*209.21*/("""$scope.bShowAUE = true;
                     $scope.nUserId = "";
                     $scope.nPassword = "";
-                """),format.raw/*203.17*/("""}"""),format.raw/*203.18*/(""" """),format.raw/*203.19*/("""else """),format.raw/*203.24*/("""{"""),format.raw/*203.25*/("""
-                    """),format.raw/*204.21*/("""$scope.bShowAUE = !$scope.bShowAUE;
-                """),format.raw/*205.17*/("""}"""),format.raw/*205.18*/("""
-            """),format.raw/*206.13*/("""}"""),format.raw/*206.14*/(""";
+                """),format.raw/*212.17*/("""}"""),format.raw/*212.18*/(""" """),format.raw/*212.19*/("""else """),format.raw/*212.24*/("""{"""),format.raw/*212.25*/("""
+                    """),format.raw/*213.21*/("""$scope.bShowAUE = !$scope.bShowAUE;
+                """),format.raw/*214.17*/("""}"""),format.raw/*214.18*/("""
+            """),format.raw/*215.13*/("""}"""),format.raw/*215.14*/(""";
 
-            $scope.refreshAdminUsers = function(event)"""),format.raw/*208.55*/("""{"""),format.raw/*208.56*/("""
-                """),format.raw/*209.17*/("""$scope.loadAllAdmins(event);
+            $scope.refreshAdminUsers = function(event)"""),format.raw/*217.55*/("""{"""),format.raw/*217.56*/("""
+                """),format.raw/*218.17*/("""$scope.loadAllAdmins(event);
                 $scope.rpf.userId.$touched = false;
                 $scope.rpf.password.$touched = false;
                 $scope.moderror = "";
                 $scope.modSuccess = false;
-            """),format.raw/*214.13*/("""}"""),format.raw/*214.14*/(""";
+            """),format.raw/*223.13*/("""}"""),format.raw/*223.14*/(""";
 
-            $scope.loadAllAdmins = function(event) """),format.raw/*216.52*/("""{"""),format.raw/*216.53*/("""
-                """),format.raw/*217.17*/("""if (event != null)
+            $scope.loadAllAdmins = function(event) """),format.raw/*225.52*/("""{"""),format.raw/*225.53*/("""
+                """),format.raw/*226.17*/("""if (event != null)
                     event.preventDefault();
                 $scope.conerror = "";
                 $scope.allAdmins=[];
-                AdminSvc.getAdmins().then(function successCallback(response) """),format.raw/*221.78*/("""{"""),format.raw/*221.79*/("""
-                        """),format.raw/*222.25*/("""$scope.allAdmins = response.data;
-                    """),format.raw/*223.21*/("""}"""),format.raw/*223.22*/(""", function errorCallback(response) """),format.raw/*223.57*/("""{"""),format.raw/*223.58*/("""
-                        """),format.raw/*224.25*/("""$scope.conerror = "Error refreshing the list of all admin users. Retry.";
+                AdminSvc.getAdmins().then(function successCallback(response) """),format.raw/*230.78*/("""{"""),format.raw/*230.79*/("""
+                        """),format.raw/*231.25*/("""$scope.allAdmins = response.data;
+                    """),format.raw/*232.21*/("""}"""),format.raw/*232.22*/(""", function errorCallback(response) """),format.raw/*232.57*/("""{"""),format.raw/*232.58*/("""
+                        """),format.raw/*233.25*/("""$scope.conerror = "Error refreshing the list of all admin users. Retry.";
                         $('#conError').modal('show');
-                    """),format.raw/*226.21*/("""}"""),format.raw/*226.22*/("""
-                """),format.raw/*227.17*/(""");
-            """),format.raw/*228.13*/("""}"""),format.raw/*228.14*/(""";
+                    """),format.raw/*235.21*/("""}"""),format.raw/*235.22*/("""
+                """),format.raw/*236.17*/(""");
+            """),format.raw/*237.13*/("""}"""),format.raw/*237.14*/(""";
 
-            $scope.modifyAdmin  = function(event) """),format.raw/*230.51*/("""{"""),format.raw/*230.52*/("""
-                """),format.raw/*231.17*/("""event.preventDefault();
+            $scope.modifyAdmin  = function(event) """),format.raw/*239.51*/("""{"""),format.raw/*239.52*/("""
+                """),format.raw/*240.17*/("""event.preventDefault();
 
                 // validate the modify user form
-                if ($scope.rpf.userId.$error.required || !$scope.rpf.userId.$dirty) """),format.raw/*234.85*/("""{"""),format.raw/*234.86*/("""
-                    """),format.raw/*235.21*/("""$scope.rpf.userId.$touched = true;
+                if ($scope.rpf.userId.$error.required || !$scope.rpf.userId.$dirty) """),format.raw/*243.85*/("""{"""),format.raw/*243.86*/("""
+                    """),format.raw/*244.21*/("""$scope.rpf.userId.$touched = true;
                     return;
-                """),format.raw/*237.17*/("""}"""),format.raw/*237.18*/("""
+                """),format.raw/*246.17*/("""}"""),format.raw/*246.18*/("""
 
-                """),format.raw/*239.17*/("""$scope.conerror = "";
+                """),format.raw/*248.17*/("""$scope.conerror = "";
                 $scope.moderror = "";
                 $scope.modSuccess = false;
-                $http("""),format.raw/*242.23*/("""{"""),format.raw/*242.24*/("""
-                        """),format.raw/*243.25*/("""method : "PUT",
-                        url : """"),_display_(/*244.33*/routes/*244.39*/.AdminController.modifyAdmin),format.raw/*244.67*/("""",
-                        data : """),format.raw/*245.32*/("""{"""),format.raw/*245.33*/(""""userId" : $scope.mUser.userId, "password" : $scope.mPassword"""),format.raw/*245.94*/("""}"""),format.raw/*245.95*/(""",
-                        headers : """),format.raw/*246.35*/("""{"""),format.raw/*246.36*/("""
-                            """),format.raw/*247.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*248.25*/("""}"""),format.raw/*248.26*/("""
-                    """),format.raw/*249.21*/("""}"""),format.raw/*249.22*/(""").then(function successCallback(response) """),format.raw/*249.64*/("""{"""),format.raw/*249.65*/("""
-                        """),format.raw/*250.25*/("""$scope.mUser = null;
+                $http("""),format.raw/*251.23*/("""{"""),format.raw/*251.24*/("""
+                        """),format.raw/*252.25*/("""method : "PUT",
+                        url : """"),_display_(/*253.33*/routes/*253.39*/.AdminController.modifyAdmin),format.raw/*253.67*/("""",
+                        data : """),format.raw/*254.32*/("""{"""),format.raw/*254.33*/(""""userId" : $scope.mUser.userId, "password" : $scope.mPassword"""),format.raw/*254.94*/("""}"""),format.raw/*254.95*/(""",
+                        headers : """),format.raw/*255.35*/("""{"""),format.raw/*255.36*/("""
+                            """),format.raw/*256.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*257.25*/("""}"""),format.raw/*257.26*/("""
+                    """),format.raw/*258.21*/("""}"""),format.raw/*258.22*/(""").then(function successCallback(response) """),format.raw/*258.64*/("""{"""),format.raw/*258.65*/("""
+                        """),format.raw/*259.25*/("""$scope.mUser = null;
                         $scope.mPassword = "";
                         $scope.rpf.userId.$touched = false;
                         $scope.rpf.password.$touched = false;
                         $scope.modSuccess = true;
-                    """),format.raw/*255.21*/("""}"""),format.raw/*255.22*/(""", function errorCallback(response) """),format.raw/*255.57*/("""{"""),format.raw/*255.58*/("""
-                        """),format.raw/*256.25*/("""if (response.status == 400) """),format.raw/*256.53*/("""{"""),format.raw/*256.54*/("""
-                            """),format.raw/*257.29*/("""$scope.moderror = response.data.error;
+                    """),format.raw/*264.21*/("""}"""),format.raw/*264.22*/(""", function errorCallback(response) """),format.raw/*264.57*/("""{"""),format.raw/*264.58*/("""
+                        """),format.raw/*265.25*/("""if (response.status == 400) """),format.raw/*265.53*/("""{"""),format.raw/*265.54*/("""
+                            """),format.raw/*266.29*/("""$scope.moderror = response.data.error;
                             $scope.rpf.$setPristine();
-                        """),format.raw/*259.25*/("""}"""),format.raw/*259.26*/(""" """),format.raw/*259.27*/("""else """),format.raw/*259.32*/("""{"""),format.raw/*259.33*/("""
-                            """),format.raw/*260.29*/("""$scope.conerror = "Error trying to reset the password. Retry.";
+                        """),format.raw/*268.25*/("""}"""),format.raw/*268.26*/(""" """),format.raw/*268.27*/("""else """),format.raw/*268.32*/("""{"""),format.raw/*268.33*/("""
+                            """),format.raw/*269.29*/("""$scope.conerror = "Error trying to reset the password. Retry.";
                             $('#conError').modal('show');
-                        """),format.raw/*262.25*/("""}"""),format.raw/*262.26*/("""
-                    """),format.raw/*263.21*/("""}"""),format.raw/*263.22*/(""");
-            """),format.raw/*264.13*/("""}"""),format.raw/*264.14*/(""";
+                        """),format.raw/*271.25*/("""}"""),format.raw/*271.26*/("""
+                    """),format.raw/*272.21*/("""}"""),format.raw/*272.22*/(""");
+            """),format.raw/*273.13*/("""}"""),format.raw/*273.14*/(""";
 
-            $scope.toggleAdminEditor = function(event) """),format.raw/*266.56*/("""{"""),format.raw/*266.57*/("""
-                """),format.raw/*267.17*/("""event.preventDefault();
-                if(angular.isUndefined($scope.bShowRPE)) """),format.raw/*268.58*/("""{"""),format.raw/*268.59*/("""
-                    """),format.raw/*269.21*/("""$scope.bShowRPE = true;
+            $scope.toggleAdminEditor = function(event) """),format.raw/*275.56*/("""{"""),format.raw/*275.57*/("""
+                """),format.raw/*276.17*/("""event.preventDefault();
+                if(angular.isUndefined($scope.bShowRPE)) """),format.raw/*277.58*/("""{"""),format.raw/*277.59*/("""
+                    """),format.raw/*278.21*/("""$scope.bShowRPE = true;
                     $scope.loadAllAdmins(null);
-                """),format.raw/*271.17*/("""}"""),format.raw/*271.18*/(""" """),format.raw/*271.19*/("""else """),format.raw/*271.24*/("""{"""),format.raw/*271.25*/("""
-                    """),format.raw/*272.21*/("""$scope.bShowRPE = !$scope.bShowRPE;
-                """),format.raw/*273.17*/("""}"""),format.raw/*273.18*/("""
-            """),format.raw/*274.13*/("""}"""),format.raw/*274.14*/(""";
-        """),format.raw/*275.9*/("""}"""),format.raw/*275.10*/(""");
+                """),format.raw/*280.17*/("""}"""),format.raw/*280.18*/(""" """),format.raw/*280.19*/("""else """),format.raw/*280.24*/("""{"""),format.raw/*280.25*/("""
+                    """),format.raw/*281.21*/("""$scope.bShowRPE = !$scope.bShowRPE;
+                """),format.raw/*282.17*/("""}"""),format.raw/*282.18*/("""
+            """),format.raw/*283.13*/("""}"""),format.raw/*283.14*/(""";
+        """),format.raw/*284.9*/("""}"""),format.raw/*284.10*/(""");
     </script>
 </body>
 </html>"""))
@@ -325,11 +334,11 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
 object setup extends setup_Scope0.setup
               /*
                   -- GENERATED --
-                  DATE: Fri Sep 16 10:40:32 IST 2016
-                  SOURCE: /home/si2chip/applications/si2chip/app/views/setup.scala.html
-                  HASH: 522ead8dfbab4502e7fb250a101d8a302bda5967
-                  MATRIX: 827->1|1130->278|1144->284|1212->332|1273->367|1287->373|1349->415|1880->919|1895->925|1951->960|1980->961|2897->1850|2926->1851|2955->1852|2991->1860|3020->1861|3049->1862|3102->1887|8425->7181|8455->7182|8497->7195|8554->7223|8584->7224|8646->7257|8676->7258|8731->7285|8761->7286|8848->7344|8878->7345|8920->7358|9004->7413|9034->7414|9080->7431|9161->7483|9191->7484|9245->7509|9321->7557|9337->7563|9389->7593|9455->7630|9485->7631|9539->7656|9628->7716|9658->7717|9708->7738|9738->7739|9815->7787|9845->7788|9899->7813|10025->7910|10055->7911|10106->7933|10136->7934|10190->7959|10315->8055|10345->8056|10389->8071|10419->8072|10457->8082|10487->8083|10610->8177|10640->8178|10682->8191|11060->8540|11090->8541|11136->8558|11221->8615|11237->8621|11287->8649|11402->8735|11432->8736|11510->8785|11540->8786|11586->8803|11837->9024|11868->9025|11918->9046|12026->9125|12056->9126|12103->9144|12257->9269|12287->9270|12341->9295|12418->9344|12434->9350|12481->9375|12544->9409|12574->9410|12659->9466|12689->9467|12754->9503|12784->9504|12842->9533|12931->9593|12961->9594|13011->9615|13041->9616|13112->9658|13142->9659|13196->9684|13485->9944|13515->9945|13579->9980|13609->9981|13663->10006|13720->10034|13750->10035|13808->10064|13955->10182|13985->10183|14015->10184|14049->10189|14079->10190|14137->10219|14312->10365|14342->10366|14392->10387|14422->10388|14466->10403|14496->10404|14586->10465|14616->10466|14662->10483|14772->10564|14802->10565|14852->10586|15005->10710|15035->10711|15065->10712|15099->10717|15129->10718|15179->10739|15260->10791|15290->10792|15332->10805|15362->10806|15448->10863|15478->10864|15524->10881|15781->11109|15811->11110|15894->11164|15924->11165|15970->11182|16214->11397|16244->11398|16298->11423|16381->11477|16411->11478|16475->11513|16505->11514|16559->11539|16736->11687|16766->11688|16812->11705|16856->11720|16886->11721|16968->11774|16998->11775|17044->11792|17231->11950|17261->11951|17311->11972|17419->12051|17449->12052|17496->12070|17650->12195|17680->12196|17734->12221|17810->12269|17826->12275|17876->12303|17939->12337|17969->12338|18059->12399|18089->12400|18154->12436|18184->12437|18242->12466|18331->12526|18361->12527|18411->12548|18441->12549|18512->12591|18542->12592|18596->12617|18885->12877|18915->12878|18979->12913|19009->12914|19063->12939|19120->12967|19150->12968|19208->12997|19355->13115|19385->13116|19415->13117|19449->13122|19479->13123|19537->13152|19712->13298|19742->13299|19792->13320|19822->13321|19866->13336|19896->13337|19983->13395|20013->13396|20059->13413|20169->13494|20199->13495|20249->13516|20366->13604|20396->13605|20426->13606|20460->13611|20490->13612|20540->13633|20621->13685|20651->13686|20693->13699|20723->13700|20761->13710|20791->13711
-                  LINES: 32->2|38->8|38->8|38->8|39->9|39->9|39->9|49->19|49->19|49->19|49->19|68->38|68->38|68->38|68->38|68->38|68->38|69->39|149->119|149->119|150->120|150->120|150->120|150->120|150->120|151->121|151->121|153->123|153->123|154->124|155->125|155->125|156->126|157->127|157->127|158->128|159->129|159->129|159->129|160->130|160->130|161->131|162->132|162->132|163->133|163->133|164->134|164->134|165->135|167->137|167->137|167->137|167->137|168->138|170->140|170->140|171->141|171->141|172->142|172->142|174->144|174->144|175->145|185->155|185->155|186->156|187->157|187->157|187->157|189->159|189->159|191->161|191->161|192->162|195->165|195->165|196->166|198->168|198->168|200->170|203->173|203->173|204->174|205->175|205->175|205->175|206->176|206->176|206->176|206->176|207->177|207->177|208->178|209->179|209->179|210->180|210->180|210->180|210->180|211->181|216->186|216->186|216->186|216->186|217->187|217->187|217->187|218->188|220->190|220->190|220->190|220->190|220->190|221->191|223->193|223->193|224->194|224->194|225->195|225->195|227->197|227->197|228->198|229->199|229->199|230->200|233->203|233->203|233->203|233->203|233->203|234->204|235->205|235->205|236->206|236->206|238->208|238->208|239->209|244->214|244->214|246->216|246->216|247->217|251->221|251->221|252->222|253->223|253->223|253->223|253->223|254->224|256->226|256->226|257->227|258->228|258->228|260->230|260->230|261->231|264->234|264->234|265->235|267->237|267->237|269->239|272->242|272->242|273->243|274->244|274->244|274->244|275->245|275->245|275->245|275->245|276->246|276->246|277->247|278->248|278->248|279->249|279->249|279->249|279->249|280->250|285->255|285->255|285->255|285->255|286->256|286->256|286->256|287->257|289->259|289->259|289->259|289->259|289->259|290->260|292->262|292->262|293->263|293->263|294->264|294->264|296->266|296->266|297->267|298->268|298->268|299->269|301->271|301->271|301->271|301->271|301->271|302->272|303->273|303->273|304->274|304->274|305->275|305->275
+                  DATE: Sat Oct 15 15:39:27 IST 2016
+                  SOURCE: /home/si2chip/si2chip/app/views/setup.scala.html
+                  HASH: 1c48eb2b4eafc6cbbc243ad973ceef4f63983b7c
+                  MATRIX: 827->1|1130->278|1144->284|1212->332|1273->367|1287->373|1349->415|1880->919|1895->925|1951->960|1980->961|2897->1850|2926->1851|2955->1852|2991->1860|3020->1861|3049->1862|3102->1887|9264->8020|9294->8021|9336->8034|9393->8062|9423->8063|9485->8096|9515->8097|9570->8124|9600->8125|9687->8183|9717->8184|9759->8197|9843->8252|9873->8253|9919->8270|10000->8322|10030->8323|10084->8348|10160->8396|10176->8402|10228->8432|10294->8469|10324->8470|10378->8495|10467->8555|10497->8556|10547->8577|10577->8578|10654->8626|10684->8627|10738->8652|10864->8749|10894->8750|10945->8772|10975->8773|11029->8798|11154->8894|11184->8895|11228->8910|11258->8911|11296->8921|11326->8922|11449->9016|11479->9017|11521->9030|11899->9379|11929->9380|11975->9397|12060->9454|12076->9460|12126->9488|12241->9574|12271->9575|12349->9624|12379->9625|12425->9642|12676->9863|12707->9864|12757->9885|12865->9964|12895->9965|12942->9983|13096->10108|13126->10109|13180->10134|13257->10183|13273->10189|13320->10214|13383->10248|13413->10249|13604->10410|13635->10411|13700->10447|13730->10448|13788->10477|13877->10537|13907->10538|13957->10559|13987->10560|14058->10602|14088->10603|14142->10628|14431->10888|14461->10889|14525->10924|14555->10925|14609->10950|14666->10978|14696->10979|14754->11008|14901->11126|14931->11127|14961->11128|14995->11133|15025->11134|15083->11163|15258->11309|15288->11310|15338->11331|15368->11332|15412->11347|15442->11348|15532->11409|15562->11410|15608->11427|15718->11508|15748->11509|15798->11530|15951->11654|15981->11655|16011->11656|16045->11661|16075->11662|16125->11683|16206->11735|16236->11736|16278->11749|16308->11750|16394->11807|16424->11808|16470->11825|16727->12053|16757->12054|16840->12108|16870->12109|16916->12126|17160->12341|17190->12342|17244->12367|17327->12421|17357->12422|17421->12457|17451->12458|17505->12483|17682->12631|17712->12632|17758->12649|17802->12664|17832->12665|17914->12718|17944->12719|17990->12736|18177->12894|18207->12895|18257->12916|18365->12995|18395->12996|18442->13014|18596->13139|18626->13140|18680->13165|18756->13213|18772->13219|18822->13247|18885->13281|18915->13282|19005->13343|19035->13344|19100->13380|19130->13381|19188->13410|19277->13470|19307->13471|19357->13492|19387->13493|19458->13535|19488->13536|19542->13561|19831->13821|19861->13822|19925->13857|19955->13858|20009->13883|20066->13911|20096->13912|20154->13941|20301->14059|20331->14060|20361->14061|20395->14066|20425->14067|20483->14096|20658->14242|20688->14243|20738->14264|20768->14265|20812->14280|20842->14281|20929->14339|20959->14340|21005->14357|21115->14438|21145->14439|21195->14460|21312->14548|21342->14549|21372->14550|21406->14555|21436->14556|21486->14577|21567->14629|21597->14630|21639->14643|21669->14644|21707->14654|21737->14655
+                  LINES: 32->2|38->8|38->8|38->8|39->9|39->9|39->9|49->19|49->19|49->19|49->19|68->38|68->38|68->38|68->38|68->38|68->38|69->39|158->128|158->128|159->129|159->129|159->129|159->129|159->129|160->130|160->130|162->132|162->132|163->133|164->134|164->134|165->135|166->136|166->136|167->137|168->138|168->138|168->138|169->139|169->139|170->140|171->141|171->141|172->142|172->142|173->143|173->143|174->144|176->146|176->146|176->146|176->146|177->147|179->149|179->149|180->150|180->150|181->151|181->151|183->153|183->153|184->154|194->164|194->164|195->165|196->166|196->166|196->166|198->168|198->168|200->170|200->170|201->171|204->174|204->174|205->175|207->177|207->177|209->179|212->182|212->182|213->183|214->184|214->184|214->184|215->185|215->185|215->185|215->185|216->186|216->186|217->187|218->188|218->188|219->189|219->189|219->189|219->189|220->190|225->195|225->195|225->195|225->195|226->196|226->196|226->196|227->197|229->199|229->199|229->199|229->199|229->199|230->200|232->202|232->202|233->203|233->203|234->204|234->204|236->206|236->206|237->207|238->208|238->208|239->209|242->212|242->212|242->212|242->212|242->212|243->213|244->214|244->214|245->215|245->215|247->217|247->217|248->218|253->223|253->223|255->225|255->225|256->226|260->230|260->230|261->231|262->232|262->232|262->232|262->232|263->233|265->235|265->235|266->236|267->237|267->237|269->239|269->239|270->240|273->243|273->243|274->244|276->246|276->246|278->248|281->251|281->251|282->252|283->253|283->253|283->253|284->254|284->254|284->254|284->254|285->255|285->255|286->256|287->257|287->257|288->258|288->258|288->258|288->258|289->259|294->264|294->264|294->264|294->264|295->265|295->265|295->265|296->266|298->268|298->268|298->268|298->268|298->268|299->269|301->271|301->271|302->272|302->272|303->273|303->273|305->275|305->275|306->276|307->277|307->277|308->278|310->280|310->280|310->280|310->280|310->280|311->281|312->282|312->282|313->283|313->283|314->284|314->284
                   -- GENERATED --
               */
           

@@ -52,7 +52,7 @@ create table usr (
   user_id                       varchar(255),
   pwd                           varchar(255),
   usr_designation               varchar(255),
-  date_of_birth                 varchar(255),
+  date_of_birth                 timestamp,
   is_admin                      boolean,
   constraint pk_usr primary key (id)
 );

@@ -62,7 +62,6 @@
                             </a>
                             <div class="well well-md" ng-show="!angular.isUndefined(bShowAUE) && bShowAUE">
                                 <form role="form" name="auf">
-
                                     <div class="form-group">
                                         <input type="text" class="form-control" maxlength="25" ng-model="nUserName" placeholder="Enter name" required name="name">
                                     </div>
@@ -77,7 +76,7 @@
                                     </div>
                                     <div class="text-center">
                                         <div class="form-group">
-                                            <input type="date" class="form-control" maxlength="255" ng-model="nuserbirth" placeholder="dd/mm/yyyy" required name="userbirth">
+                                            <input type="date" class="form-control"ng-model="nuserbirth" placeholder="dd/MM/yyyy" required name="userbirth">
                                         </div>
                                         <button type="submit" class="btn btn-default btn-md" ng-click="addUser($event)">Add</button>
                                     </div>
@@ -153,7 +152,6 @@
 
         app.controller('adminCtrl', function($scope, $http, $location, $window, AdminSvc) {
             // Initialize the view
-            i
             $scope.adderror="";
             $scope.moderror="";
             $scope.conerror = "";

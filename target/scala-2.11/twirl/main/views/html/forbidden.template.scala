@@ -78,8 +78,8 @@ Seq[Any](format.raw/*1.25*/("""
 object forbidden extends forbidden_Scope0.forbidden
               /*
                   -- GENERATED --
-                  DATE: Tue Sep 06 15:00:34 IST 2016
-                  SOURCE: /home/si2chip/Backup/backup1/si2chip/app/views/forbidden.scala.html
+                  DATE: Fri Oct 14 15:46:17 IST 2016
+                  SOURCE: /home/si2chip/si2chip/app/views/forbidden.scala.html
                   HASH: a8fee3094bf7934519c1e48ad99c84742092d7a6
                   MATRIX: 763->1|881->24|909->26|1665->755|1680->761|1736->796|1765->797|1962->967|1986->970
                   LINES: 27->1|32->1|34->3|50->19|50->19|50->19|50->19|57->26|57->26

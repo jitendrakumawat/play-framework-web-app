@@ -1,8 +1,7 @@
 [0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/home/si2chip/test/si2chip1/si2chip/conf/application.conf,/home/si2chip/test/si2chip1/si2chip/target/scala-2.11/classes/application.conf)[0m
-[0m[[0mdebug[0m] [0m	(/home/si2chip/test/si2chip1/si2chip/conf/logback.xml,/home/si2chip/test/si2chip1/si2chip/target/scala-2.11/classes/logback.xml)[0m
-[0m[[0mdebug[0m] [0m	(/home/si2chip/test/si2chip1/si2chip/conf/evolutions,/home/si2chip/test/si2chip1/si2chip/target/scala-2.11/classes/evolutions)[0m
-[0m[[0mdebug[0m] [0m	(/home/si2chip/test/si2chip1/si2chip/conf/application.conf~,/home/si2chip/test/si2chip1/si2chip/target/scala-2.11/classes/application.conf~)[0m
-[0m[[0mdebug[0m] [0m	(/home/si2chip/test/si2chip1/si2chip/conf/routes,/home/si2chip/test/si2chip1/si2chip/target/scala-2.11/classes/routes)[0m
-[0m[[0mdebug[0m] [0m	(/home/si2chip/test/si2chip1/si2chip/conf/evolutions/default,/home/si2chip/test/si2chip1/si2chip/target/scala-2.11/classes/evolutions/default)[0m
-[0m[[0mdebug[0m] [0m	(/home/si2chip/test/si2chip1/si2chip/conf/evolutions/default/1.sql,/home/si2chip/test/si2chip1/si2chip/target/scala-2.11/classes/evolutions/default/1.sql)[0m
+[0m[[0mdebug[0m] [0m	(/home/si2chip/si2chip/conf/application.conf,/home/si2chip/si2chip/target/scala-2.11/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/home/si2chip/si2chip/conf/logback.xml,/home/si2chip/si2chip/target/scala-2.11/classes/logback.xml)[0m
+[0m[[0mdebug[0m] [0m	(/home/si2chip/si2chip/conf/evolutions,/home/si2chip/si2chip/target/scala-2.11/classes/evolutions)[0m
+[0m[[0mdebug[0m] [0m	(/home/si2chip/si2chip/conf/routes,/home/si2chip/si2chip/target/scala-2.11/classes/routes)[0m
+[0m[[0mdebug[0m] [0m	(/home/si2chip/si2chip/conf/evolutions/default,/home/si2chip/si2chip/target/scala-2.11/classes/evolutions/default)[0m
+[0m[[0mdebug[0m] [0m	(/home/si2chip/si2chip/conf/evolutions/default/1.sql,/home/si2chip/si2chip/target/scala-2.11/classes/evolutions/default/1.sql)[0m

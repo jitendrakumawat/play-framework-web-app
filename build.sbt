@@ -9,13 +9,18 @@ scalaVersion := "2.11.7"
 resolvers +=
   "mvnrepo" at "http://mvnrepository.com/artifact/"
 
+
 libraryDependencies ++= Seq(
   javaJdbc,
   cache,
   javaWs,
+  evolutions,
+  
+
 
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
   "com.typesafe.play" %% "play-mailer" % "5.0.0-M1"
+
 )
 
 

@@ -16,183 +16,182 @@
 </head>
 
 <body ng-app="posts" ng-controller="postsCtrl">
-    <nav class="fixed-nav-bar ">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <img src=@routes.Assets.versioned("images/l46.png") class="logo">
-            </div>
-
-            <ul class="nav navbar-nav navbar-right">>
-                @if(isAdmin) {
-                    <li><a href="#" ng-click="showAdminPage($event)"><span class="glyphicon glyphicon-bishop"></span> Admin </a></li>
-                }
-                <li><a href="#" ng-click="showGroupsPage($event)">Groups</a></li>
-                <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span>Sign out </a></li>
-
-            </ul>
+<nav class="fixed-nav-bar ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src=@routes.Assets.versioned("images/l46.png") class="logo">
         </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="modal fade" id="conError" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span>An error occurred transacting with the server.</span>
-                            <button type="button" class="close" data-dimdiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            {{conerror}}
-                        </div>
+
+        <ul class="nav navbar-nav navbar-right">>
+            @if(isAdmin) {
+            <li><a href="#" ng-click="showAdminPage($event)"><span class="glyphicon glyphicon-bishop"></span> Admin </a></li>
+            }
+            <li><a href="#" ng-click="showGroupsPage($event)">Groups</a></li>
+            <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span>Sign out </a></li>
+
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="modal fade" id="conError" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span>An error occurred transacting with the server.</span>
+                        <button type="button" class="close" data-dimdiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        {{conerror}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-7">
-                <div class="text-right">
-                    <span class="who">{{loggedInUser()}}</span><span></span>
-                </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-7">
+            <div class="text-right">
+                <span class="who">{{loggedInUser()}}</span><span></span>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 sidenav">
-                <div class="text-center">
-                    <h4 id="summarytitle">My groups </h4>
-                    <ul class="list-group">
-                        <li><a href="#" ng-click="changeGroup('None')" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right">Home</a></li>
-                        <li ng-repeat="grp in allUserGroups track by grp.groupId"  class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right"><a href="#" ng-click="changeGroup(grp.groupId)">{{grp.groupId}}</a></li>
-                    </ul>
-                </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 sidenav">
+            <div class="text-center">
+                <h4 id="summarytitle">My groups </h4>
+                <ul class="list-group">
+                    <li><a href="#" ng-click="changeGroup('None')" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right">Home</a></li>
+                    <li ng-repeat="grp in allUserGroups track by grp.groupId"  class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right"><a href="#" ng-click="changeGroup(grp.groupId)">{{grp.groupId}}</a></li>
+                </ul>
             </div>
-            <div class="col-md-7 ">
-                    <div class="well well-lg">
-                        <div id="changegroupError"></div>
-                        <h4 id="poststitle">Posts <span class="badge">{{postpage.numPosts}}</span></h4>
-                        <form name="apf" role="form">
-                            <div class="form-group">
-                                <textarea name="post" ng-model="post" class="form-control" maxlength="5000" required placeholder="Enter your post here"></textarea>
-                            </div>
-                            <div class="text-right">
-                                <button type="submit" ng-click="addPost($event)" class="btn btn-primary btn-xs">Post</button>
-                            </div>
-                        </form>
-                        <div id="addError"></div>
+        </div>
+        <div class="col-md-7 ">
+            <div class="well well-lg">
+                <div id="changegroupError"></div>
+                <h4 id="poststitle">Posts <span class="badge">{{postpage.numPosts}}</span></h4>
+                <form name="apf" role="form">
+                    <div class="form-group">
+                        <textarea name="post" ng-model="post" class="form-control" maxlength="5000" required placeholder="Enter your post here"></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" ng-click="addPost($event)" class="btn btn-primary btn-xs">Post</button>
+                    </div>
+                </form>
+                <div id="addError"></div>
+            </div>
+
+            <div class="well well-lg">
+                <div class="text-center">
+                    <a href="#" ng-click="loadNextPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                    </a>
+                    <a href="#" ng-if="postpage.endId != '-1'" ng-click="refreshCurrentPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+                    <a href="#" ng-if="!postpage.bLastPage" ng-click="loadPreviousPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                    </a>
                 </div>
+                <div id="delError"></div>
+                <div class="well well-lg" ng-repeat="pst in postpage.arr track by pst.id">
+                    <div class="text-right">
+                        <h6 class="postedby"><span class="user">{{pst.userId}}</span> on {{pst.postedOn}}</h6>
+                        <a href="#" ng-click="deletePost($event,pst.id)" class="btn btn-info btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+                    <div class="postmsg"><span>{{pst.post}}</span></div>
 
-                    <div class="well well-lg">
-                        <div class="text-center">
-                            <a href="#" ng-click="loadNextPage($event)" class="btn btn-info btn-xs">
-                                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                            </a>
-                            <a href="#" ng-if="postpage.endId != '-1'" ng-click="refreshCurrentPage($event)" class="btn btn-info btn-xs">
-                                <span class="glyphicon glyphicon-refresh"></span>
-                            </a>
-                            <a href="#" ng-if="!postpage.bLastPage" ng-click="loadPreviousPage($event)" class="btn btn-info btn-xs">
-                                <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                            </a>
-                        </div>
-                        <div id="delError"></div>
-                        <div class="well well-lg" ng-repeat="pst in postpage.arr track by pst.id">
-                            <div class="text-right">
-                                <h6 class="postedby"><span class="user">{{pst.userId}}</span> on {{pst.postedOn}}</h6>
-                                <a href="#" ng-click="deletePost($event,pst.id)" class="btn btn-info btn-xs">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
-                            </div>
-                            <div class="postmsg"><span>{{pst.post}}</span></div>
+                    <div class="text-right">
 
-                            <div class="text-right">
-
-                                <a href="#" ng-click="count= count + 1" ng-init="count=0">Likes</button><span> :{{count}}</span>
-                                </a>
-                                <a href="#" ng-click="toggleCommentsEditor($event, $index)">Comments<span ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(postpage.arr[$index].bShow) || !postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-down"></span>
-                                </a>
-                            </div>
-                            <div class="well well-md" ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow">
-                                <div class="modal fade" id="{{postpage.arr[$index].id}}" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <span>An error occurred transacting with the server.</span>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                {{postpage.arr[$index].cconerror}}
-                                            </div>
-                                        </div>
+                        <a href="#" ng-click="count= count + 1" ng-init="count=0">Likes</button><span> :{{count}}</span>
+                        </a>
+                        <a href="#" ng-click="toggleCommentsEditor($event, $index)">Comments<span ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(postpage.arr[$index].bShow) || !postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-down"></span>
+                        </a>
+                    </div>
+                    <div class="well well-md" ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow">
+                        <div class="modal fade" id="{{postpage.arr[$index].id}}" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <span>An error occurred transacting with the server.</span>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{postpage.arr[$index].cconerror}}
                                     </div>
                                 </div>
-
-                                <div id="delError{{postpage.arr[$index].id}}"></div>
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <div class="text-center">
-                                            <h4 id="commentstitle">Comments <span class="badge">{{postpage.arr[$index].commentpage.numComments}}</span></h4>
-                                            <a href="#" ng-click="loadCommentNextPage($event, $index)" class="btn btn-success btn-xs">
-                                                <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                                            </a>
-                                            <a href="#" ng-if="postpage.arr[$index].commentpage.beginId != '-1'" ng-click="refreshCommentCurrentPage($event, $index)" class="btn btn-success btn-xs">
-                                                <span class="glyphicon glyphicon-refresh"></span>
-                                            </a>
-                                            <a href="#" ng-if="!postpage.arr[$index].commentpage.bLastPage" ng-click="loadCommentPreviousPage($event, $index)" class="btn btn-success btn-xs">
-                                                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                                            </a>
-                                        </div>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="comment in postpage.arr[$index].commentpage.arr track by comment.id">
-                                        <td>
-                                            <div class="text-right">
-                                                <h6 class="commentedby"><span class="user">{{comment.userId}}</span> on {{comment.commentedOn}}</h6>
-                                                <a href="#" ng-click="deleteComment($event,$parent.$index,comment.id)" class="btn btn-success btn-xs">
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                </a>
-                                            </div>
-                                            <div class="commentmsg">{{comment.comment}}</div>
-                                        <td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <form role="form">
-                                    <div class="form-group">
-                                        <textarea id="comment{{postpage.arr[$index].id}}" ng-model="postpage.arr[$index].comment" maxlength="2000" class="form-control" required placeholder="Enter your comment here"></textarea>
-                                    </div>
-                                    <div class="text-right">
-                                        <button type="submit" ng-click="addComment($event, $index)" class="btn btn-success btn-xs">Comment</button>
-                                    </div>
-                                </form>
-                                <div id="addError{{postpage.arr[$index].id}}"></div>
                             </div>
                         </div>
-                   </div>
 
-           </div>
-            <div class="col-md-3 sidenav ">
-
-                <div class="text-center">
-                    <h4 id="summarytitle">users List <span class="badge">{{users.length}}</span></h4>
-                   
-                
+                        <div id="delError{{postpage.arr[$index].id}}"></div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <div class="text-center">
+                                    <h4 id="commentstitle">Comments <span class="badge">{{postpage.arr[$index].commentpage.numComments}}</span></h4>
+                                    <a href="#" ng-click="loadCommentNextPage($event, $index)" class="btn btn-success btn-xs">
+                                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                                    </a>
+                                    <a href="#" ng-if="postpage.arr[$index].commentpage.beginId != '-1'" ng-click="refreshCommentCurrentPage($event, $index)" class="btn btn-success btn-xs">
+                                        <span class="glyphicon glyphicon-refresh"></span>
+                                    </a>
+                                    <a href="#" ng-if="!postpage.arr[$index].commentpage.bLastPage" ng-click="loadCommentPreviousPage($event, $index)" class="btn btn-success btn-xs">
+                                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                                    </a>
+                                </div>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="comment in postpage.arr[$index].commentpage.arr track by comment.id">
+                                <td>
+                                    <div class="text-right">
+                                        <h6 class="commentedby"><span class="user">{{comment.userId}}</span> on {{comment.commentedOn}}</h6>
+                                        <a href="#" ng-click="deleteComment($event,$parent.$index,comment.id)" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </div>
+                                    <div class="commentmsg">{{comment.comment}}</div>
+                                <td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea id="comment{{postpage.arr[$index].id}}" ng-model="postpage.arr[$index].comment" maxlength="2000" class="form-control" required placeholder="Enter your comment here"></textarea>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" ng-click="addComment($event, $index)" class="btn btn-success btn-xs">Comment</button>
+                            </div>
+                        </form>
+                        <div id="addError{{postpage.arr[$index].id}}"></div>
+                    </div>
                 </div>
-                <div class="text-left">
+            </div>
+
+        </div>
+        <div class="col-md-3 sidenav ">
+
+            <div class="text-center">
+                <h4 id="summarytitle">users List <span class="badge">{{users.length}}</span></h4>
+
+            </div>
+            <div class="text-left">
                 <ul class="list-group">
-                    <li ng-repeat="x in users" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right" title="{{x.userId}}">
+                    <li ng-repeat="x in users | orderBy : 'userId':false" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right" title="{{x.userId}}">
                         {{x.userId}}
-                        <div ng-show="!angular.isUndefined(x.active) && x.active">Active</div>
+
                     </li>
                 </ul>
-                </div>
-                </td>
             </div>
+            </td>
         </div>
     </div>
+</div>
 </body>
 <script type="text/javascript">
         //todo: progress indicator
@@ -203,7 +202,7 @@
             $locationProvider.html5Mode({enabled: true, requireBase: false}).hashPrefix('*');
         }]);
 
-         app.service("GroupSvc", function ($http, $q) {
+         app.service("GroupSvc", function($http, $q) {
             var deferred;
             this.getMyGroups = function (uId) {
                 deferred = $q.defer();
@@ -259,11 +258,18 @@
                 $location.path("@routes.GroupController.showGroupsPage").replace();
                 $window.location.href = $location.absUrl();
             };
-              // change the group
-            $scope.changeGroup= function(gId) {
+
+             // change the group post
+
+                $scope.changeGroup= function(gId) {
+
+                if($scope.gId == "")
+                    $scope.loadAllUsers();
+                else
+                    $scope.loadAllGroupUsers(gId);
+
 
                 $scope.conerror = "";
-                $scope.showUsers(gId);
                 $scope.changegrouperror = "";
                 $("#changegroupError").html("");
                 $http({
@@ -290,20 +296,6 @@
                     });
              }
 
-             $scope.showUsers = function() {
-                if ($scope.gId == 'None')
-                    $scope.loadAllUsers()
-                else
-                    $scope.loadAllGroupUsers()
-                $scope.loadUserSummary()
-                //Todo : check if above calls succeeded
-                var l = $scope.activeusers.length
-                var lu = $scope.users.length
-                for (var i=0; i < l ; i++)
-                    for (var j=0; j < lu; j++)
-                        if ($scope.activeusers[i].userId == $scope.users[j].userId)
-                            $scope.users[j].active = True
-             }
 
              // loads all the groups in which this user is a member
             $scope.loadUserGroups = function(event) {
@@ -606,9 +598,10 @@
                 $scope.bConerror = false;
                 $scope.postpage = new Object();
                 $scope.loadFirstPage();
+
                 $scope.addSuccess = false;
                 $scope.delSuccess = false;
-            }
+            };
 
              $scope.loadUserSummary = function() {
                 $scope.conerror = "";
@@ -631,6 +624,8 @@
                     }
                 );
             };
+
+
 
             $scope.loadAllUsers = function() {
                 $scope.conerror = "";
@@ -655,12 +650,12 @@
             };
 
 
-            $scope.loadAllGroupUsers = function() {
+            $scope.loadAllGroupUsers = function(gId) {
                 $scope.conerror = "";
                 $scope.users = [];
                 $http({
                         method : "GET",
-                        url : "/groupusers" + "/" + $scope.mGroupId,
+                        url : "/groupusers" + "/" + gId,
                         headers : {
                         "Content-Type" : "application/json"
                         }
@@ -684,8 +679,8 @@
 
             $scope.InitPostView()
             //$scope.loadUserSummary();
-            $scope.loadAllUsers();
-            $scope.loadUserGroups(null);
+               $scope.loadUserGroups(null);
+               $scope.loadAllUsers();
 
         });
 </script>

@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/si2chip/test/si2chip1/si2chip/conf/routes
-// @DATE:Fri Oct 07 12:57:05 IST 2016
+// @SOURCE:/home/si2chip/si2chip/conf/routes
+// @DATE:Sat Oct 15 13:45:01 IST 2016
 
 package controllers;
 

@@ -45,191 +45,200 @@ Seq[Any](format.raw/*1.1*/("""<!DOCTYPE html>
     <title>SI2Chip Admin</title>
 </head>
 <body ng-app="admin" ng-controller="adminCtrl">
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <img src="""),_display_(/*20.27*/routes/*20.33*/.Assets.versioned("images/l46.png")),format.raw/*20.68*/(""" """),format.raw/*20.69*/("""class="logo">
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#"> Admin </a></li>
-                <li><a href="#" ng-click="showPosts($event)"> Home </a></li>
-                <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span> Sign out </a></li>
-            </ul>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="""),_display_(/*20.23*/routes/*20.29*/.Assets.versioned("images/l46.png")),format.raw/*20.64*/(""" """),format.raw/*20.65*/("""class="logo">
         </div>
-    </nav>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#"> Admin </a></li>
+            <li><a href="#" ng-click="showPosts($event)"> Home </a></li>
+            <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span> Sign out </a></li>
+        </ul>
+    </div>
+</nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="modal fade" id="conError" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span>An error occurred transacting with the server.</span>
-                                <button type="button" class="close" data-dimdiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                """),format.raw/*41.33*/("""{"""),format.raw/*41.34*/("""{"""),format.raw/*41.35*/("""conerror"""),format.raw/*41.43*/("""}"""),format.raw/*41.44*/("""}"""),format.raw/*41.45*/("""
-                            """),format.raw/*42.29*/("""</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="modal fade" id="conError" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span>An error occurred transacting with the server.</span>
+                            <button type="button" class="close" data-dimdiss="modal">&times;</button>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
-                <div class="well well-lg">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <div class="text-center">
-                                    <h4 id="adminmgmttitle">User management</h4>
-                                </div>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="text-center">
-                                        <a href="#" ng-click="toggleAddUserEditor($event)">Add user<span ng-show="!angular.isUndefined(bShowAUE)&& bShowAUE" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowAUE) || !bShowAUE" class="glyphicon glyphicon-menu-down"></span>
-                                        </a>
-                                    </div>
-                                    <div class="well well-md" ng-show="!angular.isUndefined(bShowAUE) && bShowAUE">
-                                        <form role="form" name="auf">
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" maxlength="255" ng-model="nUserId" placeholder="Enter email id here" required name="userId">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" ng-model="nPassword" placeholder="Enter password here" required name="password">
-                                            </div>
-                                            <div class="text-center">
-                                                <button type="submit" class="btn btn-default btn-md" ng-click="addUser($event)">Add</button>
-                                            </div>
-                                        </form>
-                                        <span ng-show="auf.userId.$error.email" class="editmsgs">Not a valid e-mail address</span><br>
-                                        <span ng-show="auf.userId.$touched && auf.userId.$error.required" class="editmsgs">UserId required. Enter a valid email id</span><br>
-                                        <span ng-if="!(auf.userId.$dirty || auf.password.$dirty)" ng-bind="adderror" class="error"></span>
-                                        <span ng-if="!(auf.userId.$touched || auf.password.$touched) && addSuccess" class="success">User added successfully</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="text-center">
-                                        <a href="#" ng-click="toggleDelUserEditor($event)">Delete user<span ng-show="!angular.isUndefined(bShowDUE)&& bShowDUE" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowDUE) || !bShowDUE" class="glyphicon glyphicon-menu-down"></span>
-                                        </a>
-                                    </div>
-                                    <div class="well well-md" ng-show="!angular.isUndefined(bShowDUE) && bShowDUE">
-                                        <form role="form" name="duf">
-                                            <div class="form-group">
-                                                <a href="#" ng-click="refreshDUsers($event)" class="btn btn-info btn-xs">
-                                                    <span class="glyphicon glyphicon-refresh"></span> Refresh user list
-                                                </a>
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control" name="userId" ng-model="dUserId" required>
-                                                    <option value="">Select User</option>
-                                                    <option ng-repeat="usr in allDUsers track by usr.userId">"""),format.raw/*102.110*/("""{"""),format.raw/*102.111*/("""{"""),format.raw/*102.112*/("""usr.userId"""),format.raw/*102.122*/("""}"""),format.raw/*102.123*/("""}"""),format.raw/*102.124*/("""</option>
-                                                </select>
-                                            </div>
-                                            <div class="text-center">
-                                                <button type="submit" class="btn btn-default btn-md" ng-click="deleteUser($event)">Delete</button>
-                                            </div>
-                                        </form>
-                                        <span ng-show="allDUsers.length != 0 && duf.userId.$touched && duf.userId.$error.required" class="editmsgs">UserId required. Select a email id</span><br>
-                                        <span ng-if="!duf.userId.$dirty" ng-bind="delerror" class="error"></span>
-                                        <span ng-if="!duf.userId.$touched && delSuccess" class="success">User deleted successfully</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="text-center">
-                                        <a href="#" ng-click="toggleUserEditor($event)">Reset password<span ng-show="!angular.isUndefined(bShowRPE)&& bShowRPE" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowRPE) || !bShowRPE" class="glyphicon glyphicon-menu-down"></span>
-                                        </a>
-                                    </div>
-                                    <div class="well well-md" ng-show="!angular.isUndefined(bShowRPE) && bShowRPE">
-                                        <form role="form" name="rpf">
-                                            <div class="form-group">
-                                                <a href="#" ng-click="refreshMUsers($event)" class="btn btn-info btn-xs">
-                                                    <span class="glyphicon glyphicon-refresh"></span> Refresh user list
-                                                </a>
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control" name="userId" ng-model="mUserId" required>
-                                                    <option value="">Select User</option>
-                                                    <option ng-repeat="usr in allMUsers track by usr.userId">"""),format.raw/*131.110*/("""{"""),format.raw/*131.111*/("""{"""),format.raw/*131.112*/("""usr.userId"""),format.raw/*131.122*/("""}"""),format.raw/*131.123*/("""}"""),format.raw/*131.124*/("""</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" ng-model="mPassword" placeholder="Enter password here" name="password">
-                                            </div>
-                                            <div class="text-center">
-                                                <button type="submit" class="btn btn-default btn-md" ng-click="modifyUser($event)">Reset</button>
-                                            </div>
-                                        </form>
-                                        <span ng-show="allMUsers.length != 0 && rpf.userId.$touched && rpf.userId.$error.required" class="editmsgs">UserId required. Select a email id</span><br>
-                                        <span ng-if="!rpf.userId.$dirty" ng-bind="moderror" class="error"></span>
-                                        <span ng-if="!(rpf.userId.$touched || rpf.password.$touched) && modSuccess" class="success">Password changed</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="well well-lg">
-                    <div class="text-center">
-                        <h4 id="adminmgmttitle">Broadcast post</h4>
-                    </div>
-                    <div class="text-center">
-                        <a href="#" ng-click="togglePostsEditor($event)">My posts<span ng-show="!angular.isUndefined(bShowPosts) && bShowPosts" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowPosts) || !bShowPosts" class="glyphicon glyphicon-menu-down"></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="well well-lg" ng-show="!angular.isUndefined(bShowPosts) && bShowPosts">
-                    <h4 id="poststitle">Posts <span class="badge">"""),format.raw/*162.67*/("""{"""),format.raw/*162.68*/("""{"""),format.raw/*162.69*/("""postpage.numPosts"""),format.raw/*162.86*/("""}"""),format.raw/*162.87*/("""}"""),format.raw/*162.88*/("""</span></h4>
-                    <form name="apf" role="form">
-                        <div class="form-group">
-                            <textarea name="post" ng-model="post" name="post" class="form-control" maxlength="500" required placeholder="Enter your post here"></textarea>
-                        </div>
-                        <div class="text-right">
-                            <button type="submit" ng-click="addPost($event)" class="btn btn-primary btn-xs">Broadcast Post</button>
-                        </div>
-                    </form>
-                    <div id="addError"></div>
-                    <div ng-if="!apf.post.$touched && !angular.isUndefined(pbroadcaststatus)" ng-bind="pbroadcaststatus"></div>
-                    <div class="text-center">
-                        <a href="#" ng-click="loadNextPage($event)" class="btn btn-info btn-xs">
-                            <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                        </a>
-                        <a href="#" ng-if="postpage.endId != '-1'" ng-click="refreshCurrentPage($event)" class="btn btn-info btn-xs">
-                            <span class="glyphicon glyphicon-refresh"></span>
-                        </a>
-                        <a href="#" ng-if="!postpage.bLastPage" ng-click="loadPreviousPage($event)" class="btn btn-info btn-xs">
-                            <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                        </a>
-                    </div>
-                    <div class="well well-lg" ng-repeat="pst in postpage.arr track by pst.id">
-                        <div class="text-right">
-                            <h6 class="postedby"><span class="user">"""),format.raw/*186.69*/("""{"""),format.raw/*186.70*/("""{"""),format.raw/*186.71*/("""pst.userId"""),format.raw/*186.81*/("""}"""),format.raw/*186.82*/("""}"""),format.raw/*186.83*/("""</span> on """),format.raw/*186.94*/("""{"""),format.raw/*186.95*/("""{"""),format.raw/*186.96*/("""pst.postedOn"""),format.raw/*186.108*/("""}"""),format.raw/*186.109*/("""}"""),format.raw/*186.110*/("""</h6>
-                        </div>
-                        <div class="postmsg"><span>"""),format.raw/*188.52*/("""{"""),format.raw/*188.53*/("""{"""),format.raw/*188.54*/("""pst.post"""),format.raw/*188.62*/("""}"""),format.raw/*188.63*/("""}"""),format.raw/*188.64*/("""</span></div>
+                        <div class="modal-body">
+                            """),format.raw/*41.29*/("""{"""),format.raw/*41.30*/("""{"""),format.raw/*41.31*/("""conerror"""),format.raw/*41.39*/("""}"""),format.raw/*41.40*/("""}"""),format.raw/*41.41*/("""
+                        """),format.raw/*42.25*/("""</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="well well-lg">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <div class="text-center">
+                            <h4 id="adminmgmttitle">User management</h4>
+                        </div>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="text-center">
+                                <a href="#" ng-click="toggleAddUserEditor($event)">Add user<span ng-show="!angular.isUndefined(bShowAUE)&& bShowAUE" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowAUE) || !bShowAUE" class="glyphicon glyphicon-menu-down"></span>
+                                </a>
+                            </div>
+                            <div class="well well-md" ng-show="!angular.isUndefined(bShowAUE) && bShowAUE">
+                                <form role="form" name="auf">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" maxlength="25" ng-model="nUserName" placeholder="Enter name" required name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" maxlength="255" ng-model="nUserId" placeholder="Enter email id here" required name="userId">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" ng-model="nPassword" placeholder="Enter password here" name="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" maxlength="25" ng-model="nuserDesignation" placeholder="Designation" required name="userDesignation">
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="form-group">
+                                            <input type="date" class="form-control" maxlength="255" ng-model="nuserbirth" placeholder="dd/MM/yyyy" required name="userbirth">
+                                        </div>
+                                        <button type="submit" class="btn btn-default btn-md" ng-click="addUser($event)">Add</button>
+                                    </div>
+                                </form>
+                                <span ng-show="auf.userId.$error.email" class="editmsgs">Not a valid e-mail address</span><br>
+                                <span ng-show="auf.userId.$touched && auf.userId.$error.required" class="editmsgs">UserId required. Enter a valid email id</span><br>
+                                <span ng-if="!(auf.userId.$dirty || auf.password.$dirty)" ng-bind="adderror" class="error"></span>
+                                <span ng-if="!(auf.userId.$touched || auf.password.$touched) && addSuccess" class="success">User added successfully</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-center">
+                                <a href="#" ng-click="toggleDelUserEditor($event)">Delete user<span ng-show="!angular.isUndefined(bShowDUE)&& bShowDUE" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowDUE) || !bShowDUE" class="glyphicon glyphicon-menu-down"></span>
+                                </a>
+                            </div>
+                            <div class="well well-md" ng-show="!angular.isUndefined(bShowDUE) && bShowDUE">
+                                <form role="form" name="duf">
+                                    <div class="form-group">
+                                        <a href="#" ng-click="refreshDUsers($event)" class="btn btn-info btn-xs">
+                                            <span class="glyphicon glyphicon-refresh"></span> Refresh user list
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="userId" ng-model="dUserId" required>
+                                            <option value="">Select User</option>
+                                            <option ng-repeat="usr in allDUsers track by usr.userId">"""),format.raw/*111.102*/("""{"""),format.raw/*111.103*/("""{"""),format.raw/*111.104*/("""usr.userId"""),format.raw/*111.114*/("""}"""),format.raw/*111.115*/("""}"""),format.raw/*111.116*/("""</option>
+                                        </select>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-default btn-md" ng-click="deleteUser($event)">Delete</button>
+                                    </div>
+                                </form>
+                                <span ng-show="allDUsers.length != 0 && duf.userId.$touched && duf.userId.$error.required" class="editmsgs">UserId required. Select a email id</span><br>
+                                <span ng-if="!duf.userId.$dirty" ng-bind="delerror" class="error"></span>
+                                <span ng-if="!duf.userId.$touched && delSuccess" class="success">User deleted successfully</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-center">
+                                <a href="#" ng-click="toggleUserEditor($event)">Reset password<span ng-show="!angular.isUndefined(bShowRPE)&& bShowRPE" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowRPE) || !bShowRPE" class="glyphicon glyphicon-menu-down"></span>
+                                </a>
+                            </div>
+                            <div class="well well-md" ng-show="!angular.isUndefined(bShowRPE) && bShowRPE">
+                                <form role="form" name="rpf">
+                                    <div class="form-group">
+                                        <a href="#" ng-click="refreshMUsers($event)" class="btn btn-info btn-xs">
+                                            <span class="glyphicon glyphicon-refresh"></span> Refresh user list
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="userId" ng-model="mUserId" required>
+                                            <option value="">Select User</option>
+                                            <option ng-repeat="usr in allMUsers track by usr.userId">"""),format.raw/*140.102*/("""{"""),format.raw/*140.103*/("""{"""),format.raw/*140.104*/("""usr.userId"""),format.raw/*140.114*/("""}"""),format.raw/*140.115*/("""}"""),format.raw/*140.116*/("""</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" ng-model="mPassword" placeholder="Enter password here" name="password">
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-default btn-md" ng-click="modifyUser($event)">Reset</button>
+                                    </div>
+                                </form>
+                                <span ng-show="allMUsers.length != 0 && rpf.userId.$touched && rpf.userId.$error.required" class="editmsgs">UserId required. Select a email id</span><br>
+                                <span ng-if="!rpf.userId.$dirty" ng-bind="moderror" class="error"></span>
+                                <span ng-if="!(rpf.userId.$touched || rpf.password.$touched) && modSuccess" class="success">Password changed</span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well well-lg">
+                <div class="text-center">
+                    <h4 id="adminmgmttitle">Broadcast post</h4>
+                </div>
+                <div class="text-center">
+                    <a href="#" ng-click="togglePostsEditor($event)">My posts<span ng-show="!angular.isUndefined(bShowPosts) && bShowPosts" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(bShowPosts) || !bShowPosts" class="glyphicon glyphicon-menu-down"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="well well-lg" ng-show="!angular.isUndefined(bShowPosts) && bShowPosts">
+                <h4 id="poststitle">Posts <span class="badge">"""),format.raw/*171.63*/("""{"""),format.raw/*171.64*/("""{"""),format.raw/*171.65*/("""postpage.numPosts"""),format.raw/*171.82*/("""}"""),format.raw/*171.83*/("""}"""),format.raw/*171.84*/("""</span></h4>
+                <form name="apf" role="form">
+                    <div class="form-group">
+                        <textarea name="post" ng-model="post" name="post" class="form-control" maxlength="500" required placeholder="Enter your post here"></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" ng-click="addPost($event)" class="btn btn-primary btn-xs">Broadcast Post</button>
+                    </div>
+                </form>
+                <div id="addError"></div>
+                <div ng-if="!apf.post.$touched && !angular.isUndefined(pbroadcaststatus)" ng-bind="pbroadcaststatus"></div>
+                <div class="text-center">
+                    <a href="#" ng-click="loadNextPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                    </a>
+                    <a href="#" ng-if="postpage.endId != '-1'" ng-click="refreshCurrentPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+                    <a href="#" ng-if="!postpage.bLastPage" ng-click="loadPreviousPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                    </a>
+                </div>
+                <div class="well well-lg" ng-repeat="pst in postpage.arr track by pst.id">
+                    <div class="text-right">
+                        <h6 class="postedby"><span class="user">"""),format.raw/*195.65*/("""{"""),format.raw/*195.66*/("""{"""),format.raw/*195.67*/("""pst.userId"""),format.raw/*195.77*/("""}"""),format.raw/*195.78*/("""}"""),format.raw/*195.79*/("""</span> on """),format.raw/*195.90*/("""{"""),format.raw/*195.91*/("""{"""),format.raw/*195.92*/("""pst.postedOn"""),format.raw/*195.104*/("""}"""),format.raw/*195.105*/("""}"""),format.raw/*195.106*/("""</h6>
+                    </div>
+                    <div class="postmsg"><span>"""),format.raw/*197.48*/("""{"""),format.raw/*197.49*/("""{"""),format.raw/*197.50*/("""pst.post"""),format.raw/*197.58*/("""}"""),format.raw/*197.59*/("""}"""),format.raw/*197.60*/("""</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
         var app = angular.module('admin',  ["ngCookies"]);
-        app.config(['$locationProvider', function AppConfig($locationProvider) """),format.raw/*196.80*/("""{"""),format.raw/*196.81*/("""
-            """),format.raw/*197.13*/("""$locationProvider.html5Mode("""),format.raw/*197.41*/("""{"""),format.raw/*197.42*/("""enabled: true, requireBase: false"""),format.raw/*197.75*/("""}"""),format.raw/*197.76*/(""").hashPrefix('*');
-        """),format.raw/*198.9*/("""}"""),format.raw/*198.10*/("""]);
+        app.config(['$locationProvider', function AppConfig($locationProvider) """),format.raw/*205.80*/("""{"""),format.raw/*205.81*/("""
+            """),format.raw/*206.13*/("""$locationProvider.html5Mode("""),format.raw/*206.41*/("""{"""),format.raw/*206.42*/("""enabled: true, requireBase: false"""),format.raw/*206.75*/("""}"""),format.raw/*206.76*/(""").hashPrefix('*');
+        """),format.raw/*207.9*/("""}"""),format.raw/*207.10*/("""]);
 
-        app.controller('adminCtrl', function($scope, $http, $location, $window, $cookies) """),format.raw/*200.91*/("""{"""),format.raw/*200.92*/("""
-            """),format.raw/*201.13*/("""// Initialize the view
+        app.controller('adminCtrl', function($scope, $http, $location, $window, $cookies) """),format.raw/*209.91*/("""{"""),format.raw/*209.92*/("""
+            """),format.raw/*210.13*/("""// Initialize the view
             $scope.conerror = "";
             $scope.adderror= "";
             $scope.delerror = "";
@@ -241,204 +250,204 @@ Seq[Any](format.raw/*1.1*/("""<!DOCTYPE html>
             $scope.allMUsers=[];
             $scope.allDUsers=[];
 
-            $scope.loggedInUser = function() """),format.raw/*213.46*/("""{"""),format.raw/*213.47*/("""
-                """),format.raw/*214.17*/("""return $cookies.get("userId");
-            """),format.raw/*215.13*/("""}"""),format.raw/*215.14*/(""";
+            $scope.loggedInUser = function() """),format.raw/*222.46*/("""{"""),format.raw/*222.47*/("""
+                """),format.raw/*223.17*/("""return $cookies.get("userId");
+            """),format.raw/*224.13*/("""}"""),format.raw/*224.14*/(""";
 
-            $scope.loggedInUserGroup = function() """),format.raw/*217.51*/("""{"""),format.raw/*217.52*/("""
-                """),format.raw/*218.17*/("""return $cookies.get("groupId");
-            """),format.raw/*219.13*/("""}"""),format.raw/*219.14*/(""";
+            $scope.loggedInUserGroup = function() """),format.raw/*226.51*/("""{"""),format.raw/*226.52*/("""
+                """),format.raw/*227.17*/("""return $cookies.get("groupId");
+            """),format.raw/*228.13*/("""}"""),format.raw/*228.14*/(""";
 
-            $scope.showPosts = function(event) """),format.raw/*221.48*/("""{"""),format.raw/*221.49*/("""
-                """),format.raw/*222.17*/("""event.preventDefault();
-                $location.path(""""),_display_(/*223.34*/routes/*223.40*/.PostController.getPosts),format.raw/*223.64*/("""").replace();
+            $scope.showPosts = function(event) """),format.raw/*230.48*/("""{"""),format.raw/*230.49*/("""
+                """),format.raw/*231.17*/("""event.preventDefault();
+                $location.path(""""),_display_(/*232.34*/routes/*232.40*/.PostController.getPosts),format.raw/*232.64*/("""").replace();
                 $window.location.href = $location.absUrl();
-            """),format.raw/*225.13*/("""}"""),format.raw/*225.14*/(""";
+            """),format.raw/*234.13*/("""}"""),format.raw/*234.14*/(""";
 
             // logout and goto home page
-            $scope.signOut = function(event) """),format.raw/*228.46*/("""{"""),format.raw/*228.47*/("""
-                """),format.raw/*229.17*/("""event.preventDefault();
+            $scope.signOut = function(event) """),format.raw/*237.46*/("""{"""),format.raw/*237.47*/("""
+                """),format.raw/*238.17*/("""event.preventDefault();
                 $cookies.remove("userId");
                 $cookies.remove("groupId");
                 $cookies.remove("tzoffset");
-                $location.path(""""),_display_(/*233.34*/routes/*233.40*/.HomeController.logout),format.raw/*233.62*/("""").replace();
+                $location.path(""""),_display_(/*242.34*/routes/*242.40*/.HomeController.logout),format.raw/*242.62*/("""").replace();
                 $window.location.href = $location.absUrl();
-            """),format.raw/*235.13*/("""}"""),format.raw/*235.14*/(""";
+            """),format.raw/*244.13*/("""}"""),format.raw/*244.14*/(""";
 
             // add post event handler
-            $scope.addPost = function(event) """),format.raw/*238.46*/("""{"""),format.raw/*238.47*/("""
-                """),format.raw/*239.17*/("""event.preventDefault();
+            $scope.addPost = function(event) """),format.raw/*247.46*/("""{"""),format.raw/*247.47*/("""
+                """),format.raw/*248.17*/("""event.preventDefault();
 
                 $scope.pbroadcaststatus = "";
                 $scope.apf.post.$touched = false;
                 // validate the posts form
-                if ($scope.apf.post.$error.required) """),format.raw/*244.54*/("""{"""),format.raw/*244.55*/("""
-                    """),format.raw/*245.21*/("""return;
-                """),format.raw/*246.17*/("""}"""),format.raw/*246.18*/("""
+                if ($scope.apf.post.$error.required) """),format.raw/*253.54*/("""{"""),format.raw/*253.55*/("""
+                    """),format.raw/*254.21*/("""return;
+                """),format.raw/*255.17*/("""}"""),format.raw/*255.18*/("""
 
-                """),format.raw/*248.17*/("""// post the message
+                """),format.raw/*257.17*/("""// post the message
                 $scope.conerror = "";
                 $scope.padderror = "";
                 $scope.pbroadcaststatus = "Posting and broadcasting...";
                 $("#addError").html("");
-                $http("""),format.raw/*253.23*/("""{"""),format.raw/*253.24*/("""
-                        """),format.raw/*254.25*/("""method : "POST",
-                        url : """"),_display_(/*255.33*/routes/*255.39*/.PostController.addPostAndBroadcast),format.raw/*255.74*/("""",
-                        data : """),format.raw/*256.32*/("""{"""),format.raw/*256.33*/(""""post" : $scope.post"""),format.raw/*256.53*/("""}"""),format.raw/*256.54*/(""",
-                        headers : """),format.raw/*257.35*/("""{"""),format.raw/*257.36*/("""
-                            """),format.raw/*258.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*259.25*/("""}"""),format.raw/*259.26*/("""
-                    """),format.raw/*260.21*/("""}"""),format.raw/*260.22*/(""").then(function successCallback(response) """),format.raw/*260.64*/("""{"""),format.raw/*260.65*/("""
-                        """),format.raw/*261.25*/("""$scope.pbroadcaststatus = "Done";
+                $http("""),format.raw/*262.23*/("""{"""),format.raw/*262.24*/("""
+                        """),format.raw/*263.25*/("""method : "POST",
+                        url : """"),_display_(/*264.33*/routes/*264.39*/.PostController.addPostAndBroadcast),format.raw/*264.74*/("""",
+                        data : """),format.raw/*265.32*/("""{"""),format.raw/*265.33*/(""""post" : $scope.post"""),format.raw/*265.53*/("""}"""),format.raw/*265.54*/(""",
+                        headers : """),format.raw/*266.35*/("""{"""),format.raw/*266.36*/("""
+                            """),format.raw/*267.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*268.25*/("""}"""),format.raw/*268.26*/("""
+                    """),format.raw/*269.21*/("""}"""),format.raw/*269.22*/(""").then(function successCallback(response) """),format.raw/*269.64*/("""{"""),format.raw/*269.65*/("""
+                        """),format.raw/*270.25*/("""$scope.pbroadcaststatus = "Done";
                         $scope.post = "";
                         $scope.loadFirstPage();
-                    """),format.raw/*264.21*/("""}"""),format.raw/*264.22*/(""", function errorCallback(response) """),format.raw/*264.57*/("""{"""),format.raw/*264.58*/("""
-                        """),format.raw/*265.25*/("""$scope.pbroadcaststatus = "Error occured while posting and broadcasting.";
-                        if (response.status == 400) """),format.raw/*266.53*/("""{"""),format.raw/*266.54*/("""
-                            """),format.raw/*267.29*/("""$scope.padderror = response.data.error;
+                    """),format.raw/*273.21*/("""}"""),format.raw/*273.22*/(""", function errorCallback(response) """),format.raw/*273.57*/("""{"""),format.raw/*273.58*/("""
+                        """),format.raw/*274.25*/("""$scope.pbroadcaststatus = "Error occured while posting and broadcasting.";
+                        if (response.status == 400) """),format.raw/*275.53*/("""{"""),format.raw/*275.54*/("""
+                            """),format.raw/*276.29*/("""$scope.padderror = response.data.error;
                             $("#addError").html("<div id='aErr' class='alert alert-danger'><a class='close' data-dismiss='alert'>&times;</a>" + $scope.padderror + "</div>");
-                        """),format.raw/*269.25*/("""}"""),format.raw/*269.26*/(""" """),format.raw/*269.27*/("""else """),format.raw/*269.32*/("""{"""),format.raw/*269.33*/("""
-                            """),format.raw/*270.29*/("""if (response.status == 403)
+                        """),format.raw/*278.25*/("""}"""),format.raw/*278.26*/(""" """),format.raw/*278.27*/("""else """),format.raw/*278.32*/("""{"""),format.raw/*278.33*/("""
+                            """),format.raw/*279.29*/("""if (response.status == 403)
                                 $scope.showForbiddenPage();
-                            else """),format.raw/*272.34*/("""{"""),format.raw/*272.35*/("""
-                                """),format.raw/*273.33*/("""$scope.conerror = "Error posting the message. Retry";
+                            else """),format.raw/*281.34*/("""{"""),format.raw/*281.35*/("""
+                                """),format.raw/*282.33*/("""$scope.conerror = "Error posting the message. Retry";
                                 $('#conError').modal('show');
-                            """),format.raw/*275.29*/("""}"""),format.raw/*275.30*/("""
-                        """),format.raw/*276.25*/("""}"""),format.raw/*276.26*/("""
-                    """),format.raw/*277.21*/("""}"""),format.raw/*277.22*/(""");
-            """),format.raw/*278.13*/("""}"""),format.raw/*278.14*/(""";
+                            """),format.raw/*284.29*/("""}"""),format.raw/*284.30*/("""
+                        """),format.raw/*285.25*/("""}"""),format.raw/*285.26*/("""
+                    """),format.raw/*286.21*/("""}"""),format.raw/*286.22*/(""");
+            """),format.raw/*287.13*/("""}"""),format.raw/*287.14*/(""";
 
             // post page loader
-            $scope.loadPage = function(url) """),format.raw/*281.45*/("""{"""),format.raw/*281.46*/("""
-                """),format.raw/*282.17*/("""$scope.conerror = "";
-                $http("""),format.raw/*283.23*/("""{"""),format.raw/*283.24*/("""
-                        """),format.raw/*284.25*/("""method : "GET",
+            $scope.loadPage = function(url) """),format.raw/*290.45*/("""{"""),format.raw/*290.46*/("""
+                """),format.raw/*291.17*/("""$scope.conerror = "";
+                $http("""),format.raw/*292.23*/("""{"""),format.raw/*292.24*/("""
+                        """),format.raw/*293.25*/("""method : "GET",
                         url : url,
-                        headers : """),format.raw/*286.35*/("""{"""),format.raw/*286.36*/("""
-                            """),format.raw/*287.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*288.25*/("""}"""),format.raw/*288.26*/("""
-                    """),format.raw/*289.21*/("""}"""),format.raw/*289.22*/(""").then(function successCallback(response) """),format.raw/*289.64*/("""{"""),format.raw/*289.65*/("""
-                        """),format.raw/*290.25*/("""$scope.postpage = response.data;
-                    """),format.raw/*291.21*/("""}"""),format.raw/*291.22*/(""", function errorCallback(response) """),format.raw/*291.57*/("""{"""),format.raw/*291.58*/("""
-                         """),format.raw/*292.26*/("""if (response.status == 403)
+                        headers : """),format.raw/*295.35*/("""{"""),format.raw/*295.36*/("""
+                            """),format.raw/*296.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*297.25*/("""}"""),format.raw/*297.26*/("""
+                    """),format.raw/*298.21*/("""}"""),format.raw/*298.22*/(""").then(function successCallback(response) """),format.raw/*298.64*/("""{"""),format.raw/*298.65*/("""
+                        """),format.raw/*299.25*/("""$scope.postpage = response.data;
+                    """),format.raw/*300.21*/("""}"""),format.raw/*300.22*/(""", function errorCallback(response) """),format.raw/*300.57*/("""{"""),format.raw/*300.58*/("""
+                         """),format.raw/*301.26*/("""if (response.status == 403)
                             $scope.showForbiddenPage();
-                         else """),format.raw/*294.31*/("""{"""),format.raw/*294.32*/("""
-                            """),format.raw/*295.29*/("""$scope.conerror = "Error retrieving the post page from the server. Retry.";
+                         else """),format.raw/*303.31*/("""{"""),format.raw/*303.32*/("""
+                            """),format.raw/*304.29*/("""$scope.conerror = "Error retrieving the post page from the server. Retry.";
                             $('#conError').modal('show');
-                         """),format.raw/*297.26*/("""}"""),format.raw/*297.27*/("""
-                    """),format.raw/*298.21*/("""}"""),format.raw/*298.22*/(""");
-            """),format.raw/*299.13*/("""}"""),format.raw/*299.14*/(""";
+                         """),format.raw/*306.26*/("""}"""),format.raw/*306.27*/("""
+                    """),format.raw/*307.21*/("""}"""),format.raw/*307.22*/(""");
+            """),format.raw/*308.13*/("""}"""),format.raw/*308.14*/(""";
 
             // refreshes the current page
-            $scope.refreshCurrentPage = function(event) """),format.raw/*302.57*/("""{"""),format.raw/*302.58*/("""
-                """),format.raw/*303.17*/("""if (event != null)
+            $scope.refreshCurrentPage = function(event) """),format.raw/*311.57*/("""{"""),format.raw/*311.58*/("""
+                """),format.raw/*312.17*/("""if (event != null)
                     event.preventDefault();
                 $scope.loadPage("/posts/userbposts/refresh/" + $scope.postpage.endId);
-            """),format.raw/*306.13*/("""}"""),format.raw/*306.14*/(""";
+            """),format.raw/*315.13*/("""}"""),format.raw/*315.14*/(""";
 
             // next page event handler
-            $scope.loadNextPage = function(event) """),format.raw/*309.51*/("""{"""),format.raw/*309.52*/("""
-                """),format.raw/*310.17*/("""event.preventDefault();
+            $scope.loadNextPage = function(event) """),format.raw/*318.51*/("""{"""),format.raw/*318.52*/("""
+                """),format.raw/*319.17*/("""event.preventDefault();
                 $scope.loadPage("/posts/userbposts/after/" + $scope.postpage.beginId);
-            """),format.raw/*312.13*/("""}"""),format.raw/*312.14*/(""";
+            """),format.raw/*321.13*/("""}"""),format.raw/*321.14*/(""";
 
             // previous page event handler
-            $scope.loadPreviousPage = function(event) """),format.raw/*315.55*/("""{"""),format.raw/*315.56*/("""
-                """),format.raw/*316.17*/("""event.preventDefault();
+            $scope.loadPreviousPage = function(event) """),format.raw/*324.55*/("""{"""),format.raw/*324.56*/("""
+                """),format.raw/*325.17*/("""event.preventDefault();
                 $scope.loadPage("/posts/userbposts/before/" + $scope.postpage.endId);
-            """),format.raw/*318.13*/("""}"""),format.raw/*318.14*/(""";
+            """),format.raw/*327.13*/("""}"""),format.raw/*327.14*/(""";
 
             // loads the first page
-            $scope.loadFirstPage = function() """),format.raw/*321.47*/("""{"""),format.raw/*321.48*/("""
-                """),format.raw/*322.17*/("""$scope.postpage.numPosts = "0";
+            $scope.loadFirstPage = function() """),format.raw/*330.47*/("""{"""),format.raw/*330.48*/("""
+                """),format.raw/*331.17*/("""$scope.postpage.numPosts = "0";
                 $scope.postpage.bLastPage = false;
                 $scope.postpage.arr = [];
                 $scope.postpage.beginId = "-1";
                 $scope.postpage.endId = "-1";
                 $scope.loadPage("/posts/userbposts/first");
-            """),format.raw/*328.13*/("""}"""),format.raw/*328.14*/(""";
+            """),format.raw/*337.13*/("""}"""),format.raw/*337.14*/(""";
 
             // toggles the comment editor for a post
-            $scope.togglePostsEditor = function(event) """),format.raw/*331.56*/("""{"""),format.raw/*331.57*/("""
-                """),format.raw/*332.17*/("""event.preventDefault();
-                if(angular.isUndefined($scope.bShowPosts)) """),format.raw/*333.60*/("""{"""),format.raw/*333.61*/("""
-                    """),format.raw/*334.21*/("""$scope.bShowPosts = true;
+            $scope.togglePostsEditor = function(event) """),format.raw/*340.56*/("""{"""),format.raw/*340.57*/("""
+                """),format.raw/*341.17*/("""event.preventDefault();
+                if(angular.isUndefined($scope.bShowPosts)) """),format.raw/*342.60*/("""{"""),format.raw/*342.61*/("""
+                    """),format.raw/*343.21*/("""$scope.bShowPosts = true;
                     $scope.padderror = "";
                     $scope.postpage = new Object();
                     $scope.loadFirstPage();
-                """),format.raw/*338.17*/("""}"""),format.raw/*338.18*/(""" """),format.raw/*338.19*/("""else """),format.raw/*338.24*/("""{"""),format.raw/*338.25*/("""
-                    """),format.raw/*339.21*/("""$scope.bShowPosts = !$scope.bShowPosts;
-                """),format.raw/*340.17*/("""}"""),format.raw/*340.18*/("""
-            """),format.raw/*341.13*/("""}"""),format.raw/*341.14*/(""";
+                """),format.raw/*347.17*/("""}"""),format.raw/*347.18*/(""" """),format.raw/*347.19*/("""else """),format.raw/*347.24*/("""{"""),format.raw/*347.25*/("""
+                    """),format.raw/*348.21*/("""$scope.bShowPosts = !$scope.bShowPosts;
+                """),format.raw/*349.17*/("""}"""),format.raw/*349.18*/("""
+            """),format.raw/*350.13*/("""}"""),format.raw/*350.14*/(""";
 
-            $scope.showForbiddenPage = function() """),format.raw/*343.51*/("""{"""),format.raw/*343.52*/("""
-                """),format.raw/*344.17*/("""$cookies.remove("userId");
+            $scope.showForbiddenPage = function() """),format.raw/*352.51*/("""{"""),format.raw/*352.52*/("""
+                """),format.raw/*353.17*/("""$cookies.remove("userId");
                 $cookies.remove("groupId");
                 $cookies.remove("tzoffset");
-                $location.path(""""),_display_(/*347.34*/routes/*347.40*/.AdminController.showForbiddenPage),format.raw/*347.74*/("""").replace();
+                $location.path(""""),_display_(/*356.34*/routes/*356.40*/.AdminController.showForbiddenPage),format.raw/*356.74*/("""").replace();
                 $window.location.href = $location.absUrl();
-            """),format.raw/*349.13*/("""}"""),format.raw/*349.14*/(""";
+            """),format.raw/*358.13*/("""}"""),format.raw/*358.14*/(""";
 
-           $scope.refreshMUsers = function(event)"""),format.raw/*351.50*/("""{"""),format.raw/*351.51*/("""
-                """),format.raw/*352.17*/("""$scope.loadAllUsers(0, event);
+           $scope.refreshMUsers = function(event)"""),format.raw/*360.50*/("""{"""),format.raw/*360.51*/("""
+                """),format.raw/*361.17*/("""$scope.loadAllUsers(0, event);
                 $scope.mUserId = "";
                 $scope.moderror = "";
                 $scope.rpf.userId.$touched = false;
                 $scope.rpf.password.$touched = false;
                 $scope.modSuccess = false;
-            """),format.raw/*358.13*/("""}"""),format.raw/*358.14*/(""";
+            """),format.raw/*367.13*/("""}"""),format.raw/*367.14*/(""";
 
-            $scope.modifyUser  = function(event) """),format.raw/*360.50*/("""{"""),format.raw/*360.51*/("""
-                """),format.raw/*361.17*/("""event.preventDefault();
+            $scope.modifyUser  = function(event) """),format.raw/*369.50*/("""{"""),format.raw/*369.51*/("""
+                """),format.raw/*370.17*/("""event.preventDefault();
 
                 // validate the modify user form
-                if ($scope.rpf.userId.$error.required || !$scope.rpf.userId.$dirty) """),format.raw/*364.85*/("""{"""),format.raw/*364.86*/("""
-                    """),format.raw/*365.21*/("""$scope.rpf.userId.$touched = true;
+                if ($scope.rpf.userId.$error.required || !$scope.rpf.userId.$dirty) """),format.raw/*373.85*/("""{"""),format.raw/*373.86*/("""
+                    """),format.raw/*374.21*/("""$scope.rpf.userId.$touched = true;
                     return;
-                """),format.raw/*367.17*/("""}"""),format.raw/*367.18*/("""
+                """),format.raw/*376.17*/("""}"""),format.raw/*376.18*/("""
 
-                """),format.raw/*369.17*/("""$scope.conerror = "";
+                """),format.raw/*378.17*/("""$scope.conerror = "";
                 $scope.moderror = "";
                 $scope.modSuccess = false;
-                $http("""),format.raw/*372.23*/("""{"""),format.raw/*372.24*/("""
-                        """),format.raw/*373.25*/("""method : "PUT",
-                        url : """"),_display_(/*374.33*/routes/*374.39*/.PasswordResetController.resetUserPassword),format.raw/*374.81*/("""",
-                        data : """),format.raw/*375.32*/("""{"""),format.raw/*375.33*/(""""userId" : $scope.mUserId, "password" : $scope.mPassword"""),format.raw/*375.89*/("""}"""),format.raw/*375.90*/(""",
-                        headers : """),format.raw/*376.35*/("""{"""),format.raw/*376.36*/("""
-                            """),format.raw/*377.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*378.25*/("""}"""),format.raw/*378.26*/("""
-                    """),format.raw/*379.21*/("""}"""),format.raw/*379.22*/(""").then(function successCallback(response) """),format.raw/*379.64*/("""{"""),format.raw/*379.65*/("""
-                        """),format.raw/*380.25*/("""$scope.mUserId = null;
+                $http("""),format.raw/*381.23*/("""{"""),format.raw/*381.24*/("""
+                        """),format.raw/*382.25*/("""method : "PUT",
+                        url : """"),_display_(/*383.33*/routes/*383.39*/.PasswordResetController.resetUserPassword),format.raw/*383.81*/("""",
+                        data : """),format.raw/*384.32*/("""{"""),format.raw/*384.33*/(""""userId" : $scope.mUserId, "password" : $scope.mPassword"""),format.raw/*384.89*/("""}"""),format.raw/*384.90*/(""",
+                        headers : """),format.raw/*385.35*/("""{"""),format.raw/*385.36*/("""
+                            """),format.raw/*386.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*387.25*/("""}"""),format.raw/*387.26*/("""
+                    """),format.raw/*388.21*/("""}"""),format.raw/*388.22*/(""").then(function successCallback(response) """),format.raw/*388.64*/("""{"""),format.raw/*388.65*/("""
+                        """),format.raw/*389.25*/("""$scope.mUserId = null;
                         $scope.mPassword = "";
                         $scope.rpf.userId.$touched = false;
                         $scope.rpf.password.$touched = false;
                         $scope.modSuccess = true;
-                    """),format.raw/*385.21*/("""}"""),format.raw/*385.22*/(""", function errorCallback(response) """),format.raw/*385.57*/("""{"""),format.raw/*385.58*/("""
-                        """),format.raw/*386.25*/("""if (response.status == 400) """),format.raw/*386.53*/("""{"""),format.raw/*386.54*/("""
-                            """),format.raw/*387.29*/("""$scope.moderror = response.data.error;
+                    """),format.raw/*394.21*/("""}"""),format.raw/*394.22*/(""", function errorCallback(response) """),format.raw/*394.57*/("""{"""),format.raw/*394.58*/("""
+                        """),format.raw/*395.25*/("""if (response.status == 400) """),format.raw/*395.53*/("""{"""),format.raw/*395.54*/("""
+                            """),format.raw/*396.29*/("""$scope.moderror = response.data.error;
                             $scope.rpf.$setPristine();
-                        """),format.raw/*389.25*/("""}"""),format.raw/*389.26*/(""" """),format.raw/*389.27*/("""else """),format.raw/*389.32*/("""{"""),format.raw/*389.33*/("""
-                            """),format.raw/*390.29*/("""if (response.status == 403)
+                        """),format.raw/*398.25*/("""}"""),format.raw/*398.26*/(""" """),format.raw/*398.27*/("""else """),format.raw/*398.32*/("""{"""),format.raw/*398.33*/("""
+                            """),format.raw/*399.29*/("""if (response.status == 403)
                                 $scope.showForbiddenPage();
-                            else """),format.raw/*392.34*/("""{"""),format.raw/*392.35*/("""
-                                """),format.raw/*393.33*/("""$scope.conerror = "Error trying to reset the password. Retry.";
+                            else """),format.raw/*401.34*/("""{"""),format.raw/*401.35*/("""
+                                """),format.raw/*402.33*/("""$scope.conerror = "Error trying to reset the password. Retry.";
                                 $('#conError').modal('show');
-                            """),format.raw/*395.29*/("""}"""),format.raw/*395.30*/("""
-                        """),format.raw/*396.25*/("""}"""),format.raw/*396.26*/("""
-                    """),format.raw/*397.21*/("""}"""),format.raw/*397.22*/(""");
-            """),format.raw/*398.13*/("""}"""),format.raw/*398.14*/(""";
+                            """),format.raw/*404.29*/("""}"""),format.raw/*404.30*/("""
+                        """),format.raw/*405.25*/("""}"""),format.raw/*405.26*/("""
+                    """),format.raw/*406.21*/("""}"""),format.raw/*406.22*/(""");
+            """),format.raw/*407.13*/("""}"""),format.raw/*407.14*/(""";
 
-            $scope.toggleUserEditor = function(event) """),format.raw/*400.55*/("""{"""),format.raw/*400.56*/("""
-                """),format.raw/*401.17*/("""event.preventDefault();
-                if(angular.isUndefined($scope.bShowRPE)) """),format.raw/*402.58*/("""{"""),format.raw/*402.59*/("""
-                    """),format.raw/*403.21*/("""$scope.bShowRPE = true;
+            $scope.toggleUserEditor = function(event) """),format.raw/*409.55*/("""{"""),format.raw/*409.56*/("""
+                """),format.raw/*410.17*/("""event.preventDefault();
+                if(angular.isUndefined($scope.bShowRPE)) """),format.raw/*411.58*/("""{"""),format.raw/*411.59*/("""
+                    """),format.raw/*412.21*/("""$scope.bShowRPE = true;
                     $scope.loadAllUsers(0, null);
-                """),format.raw/*405.17*/("""}"""),format.raw/*405.18*/(""" """),format.raw/*405.19*/("""else """),format.raw/*405.24*/("""{"""),format.raw/*405.25*/("""
-                    """),format.raw/*406.21*/("""$scope.bShowRPE = !$scope.bShowRPE;
-                """),format.raw/*407.17*/("""}"""),format.raw/*407.18*/("""
-            """),format.raw/*408.13*/("""}"""),format.raw/*408.14*/(""";
+                """),format.raw/*414.17*/("""}"""),format.raw/*414.18*/(""" """),format.raw/*414.19*/("""else """),format.raw/*414.24*/("""{"""),format.raw/*414.25*/("""
+                    """),format.raw/*415.21*/("""$scope.bShowRPE = !$scope.bShowRPE;
+                """),format.raw/*416.17*/("""}"""),format.raw/*416.18*/("""
+            """),format.raw/*417.13*/("""}"""),format.raw/*417.14*/(""";
 
-            $scope.loadAllUsers = function(dorm, event) """),format.raw/*410.57*/("""{"""),format.raw/*410.58*/(""" """),format.raw/*410.59*/("""// todo: serialize calls
+            $scope.loadAllUsers = function(dorm, event) """),format.raw/*419.57*/("""{"""),format.raw/*419.58*/(""" """),format.raw/*419.59*/("""// todo: serialize calls
                 if (event != null)
                     event.preventDefault();
                 $scope.conerror = "";
@@ -447,137 +456,137 @@ Seq[Any](format.raw/*1.1*/("""<!DOCTYPE html>
                     $scope.allMUsers = [];
                 else
                     $scope.allDUsers = [];
-                $http("""),format.raw/*419.23*/("""{"""),format.raw/*419.24*/("""
-                        """),format.raw/*420.25*/("""method : "GET",
-                        url : """"),_display_(/*421.33*/routes/*421.39*/.AdminController.getUsers),format.raw/*421.64*/("""",
-                        headers : """),format.raw/*422.35*/("""{"""),format.raw/*422.36*/("""
-                        """),format.raw/*423.25*/(""""Content-Type" : "application/json"
-                        """),format.raw/*424.25*/("""}"""),format.raw/*424.26*/("""
-                    """),format.raw/*425.21*/("""}"""),format.raw/*425.22*/(""").then(function successCallback(response) """),format.raw/*425.64*/("""{"""),format.raw/*425.65*/("""
-                        """),format.raw/*426.25*/("""if(dorm == 0)
+                $http("""),format.raw/*428.23*/("""{"""),format.raw/*428.24*/("""
+                        """),format.raw/*429.25*/("""method : "GET",
+                        url : """"),_display_(/*430.33*/routes/*430.39*/.AdminController.getUsers),format.raw/*430.64*/("""",
+                        headers : """),format.raw/*431.35*/("""{"""),format.raw/*431.36*/("""
+                        """),format.raw/*432.25*/(""""Content-Type" : "application/json"
+                        """),format.raw/*433.25*/("""}"""),format.raw/*433.26*/("""
+                    """),format.raw/*434.21*/("""}"""),format.raw/*434.22*/(""").then(function successCallback(response) """),format.raw/*434.64*/("""{"""),format.raw/*434.65*/("""
+                        """),format.raw/*435.25*/("""if(dorm == 0)
                             $scope.allMUsers = response.data;
                         else
                             $scope.allDUsers = response.data;
-                    """),format.raw/*430.21*/("""}"""),format.raw/*430.22*/(""", function errorCallback(response) """),format.raw/*430.57*/("""{"""),format.raw/*430.58*/("""
-                        """),format.raw/*431.25*/("""if (response.status == 403)
+                    """),format.raw/*439.21*/("""}"""),format.raw/*439.22*/(""", function errorCallback(response) """),format.raw/*439.57*/("""{"""),format.raw/*439.58*/("""
+                        """),format.raw/*440.25*/("""if (response.status == 403)
                             $scope.showForbiddenPage();
-                        else """),format.raw/*433.30*/("""{"""),format.raw/*433.31*/("""
-                            """),format.raw/*434.29*/("""$scope.conerror = "Error refreshing the list of all users. Retry.";
+                        else """),format.raw/*442.30*/("""{"""),format.raw/*442.31*/("""
+                            """),format.raw/*443.29*/("""$scope.conerror = "Error refreshing the list of all users. Retry.";
                             $('#conError').modal('show');
-                        """),format.raw/*436.25*/("""}"""),format.raw/*436.26*/("""
-                    """),format.raw/*437.21*/("""}"""),format.raw/*437.22*/("""
-                """),format.raw/*438.17*/(""");
-            """),format.raw/*439.13*/("""}"""),format.raw/*439.14*/(""";
+                        """),format.raw/*445.25*/("""}"""),format.raw/*445.26*/("""
+                    """),format.raw/*446.21*/("""}"""),format.raw/*446.22*/("""
+                """),format.raw/*447.17*/(""");
+            """),format.raw/*448.13*/("""}"""),format.raw/*448.14*/(""";
 
-            $scope.refreshDUsers = function(event)"""),format.raw/*441.51*/("""{"""),format.raw/*441.52*/("""
-                """),format.raw/*442.17*/("""$scope.loadAllUsers(1,event);
+            $scope.refreshDUsers = function(event)"""),format.raw/*450.51*/("""{"""),format.raw/*450.52*/("""
+                """),format.raw/*451.17*/("""$scope.loadAllUsers(1,event);
                 $scope.dUserId = "";
                 $scope.delerror = "";
                 $scope.duf.userId.$touched = false;
                 $scope.delSuccess = false;
-            """),format.raw/*447.13*/("""}"""),format.raw/*447.14*/(""";
+            """),format.raw/*456.13*/("""}"""),format.raw/*456.14*/(""";
 
-            $scope.deleteUser  = function(event) """),format.raw/*449.50*/("""{"""),format.raw/*449.51*/("""
-                """),format.raw/*450.17*/("""event.preventDefault();
+            $scope.deleteUser  = function(event) """),format.raw/*458.50*/("""{"""),format.raw/*458.51*/("""
+                """),format.raw/*459.17*/("""event.preventDefault();
 
                 // validate the delete user form
-                if ($scope.duf.userId.$error.required || !$scope.duf.userId.$dirty) """),format.raw/*453.85*/("""{"""),format.raw/*453.86*/("""
-                    """),format.raw/*454.21*/("""$scope.duf.userId.$touched = true;
+                if ($scope.duf.userId.$error.required || !$scope.duf.userId.$dirty) """),format.raw/*462.85*/("""{"""),format.raw/*462.86*/("""
+                    """),format.raw/*463.21*/("""$scope.duf.userId.$touched = true;
                     return;
-                """),format.raw/*456.17*/("""}"""),format.raw/*456.18*/("""
+                """),format.raw/*465.17*/("""}"""),format.raw/*465.18*/("""
 
-                """),format.raw/*458.17*/("""$scope.conerror = "";
+                """),format.raw/*467.17*/("""$scope.conerror = "";
                 $scope.delerror = "";
                 $scope.delSuccess = false;
-                $http("""),format.raw/*461.23*/("""{"""),format.raw/*461.24*/("""
-                        """),format.raw/*462.25*/("""method : "DELETE",
+                $http("""),format.raw/*470.23*/("""{"""),format.raw/*470.24*/("""
+                        """),format.raw/*471.25*/("""method : "DELETE",
                         url : "user/" + $scope.dUserId,
-                        headers : """),format.raw/*464.35*/("""{"""),format.raw/*464.36*/("""
-                            """),format.raw/*465.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*466.25*/("""}"""),format.raw/*466.26*/("""
-                    """),format.raw/*467.21*/("""}"""),format.raw/*467.22*/(""").then(function successCallback(response) """),format.raw/*467.64*/("""{"""),format.raw/*467.65*/("""
-                        """),format.raw/*468.25*/("""$scope.dUserId = "";
+                        headers : """),format.raw/*473.35*/("""{"""),format.raw/*473.36*/("""
+                            """),format.raw/*474.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*475.25*/("""}"""),format.raw/*475.26*/("""
+                    """),format.raw/*476.21*/("""}"""),format.raw/*476.22*/(""").then(function successCallback(response) """),format.raw/*476.64*/("""{"""),format.raw/*476.65*/("""
+                        """),format.raw/*477.25*/("""$scope.dUserId = "";
                         $scope.duf.userId.$touched = false;
                         $scope.delSuccess = true;
                         $scope.loadAllUsers(1,null);
-                    """),format.raw/*472.21*/("""}"""),format.raw/*472.22*/(""", function errorCallback(response) """),format.raw/*472.57*/("""{"""),format.raw/*472.58*/("""
-                        """),format.raw/*473.25*/("""if (response.status == 400) """),format.raw/*473.53*/("""{"""),format.raw/*473.54*/("""
-                            """),format.raw/*474.29*/("""$scope.delerror = response.data.error;
+                    """),format.raw/*481.21*/("""}"""),format.raw/*481.22*/(""", function errorCallback(response) """),format.raw/*481.57*/("""{"""),format.raw/*481.58*/("""
+                        """),format.raw/*482.25*/("""if (response.status == 400) """),format.raw/*482.53*/("""{"""),format.raw/*482.54*/("""
+                            """),format.raw/*483.29*/("""$scope.delerror = response.data.error;
                             $scope.duf.$setPristine();
-                        """),format.raw/*476.25*/("""}"""),format.raw/*476.26*/(""" """),format.raw/*476.27*/("""else """),format.raw/*476.32*/("""{"""),format.raw/*476.33*/("""
-                            """),format.raw/*477.29*/("""if (response.status == 403)
+                        """),format.raw/*485.25*/("""}"""),format.raw/*485.26*/(""" """),format.raw/*485.27*/("""else """),format.raw/*485.32*/("""{"""),format.raw/*485.33*/("""
+                            """),format.raw/*486.29*/("""if (response.status == 403)
                                 $scope.showForbiddenPage();
-                            else """),format.raw/*479.34*/("""{"""),format.raw/*479.35*/("""
-                                """),format.raw/*480.33*/("""$scope.conerror = "Error trying to delete the user. Retry.";
+                            else """),format.raw/*488.34*/("""{"""),format.raw/*488.35*/("""
+                                """),format.raw/*489.33*/("""$scope.conerror = "Error trying to delete the user. Retry.";
                                 $('#conError').modal('show');
-                            """),format.raw/*482.29*/("""}"""),format.raw/*482.30*/("""
-                        """),format.raw/*483.25*/("""}"""),format.raw/*483.26*/("""
-                    """),format.raw/*484.21*/("""}"""),format.raw/*484.22*/(""");
-            """),format.raw/*485.13*/("""}"""),format.raw/*485.14*/(""";
+                            """),format.raw/*491.29*/("""}"""),format.raw/*491.30*/("""
+                        """),format.raw/*492.25*/("""}"""),format.raw/*492.26*/("""
+                    """),format.raw/*493.21*/("""}"""),format.raw/*493.22*/(""");
+            """),format.raw/*494.13*/("""}"""),format.raw/*494.14*/(""";
 
-            $scope.toggleDelUserEditor = function(event) """),format.raw/*487.58*/("""{"""),format.raw/*487.59*/("""
-                """),format.raw/*488.17*/("""event.preventDefault();
-                if(angular.isUndefined($scope.bShowDUE)) """),format.raw/*489.58*/("""{"""),format.raw/*489.59*/("""
-                    """),format.raw/*490.21*/("""$scope.bShowDUE = true;
+            $scope.toggleDelUserEditor = function(event) """),format.raw/*496.58*/("""{"""),format.raw/*496.59*/("""
+                """),format.raw/*497.17*/("""event.preventDefault();
+                if(angular.isUndefined($scope.bShowDUE)) """),format.raw/*498.58*/("""{"""),format.raw/*498.59*/("""
+                    """),format.raw/*499.21*/("""$scope.bShowDUE = true;
                     $scope.loadAllUsers(1,null);
-                """),format.raw/*492.17*/("""}"""),format.raw/*492.18*/(""" """),format.raw/*492.19*/("""else """),format.raw/*492.24*/("""{"""),format.raw/*492.25*/("""
-                    """),format.raw/*493.21*/("""$scope.bShowDUE = !$scope.bShowDUE;
-                """),format.raw/*494.17*/("""}"""),format.raw/*494.18*/("""
-            """),format.raw/*495.13*/("""}"""),format.raw/*495.14*/(""";
+                """),format.raw/*501.17*/("""}"""),format.raw/*501.18*/(""" """),format.raw/*501.19*/("""else """),format.raw/*501.24*/("""{"""),format.raw/*501.25*/("""
+                    """),format.raw/*502.21*/("""$scope.bShowDUE = !$scope.bShowDUE;
+                """),format.raw/*503.17*/("""}"""),format.raw/*503.18*/("""
+            """),format.raw/*504.13*/("""}"""),format.raw/*504.14*/(""";
 
-            $scope.addUser  = function(event) """),format.raw/*497.47*/("""{"""),format.raw/*497.48*/("""
-                """),format.raw/*498.17*/("""event.preventDefault();
+            $scope.addUser  = function(event) """),format.raw/*506.47*/("""{"""),format.raw/*506.48*/("""
+                """),format.raw/*507.17*/("""event.preventDefault();
 
                 // validate the add user form
-                if ($scope.auf.userId.$error.required || $scope.auf.userId.$error.email || !($scope.auf.userId.$dirty || $scope.auf.password.$dirty)) """),format.raw/*501.151*/("""{"""),format.raw/*501.152*/("""
-                    """),format.raw/*502.21*/("""$scope.auf.userId.$touched = true;
+                if ($scope.auf.userId.$error.required || $scope.auf.userId.$error.email || !($scope.auf.userId.$dirty || $scope.auf.password.$dirty)) """),format.raw/*510.151*/("""{"""),format.raw/*510.152*/("""
+                    """),format.raw/*511.21*/("""$scope.auf.userId.$touched = true;
                     return;
-                """),format.raw/*504.17*/("""}"""),format.raw/*504.18*/("""
+                """),format.raw/*513.17*/("""}"""),format.raw/*513.18*/("""
 
-                """),format.raw/*506.17*/("""$scope.conerror = "";
+                """),format.raw/*515.17*/("""$scope.conerror = "";
                 $scope.adderror = "";
                 $scope.addSuccess = false;
-                $http("""),format.raw/*509.23*/("""{"""),format.raw/*509.24*/("""
-                        """),format.raw/*510.25*/("""method : "POST",
-                        url : """"),_display_(/*511.33*/routes/*511.39*/.AdminController.addUser),format.raw/*511.63*/("""",
-                        data : """),format.raw/*512.32*/("""{"""),format.raw/*512.33*/(""""userId" : $scope.nUserId, "password" : $scope.nPassword"""),format.raw/*512.89*/("""}"""),format.raw/*512.90*/(""",
-                        headers : """),format.raw/*513.35*/("""{"""),format.raw/*513.36*/("""
-                            """),format.raw/*514.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*515.25*/("""}"""),format.raw/*515.26*/("""
-                    """),format.raw/*516.21*/("""}"""),format.raw/*516.22*/(""").then(function successCallback(response) """),format.raw/*516.64*/("""{"""),format.raw/*516.65*/("""
-                        """),format.raw/*517.25*/("""$scope.nUserId = "";
+                $http("""),format.raw/*518.23*/("""{"""),format.raw/*518.24*/("""
+                       """),format.raw/*519.24*/("""method : "POST",
+                        url : """"),_display_(/*520.33*/routes/*520.39*/.AdminController.addUser),format.raw/*520.63*/("""",
+                        data : """),format.raw/*521.32*/("""{"""),format.raw/*521.33*/(""""name" : $scope.nUserName, "userId" : $scope.nUserId, "password" : $scope.nPassword, "userDesignation" : $scope.nuserDesignation, "userbirth" : $scope.nuserbirth"""),format.raw/*521.194*/("""}"""),format.raw/*521.195*/(""",
+                        headers : """),format.raw/*522.35*/("""{"""),format.raw/*522.36*/("""
+                            """),format.raw/*523.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*524.25*/("""}"""),format.raw/*524.26*/("""
+                    """),format.raw/*525.21*/("""}"""),format.raw/*525.22*/(""").then(function successCallback(response) """),format.raw/*525.64*/("""{"""),format.raw/*525.65*/("""
+                        """),format.raw/*526.25*/("""$scope.nUserId = "";
                         $scope.nPassword = "";
                         $scope.auf.userId.$touched = false;
                         $scope.auf.password.$touched = false;
                         $scope.addSuccess = true;
-                    """),format.raw/*522.21*/("""}"""),format.raw/*522.22*/(""", function errorCallback(response) """),format.raw/*522.57*/("""{"""),format.raw/*522.58*/("""
-                        """),format.raw/*523.25*/("""if (response.status == 400) """),format.raw/*523.53*/("""{"""),format.raw/*523.54*/("""
-                            """),format.raw/*524.29*/("""$scope.adderror = response.data.error;
+                    """),format.raw/*531.21*/("""}"""),format.raw/*531.22*/(""", function errorCallback(response) """),format.raw/*531.57*/("""{"""),format.raw/*531.58*/("""
+                        """),format.raw/*532.25*/("""if (response.status == 400) """),format.raw/*532.53*/("""{"""),format.raw/*532.54*/("""
+                            """),format.raw/*533.29*/("""$scope.adderror = response.data.error;
                             $scope.auf.$setPristine();
-                        """),format.raw/*526.25*/("""}"""),format.raw/*526.26*/(""" """),format.raw/*526.27*/("""else """),format.raw/*526.32*/("""{"""),format.raw/*526.33*/("""
-                            """),format.raw/*527.29*/("""if (response.status == 403)
+                        """),format.raw/*535.25*/("""}"""),format.raw/*535.26*/(""" """),format.raw/*535.27*/("""else """),format.raw/*535.32*/("""{"""),format.raw/*535.33*/("""
+                            """),format.raw/*536.29*/("""if (response.status == 403)
                                 $scope.showForbiddenPage();
-                            else """),format.raw/*529.34*/("""{"""),format.raw/*529.35*/("""
-                                """),format.raw/*530.33*/("""$scope.conerror = "Error trying to add the user. Retry.";
+                            else """),format.raw/*538.34*/("""{"""),format.raw/*538.35*/("""
+                                """),format.raw/*539.33*/("""$scope.conerror = "Error trying to add the user. Retry.";
                                 $('#conError').modal('show');
-                            """),format.raw/*532.29*/("""}"""),format.raw/*532.30*/("""
-                        """),format.raw/*533.25*/("""}"""),format.raw/*533.26*/("""
-                    """),format.raw/*534.21*/("""}"""),format.raw/*534.22*/(""");
-            """),format.raw/*535.13*/("""}"""),format.raw/*535.14*/(""";
+                            """),format.raw/*541.29*/("""}"""),format.raw/*541.30*/("""
+                        """),format.raw/*542.25*/("""}"""),format.raw/*542.26*/("""
+                    """),format.raw/*543.21*/("""}"""),format.raw/*543.22*/(""");
+            """),format.raw/*544.13*/("""}"""),format.raw/*544.14*/(""";
 
-            $scope.toggleAddUserEditor = function(event) """),format.raw/*537.58*/("""{"""),format.raw/*537.59*/("""
-                """),format.raw/*538.17*/("""event.preventDefault();
-                if(angular.isUndefined($scope.bShowAUE)) """),format.raw/*539.58*/("""{"""),format.raw/*539.59*/("""
-                    """),format.raw/*540.21*/("""$scope.bShowAUE = true;
+            $scope.toggleAddUserEditor = function(event) """),format.raw/*546.58*/("""{"""),format.raw/*546.59*/("""
+                """),format.raw/*547.17*/("""event.preventDefault();
+                if(angular.isUndefined($scope.bShowAUE)) """),format.raw/*548.58*/("""{"""),format.raw/*548.59*/("""
+                    """),format.raw/*549.21*/("""$scope.bShowAUE = true;
                     $scope.nUserId = "";
                     $scope.nPassword = "";
-                """),format.raw/*543.17*/("""}"""),format.raw/*543.18*/(""" """),format.raw/*543.19*/("""else """),format.raw/*543.24*/("""{"""),format.raw/*543.25*/("""
-                    """),format.raw/*544.21*/("""$scope.bShowAUE = !$scope.bShowAUE;
-                """),format.raw/*545.17*/("""}"""),format.raw/*545.18*/("""
-            """),format.raw/*546.13*/("""}"""),format.raw/*546.14*/(""";
+                """),format.raw/*552.17*/("""}"""),format.raw/*552.18*/(""" """),format.raw/*552.19*/("""else """),format.raw/*552.24*/("""{"""),format.raw/*552.25*/("""
+                    """),format.raw/*553.21*/("""$scope.bShowAUE = !$scope.bShowAUE;
+                """),format.raw/*554.17*/("""}"""),format.raw/*554.18*/("""
+            """),format.raw/*555.13*/("""}"""),format.raw/*555.14*/(""";
 
 
-        """),format.raw/*549.9*/("""}"""),format.raw/*549.10*/(""");
+        """),format.raw/*558.9*/("""}"""),format.raw/*558.10*/(""");
     </script>
 </body>
 </html>"""))
@@ -600,11 +609,11 @@ Seq[Any](format.raw/*1.1*/("""<!DOCTYPE html>
 object admin extends admin_Scope0.admin
               /*
                   -- GENERATED --
-                  DATE: Tue Sep 27 11:19:18 IST 2016
-                  SOURCE: /home/si2chip/temp/si2chip2/si2chip/app/views/admin.scala.html
-                  HASH: 3b2a0172f4b9cd80267037686f1a129ae0fd3b37
-                  MATRIX: 827->0|1130->277|1144->283|1212->331|1273->366|1287->372|1349->414|1410->449|1424->455|1486->497|2137->1121|2152->1127|2208->1162|2237->1163|3311->2209|3340->2210|3369->2211|3405->2219|3434->2220|3463->2221|3520->2250|8060->6760|8091->6761|8122->6762|8162->6772|8193->6773|8224->6774|10767->9287|10798->9288|10829->9289|10869->9299|10900->9300|10931->9301|13167->11508|13197->11509|13227->11510|13273->11527|13303->11528|13333->11529|15074->13241|15104->13242|15134->13243|15173->13253|15203->13254|15233->13255|15273->13266|15303->13267|15333->13268|15375->13280|15406->13281|15437->13282|15554->13370|15584->13371|15614->13372|15651->13380|15681->13381|15711->13382|16023->13665|16053->13666|16095->13679|16152->13707|16182->13708|16244->13741|16274->13742|16329->13769|16359->13770|16483->13865|16513->13866|16555->13879|17000->14295|17030->14296|17076->14313|17148->14356|17178->14357|17260->14410|17290->14411|17336->14428|17409->14472|17439->14473|17518->14523|17548->14524|17594->14541|17679->14598|17695->14604|17741->14628|17856->14714|17886->14715|18004->14804|18034->14805|18080->14822|18297->15011|18313->15017|18357->15039|18472->15125|18502->15126|18617->15212|18647->15213|18693->15230|18939->15447|18969->15448|19019->15469|19072->15493|19102->15494|19149->15512|19411->15745|19441->15746|19495->15771|19572->15820|19588->15826|19645->15861|19708->15895|19738->15896|19787->15916|19817->15917|19882->15953|19912->15954|19970->15983|20059->16043|20089->16044|20139->16065|20169->16066|20240->16108|20270->16109|20324->16134|20497->16278|20527->16279|20591->16314|20621->16315|20675->16340|20831->16467|20861->16468|20919->16497|21186->16735|21216->16736|21246->16737|21280->16742|21310->16743|21368->16772|21518->16893|21548->16894|21610->16927|21783->17071|21813->17072|21867->17097|21897->17098|21947->17119|21977->17120|22021->17135|22051->17136|22159->17215|22189->17216|22235->17233|22308->17277|22338->17278|22392->17303|22506->17388|22536->17389|22594->17418|22683->17478|22713->17479|22763->17500|22793->17501|22864->17543|22894->17544|22948->17569|23030->17622|23060->17623|23124->17658|23154->17659|23209->17685|23352->17799|23382->17800|23440->17829|23628->17988|23658->17989|23708->18010|23738->18011|23782->18026|23812->18027|23942->18128|23972->18129|24018->18146|24209->18308|24239->18309|24360->18401|24390->18402|24436->18419|24588->18542|24618->18543|24747->18643|24777->18644|24823->18661|24974->18783|25004->18784|25118->18869|25148->18870|25194->18887|25514->19178|25544->19179|25684->19290|25714->19291|25760->19308|25872->19391|25902->19392|25952->19413|26162->19594|26192->19595|26222->19596|26256->19601|26286->19602|26336->19623|26421->19679|26451->19680|26493->19693|26523->19694|26605->19747|26635->19748|26681->19765|26858->19914|26874->19920|26930->19954|27045->20040|27075->20041|27156->20093|27186->20094|27232->20111|27528->20378|27558->20379|27639->20431|27669->20432|27715->20449|27902->20607|27932->20608|27982->20629|28090->20708|28120->20709|28167->20727|28321->20852|28351->20853|28405->20878|28481->20926|28497->20932|28561->20974|28624->21008|28654->21009|28739->21065|28769->21066|28834->21102|28864->21103|28922->21132|29011->21192|29041->21193|29091->21214|29121->21215|29192->21257|29222->21258|29276->21283|29567->21545|29597->21546|29661->21581|29691->21582|29745->21607|29802->21635|29832->21636|29890->21665|30037->21783|30067->21784|30097->21785|30131->21790|30161->21791|30219->21820|30369->21941|30399->21942|30461->21975|30644->22129|30674->22130|30728->22155|30758->22156|30808->22177|30838->22178|30882->22193|30912->22194|30998->22251|31028->22252|31074->22269|31184->22350|31214->22351|31264->22372|31383->22462|31413->22463|31443->22464|31477->22469|31507->22470|31557->22491|31638->22543|31668->22544|31710->22557|31740->22558|31828->22617|31858->22618|31888->22619|32219->22921|32249->22922|32303->22947|32379->22995|32395->23001|32442->23026|32508->23063|32538->23064|32592->23089|32681->23149|32711->23150|32761->23171|32791->23172|32862->23214|32892->23215|32946->23240|33162->23427|33192->23428|33256->23463|33286->23464|33340->23489|33482->23602|33512->23603|33570->23632|33749->23782|33779->23783|33829->23804|33859->23805|33905->23822|33949->23837|33979->23838|34061->23891|34091->23892|34137->23909|34378->24121|34408->24122|34489->24174|34519->24175|34565->24192|34752->24350|34782->24351|34832->24372|34940->24451|34970->24452|35017->24470|35171->24595|35201->24596|35255->24621|35393->24730|35423->24731|35481->24760|35570->24820|35600->24821|35650->24842|35680->24843|35751->24885|35781->24886|35835->24911|36068->25115|36098->25116|36162->25151|36192->25152|36246->25177|36303->25205|36333->25206|36391->25235|36538->25353|36568->25354|36598->25355|36632->25360|36662->25361|36720->25390|36870->25511|36900->25512|36962->25545|37142->25696|37172->25697|37226->25722|37256->25723|37306->25744|37336->25745|37380->25760|37410->25761|37499->25821|37529->25822|37575->25839|37685->25920|37715->25921|37765->25942|37883->26031|37913->26032|37943->26033|37977->26038|38007->26039|38057->26060|38138->26112|38168->26113|38210->26126|38240->26127|38318->26176|38348->26177|38394->26194|38645->26415|38676->26416|38726->26437|38834->26516|38864->26517|38911->26535|39065->26660|39095->26661|39149->26686|39226->26735|39242->26741|39288->26765|39351->26799|39381->26800|39466->26856|39496->26857|39561->26893|39591->26894|39649->26923|39738->26983|39768->26984|39818->27005|39848->27006|39919->27048|39949->27049|40003->27074|40292->27334|40322->27335|40386->27370|40416->27371|40470->27396|40527->27424|40557->27425|40615->27454|40762->27572|40792->27573|40822->27574|40856->27579|40886->27580|40944->27609|41094->27730|41124->27731|41186->27764|41363->27912|41393->27913|41447->27938|41477->27939|41527->27960|41557->27961|41601->27976|41631->27977|41720->28037|41750->28038|41796->28055|41906->28136|41936->28137|41986->28158|42139->28282|42169->28283|42199->28284|42233->28289|42263->28290|42313->28311|42394->28363|42424->28364|42466->28377|42496->28378|42536->28390|42566->28391
-                  LINES: 32->1|38->7|38->7|38->7|39->8|39->8|39->8|40->9|40->9|40->9|51->20|51->20|51->20|51->20|72->41|72->41|72->41|72->41|72->41|72->41|73->42|133->102|133->102|133->102|133->102|133->102|133->102|162->131|162->131|162->131|162->131|162->131|162->131|193->162|193->162|193->162|193->162|193->162|193->162|217->186|217->186|217->186|217->186|217->186|217->186|217->186|217->186|217->186|217->186|217->186|217->186|219->188|219->188|219->188|219->188|219->188|219->188|227->196|227->196|228->197|228->197|228->197|228->197|228->197|229->198|229->198|231->200|231->200|232->201|244->213|244->213|245->214|246->215|246->215|248->217|248->217|249->218|250->219|250->219|252->221|252->221|253->222|254->223|254->223|254->223|256->225|256->225|259->228|259->228|260->229|264->233|264->233|264->233|266->235|266->235|269->238|269->238|270->239|275->244|275->244|276->245|277->246|277->246|279->248|284->253|284->253|285->254|286->255|286->255|286->255|287->256|287->256|287->256|287->256|288->257|288->257|289->258|290->259|290->259|291->260|291->260|291->260|291->260|292->261|295->264|295->264|295->264|295->264|296->265|297->266|297->266|298->267|300->269|300->269|300->269|300->269|300->269|301->270|303->272|303->272|304->273|306->275|306->275|307->276|307->276|308->277|308->277|309->278|309->278|312->281|312->281|313->282|314->283|314->283|315->284|317->286|317->286|318->287|319->288|319->288|320->289|320->289|320->289|320->289|321->290|322->291|322->291|322->291|322->291|323->292|325->294|325->294|326->295|328->297|328->297|329->298|329->298|330->299|330->299|333->302|333->302|334->303|337->306|337->306|340->309|340->309|341->310|343->312|343->312|346->315|346->315|347->316|349->318|349->318|352->321|352->321|353->322|359->328|359->328|362->331|362->331|363->332|364->333|364->333|365->334|369->338|369->338|369->338|369->338|369->338|370->339|371->340|371->340|372->341|372->341|374->343|374->343|375->344|378->347|378->347|378->347|380->349|380->349|382->351|382->351|383->352|389->358|389->358|391->360|391->360|392->361|395->364|395->364|396->365|398->367|398->367|400->369|403->372|403->372|404->373|405->374|405->374|405->374|406->375|406->375|406->375|406->375|407->376|407->376|408->377|409->378|409->378|410->379|410->379|410->379|410->379|411->380|416->385|416->385|416->385|416->385|417->386|417->386|417->386|418->387|420->389|420->389|420->389|420->389|420->389|421->390|423->392|423->392|424->393|426->395|426->395|427->396|427->396|428->397|428->397|429->398|429->398|431->400|431->400|432->401|433->402|433->402|434->403|436->405|436->405|436->405|436->405|436->405|437->406|438->407|438->407|439->408|439->408|441->410|441->410|441->410|450->419|450->419|451->420|452->421|452->421|452->421|453->422|453->422|454->423|455->424|455->424|456->425|456->425|456->425|456->425|457->426|461->430|461->430|461->430|461->430|462->431|464->433|464->433|465->434|467->436|467->436|468->437|468->437|469->438|470->439|470->439|472->441|472->441|473->442|478->447|478->447|480->449|480->449|481->450|484->453|484->453|485->454|487->456|487->456|489->458|492->461|492->461|493->462|495->464|495->464|496->465|497->466|497->466|498->467|498->467|498->467|498->467|499->468|503->472|503->472|503->472|503->472|504->473|504->473|504->473|505->474|507->476|507->476|507->476|507->476|507->476|508->477|510->479|510->479|511->480|513->482|513->482|514->483|514->483|515->484|515->484|516->485|516->485|518->487|518->487|519->488|520->489|520->489|521->490|523->492|523->492|523->492|523->492|523->492|524->493|525->494|525->494|526->495|526->495|528->497|528->497|529->498|532->501|532->501|533->502|535->504|535->504|537->506|540->509|540->509|541->510|542->511|542->511|542->511|543->512|543->512|543->512|543->512|544->513|544->513|545->514|546->515|546->515|547->516|547->516|547->516|547->516|548->517|553->522|553->522|553->522|553->522|554->523|554->523|554->523|555->524|557->526|557->526|557->526|557->526|557->526|558->527|560->529|560->529|561->530|563->532|563->532|564->533|564->533|565->534|565->534|566->535|566->535|568->537|568->537|569->538|570->539|570->539|571->540|574->543|574->543|574->543|574->543|574->543|575->544|576->545|576->545|577->546|577->546|580->549|580->549
+                  DATE: Sat Oct 15 13:32:01 IST 2016
+                  SOURCE: /home/si2chip/si2chip/app/views/admin.scala.html
+                  HASH: 97036d93aa1aa70309e1c1b8d03892a678bdc441
+                  MATRIX: 827->0|1130->277|1144->283|1212->331|1273->366|1287->372|1349->414|1410->449|1424->455|1486->497|2121->1105|2136->1111|2192->1146|2221->1147|3215->2113|3244->2114|3273->2115|3309->2123|3338->2124|3367->2125|3420->2150|8362->7062|8393->7063|8424->7064|8464->7074|8495->7075|8526->7076|10837->9357|10868->9358|10899->9359|10939->9369|10970->9370|11001->9371|13053->11394|13083->11395|13113->11396|13159->11413|13189->11414|13219->11415|14864->13031|14894->13032|14924->13033|14963->13043|14993->13044|15023->13045|15063->13056|15093->13057|15123->13058|15165->13070|15196->13071|15227->13072|15336->13152|15366->13153|15396->13154|15433->13162|15463->13163|15493->13164|15781->13423|15811->13424|15853->13437|15910->13465|15940->13466|16002->13499|16032->13500|16087->13527|16117->13528|16241->13623|16271->13624|16313->13637|16758->14053|16788->14054|16834->14071|16906->14114|16936->14115|17018->14168|17048->14169|17094->14186|17167->14230|17197->14231|17276->14281|17306->14282|17352->14299|17437->14356|17453->14362|17499->14386|17614->14472|17644->14473|17762->14562|17792->14563|17838->14580|18055->14769|18071->14775|18115->14797|18230->14883|18260->14884|18375->14970|18405->14971|18451->14988|18697->15205|18727->15206|18777->15227|18830->15251|18860->15252|18907->15270|19169->15503|19199->15504|19253->15529|19330->15578|19346->15584|19403->15619|19466->15653|19496->15654|19545->15674|19575->15675|19640->15711|19670->15712|19728->15741|19817->15801|19847->15802|19897->15823|19927->15824|19998->15866|20028->15867|20082->15892|20255->16036|20285->16037|20349->16072|20379->16073|20433->16098|20589->16225|20619->16226|20677->16255|20944->16493|20974->16494|21004->16495|21038->16500|21068->16501|21126->16530|21276->16651|21306->16652|21368->16685|21541->16829|21571->16830|21625->16855|21655->16856|21705->16877|21735->16878|21779->16893|21809->16894|21917->16973|21947->16974|21993->16991|22066->17035|22096->17036|22150->17061|22264->17146|22294->17147|22352->17176|22441->17236|22471->17237|22521->17258|22551->17259|22622->17301|22652->17302|22706->17327|22788->17380|22818->17381|22882->17416|22912->17417|22967->17443|23110->17557|23140->17558|23198->17587|23386->17746|23416->17747|23466->17768|23496->17769|23540->17784|23570->17785|23700->17886|23730->17887|23776->17904|23967->18066|23997->18067|24118->18159|24148->18160|24194->18177|24346->18300|24376->18301|24505->18401|24535->18402|24581->18419|24732->18541|24762->18542|24876->18627|24906->18628|24952->18645|25272->18936|25302->18937|25442->19048|25472->19049|25518->19066|25630->19149|25660->19150|25710->19171|25920->19352|25950->19353|25980->19354|26014->19359|26044->19360|26094->19381|26179->19437|26209->19438|26251->19451|26281->19452|26363->19505|26393->19506|26439->19523|26616->19672|26632->19678|26688->19712|26803->19798|26833->19799|26914->19851|26944->19852|26990->19869|27286->20136|27316->20137|27397->20189|27427->20190|27473->20207|27660->20365|27690->20366|27740->20387|27848->20466|27878->20467|27925->20485|28079->20610|28109->20611|28163->20636|28239->20684|28255->20690|28319->20732|28382->20766|28412->20767|28497->20823|28527->20824|28592->20860|28622->20861|28680->20890|28769->20950|28799->20951|28849->20972|28879->20973|28950->21015|28980->21016|29034->21041|29325->21303|29355->21304|29419->21339|29449->21340|29503->21365|29560->21393|29590->21394|29648->21423|29795->21541|29825->21542|29855->21543|29889->21548|29919->21549|29977->21578|30127->21699|30157->21700|30219->21733|30402->21887|30432->21888|30486->21913|30516->21914|30566->21935|30596->21936|30640->21951|30670->21952|30756->22009|30786->22010|30832->22027|30942->22108|30972->22109|31022->22130|31141->22220|31171->22221|31201->22222|31235->22227|31265->22228|31315->22249|31396->22301|31426->22302|31468->22315|31498->22316|31586->22375|31616->22376|31646->22377|31977->22679|32007->22680|32061->22705|32137->22753|32153->22759|32200->22784|32266->22821|32296->22822|32350->22847|32439->22907|32469->22908|32519->22929|32549->22930|32620->22972|32650->22973|32704->22998|32920->23185|32950->23186|33014->23221|33044->23222|33098->23247|33240->23360|33270->23361|33328->23390|33507->23540|33537->23541|33587->23562|33617->23563|33663->23580|33707->23595|33737->23596|33819->23649|33849->23650|33895->23667|34136->23879|34166->23880|34247->23932|34277->23933|34323->23950|34510->24108|34540->24109|34590->24130|34698->24209|34728->24210|34775->24228|34929->24353|34959->24354|35013->24379|35151->24488|35181->24489|35239->24518|35328->24578|35358->24579|35408->24600|35438->24601|35509->24643|35539->24644|35593->24669|35826->24873|35856->24874|35920->24909|35950->24910|36004->24935|36061->24963|36091->24964|36149->24993|36296->25111|36326->25112|36356->25113|36390->25118|36420->25119|36478->25148|36628->25269|36658->25270|36720->25303|36900->25454|36930->25455|36984->25480|37014->25481|37064->25502|37094->25503|37138->25518|37168->25519|37257->25579|37287->25580|37333->25597|37443->25678|37473->25679|37523->25700|37641->25789|37671->25790|37701->25791|37735->25796|37765->25797|37815->25818|37896->25870|37926->25871|37968->25884|37998->25885|38076->25934|38106->25935|38152->25952|38403->26173|38434->26174|38484->26195|38592->26274|38622->26275|38669->26293|38823->26418|38853->26419|38906->26443|38983->26492|38999->26498|39045->26522|39108->26556|39138->26557|39329->26718|39360->26719|39425->26755|39455->26756|39513->26785|39602->26845|39632->26846|39682->26867|39712->26868|39783->26910|39813->26911|39867->26936|40156->27196|40186->27197|40250->27232|40280->27233|40334->27258|40391->27286|40421->27287|40479->27316|40626->27434|40656->27435|40686->27436|40720->27441|40750->27442|40808->27471|40958->27592|40988->27593|41050->27626|41227->27774|41257->27775|41311->27800|41341->27801|41391->27822|41421->27823|41465->27838|41495->27839|41584->27899|41614->27900|41660->27917|41770->27998|41800->27999|41850->28020|42003->28144|42033->28145|42063->28146|42097->28151|42127->28152|42177->28173|42258->28225|42288->28226|42330->28239|42360->28240|42400->28252|42430->28253
+                  LINES: 32->1|38->7|38->7|38->7|39->8|39->8|39->8|40->9|40->9|40->9|51->20|51->20|51->20|51->20|72->41|72->41|72->41|72->41|72->41|72->41|73->42|142->111|142->111|142->111|142->111|142->111|142->111|171->140|171->140|171->140|171->140|171->140|171->140|202->171|202->171|202->171|202->171|202->171|202->171|226->195|226->195|226->195|226->195|226->195|226->195|226->195|226->195|226->195|226->195|226->195|226->195|228->197|228->197|228->197|228->197|228->197|228->197|236->205|236->205|237->206|237->206|237->206|237->206|237->206|238->207|238->207|240->209|240->209|241->210|253->222|253->222|254->223|255->224|255->224|257->226|257->226|258->227|259->228|259->228|261->230|261->230|262->231|263->232|263->232|263->232|265->234|265->234|268->237|268->237|269->238|273->242|273->242|273->242|275->244|275->244|278->247|278->247|279->248|284->253|284->253|285->254|286->255|286->255|288->257|293->262|293->262|294->263|295->264|295->264|295->264|296->265|296->265|296->265|296->265|297->266|297->266|298->267|299->268|299->268|300->269|300->269|300->269|300->269|301->270|304->273|304->273|304->273|304->273|305->274|306->275|306->275|307->276|309->278|309->278|309->278|309->278|309->278|310->279|312->281|312->281|313->282|315->284|315->284|316->285|316->285|317->286|317->286|318->287|318->287|321->290|321->290|322->291|323->292|323->292|324->293|326->295|326->295|327->296|328->297|328->297|329->298|329->298|329->298|329->298|330->299|331->300|331->300|331->300|331->300|332->301|334->303|334->303|335->304|337->306|337->306|338->307|338->307|339->308|339->308|342->311|342->311|343->312|346->315|346->315|349->318|349->318|350->319|352->321|352->321|355->324|355->324|356->325|358->327|358->327|361->330|361->330|362->331|368->337|368->337|371->340|371->340|372->341|373->342|373->342|374->343|378->347|378->347|378->347|378->347|378->347|379->348|380->349|380->349|381->350|381->350|383->352|383->352|384->353|387->356|387->356|387->356|389->358|389->358|391->360|391->360|392->361|398->367|398->367|400->369|400->369|401->370|404->373|404->373|405->374|407->376|407->376|409->378|412->381|412->381|413->382|414->383|414->383|414->383|415->384|415->384|415->384|415->384|416->385|416->385|417->386|418->387|418->387|419->388|419->388|419->388|419->388|420->389|425->394|425->394|425->394|425->394|426->395|426->395|426->395|427->396|429->398|429->398|429->398|429->398|429->398|430->399|432->401|432->401|433->402|435->404|435->404|436->405|436->405|437->406|437->406|438->407|438->407|440->409|440->409|441->410|442->411|442->411|443->412|445->414|445->414|445->414|445->414|445->414|446->415|447->416|447->416|448->417|448->417|450->419|450->419|450->419|459->428|459->428|460->429|461->430|461->430|461->430|462->431|462->431|463->432|464->433|464->433|465->434|465->434|465->434|465->434|466->435|470->439|470->439|470->439|470->439|471->440|473->442|473->442|474->443|476->445|476->445|477->446|477->446|478->447|479->448|479->448|481->450|481->450|482->451|487->456|487->456|489->458|489->458|490->459|493->462|493->462|494->463|496->465|496->465|498->467|501->470|501->470|502->471|504->473|504->473|505->474|506->475|506->475|507->476|507->476|507->476|507->476|508->477|512->481|512->481|512->481|512->481|513->482|513->482|513->482|514->483|516->485|516->485|516->485|516->485|516->485|517->486|519->488|519->488|520->489|522->491|522->491|523->492|523->492|524->493|524->493|525->494|525->494|527->496|527->496|528->497|529->498|529->498|530->499|532->501|532->501|532->501|532->501|532->501|533->502|534->503|534->503|535->504|535->504|537->506|537->506|538->507|541->510|541->510|542->511|544->513|544->513|546->515|549->518|549->518|550->519|551->520|551->520|551->520|552->521|552->521|552->521|552->521|553->522|553->522|554->523|555->524|555->524|556->525|556->525|556->525|556->525|557->526|562->531|562->531|562->531|562->531|563->532|563->532|563->532|564->533|566->535|566->535|566->535|566->535|566->535|567->536|569->538|569->538|570->539|572->541|572->541|573->542|573->542|574->543|574->543|575->544|575->544|577->546|577->546|578->547|579->548|579->548|580->549|583->552|583->552|583->552|583->552|583->552|584->553|585->554|585->554|586->555|586->555|589->558|589->558
                   -- GENERATED --
               */
           

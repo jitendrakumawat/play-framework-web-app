@@ -4,7 +4,7 @@
 		module="msmp_2.11"
 		revision="1.0-SNAPSHOT"
 		status="integration"
-		publication="20161007142205"
+		publication="20161014173549"
 	>
 		<description>
 		msmp
@@ -46,6 +46,7 @@
 		<dependency org="com.typesafe.play" name="play-java-jdbc_2.11" rev="2.5.3" conf="compile->default(compile)"/>
 		<dependency org="com.typesafe.play" name="play-cache_2.11" rev="2.5.3" conf="compile->default(compile)"/>
 		<dependency org="com.typesafe.play" name="play-java-ws_2.11" rev="2.5.3" conf="compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="play-jdbc-evolutions_2.11" rev="2.5.3" conf="compile->default(compile)"/>
 		<dependency org="org.postgresql" name="postgresql" rev="9.4-1201-jdbc41" conf="compile->default(compile)"/>
 		<dependency org="com.typesafe.play" name="play-mailer_2.11" rev="5.0.0-M1" conf="compile->default(compile)"/>
 	</dependencies>

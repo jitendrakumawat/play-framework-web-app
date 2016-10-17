@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/si2chip/test/si2chip1/si2chip/conf/routes
-// @DATE:Fri Oct 07 12:57:05 IST 2016
+// @SOURCE:/home/si2chip/si2chip/conf/routes
+// @DATE:Sat Oct 15 13:45:01 IST 2016
 
 import play.api.routing.JavaScriptReverseRoute
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
@@ -15,7 +15,7 @@ import _root_.play.libs.F
 package controllers.javascript {
   import ReverseRouteContext.empty
 
-  // @LINE:71
+  // @LINE:72
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -23,7 +23,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:71
+    // @LINE:72
     def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.versioned",
       """
@@ -42,6 +42,16 @@ package controllers.javascript {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
+  
+    // @LINE:49
+    def showSetup: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.AdminController.showSetup",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "setuppage"})
+        }
+      """
+    )
   
     // @LINE:42
     def addUser: JavaScriptReverseRoute = JavaScriptReverseRoute(
@@ -93,7 +103,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:49
+    // @LINE:50
     def showForbiddenPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AdminController.showForbiddenPage",
       """
@@ -133,16 +143,6 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:50
-    def newUser: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.AdminController.newUser",
-      """
-        function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "newuser"})
-        }
-      """
-    )
-  
     // @LINE:48
     def showSetupPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AdminController.showSetupPage",
@@ -155,7 +155,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:52
+  // @LINE:53
   class ReversePasswordResetController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -163,7 +163,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:52
+    // @LINE:53
     def changeRequest: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.PasswordResetController.changeRequest",
       """
@@ -173,7 +173,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:53
+    // @LINE:54
     def resetPasswd: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.PasswordResetController.resetPasswd",
       """
@@ -183,7 +183,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:54
+    // @LINE:55
     def resetUserPassword: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.PasswordResetController.resetUserPassword",
       """
@@ -195,7 +195,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:66
+  // @LINE:67
   class ReverseCountController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -203,7 +203,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:66
+    // @LINE:67
     def count: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CountController.count",
       """
@@ -385,7 +385,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:68
+  // @LINE:69
   class ReverseAsyncController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -393,7 +393,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:68
+    // @LINE:69
     def message: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AsyncController.message",
       """
@@ -575,7 +575,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:57
+  // @LINE:58
   class ReverseCommentController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -583,7 +583,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:62
+    // @LINE:63
     def getLastPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CommentController.getLastPage",
       """
@@ -593,7 +593,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:61
+    // @LINE:62
     def getFirstPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CommentController.getFirstPage",
       """
@@ -603,7 +603,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:57
+    // @LINE:58
     def addComment: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CommentController.addComment",
       """
@@ -613,7 +613,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:58
+    // @LINE:59
     def deleteComment: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CommentController.deleteComment",
       """
@@ -623,7 +623,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:59
+    // @LINE:60
     def getPreviousPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CommentController.getPreviousPage",
       """
@@ -633,7 +633,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:63
+    // @LINE:64
     def refreshPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CommentController.refreshPage",
       """
@@ -643,7 +643,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:60
+    // @LINE:61
     def getNextPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.CommentController.getNextPage",
       """

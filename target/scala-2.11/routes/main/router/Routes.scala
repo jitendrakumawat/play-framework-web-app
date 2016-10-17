@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/si2chip/test/si2chip1/si2chip/conf/routes
-// @DATE:Fri Oct 07 12:57:05 IST 2016
+// @SOURCE:/home/si2chip/si2chip/conf/routes
+// @DATE:Sat Oct 15 13:45:01 IST 2016
 
 package router
 
@@ -24,15 +24,15 @@ class Routes(
   PostController_6: controllers.PostController,
   // @LINE:40
   AdminController_0: controllers.AdminController,
-  // @LINE:52
+  // @LINE:53
   PasswordResetController_3: controllers.PasswordResetController,
-  // @LINE:57
+  // @LINE:58
   CommentController_5: controllers.CommentController,
-  // @LINE:66
+  // @LINE:67
   CountController_1: controllers.CountController,
-  // @LINE:68
+  // @LINE:69
   AsyncController_4: controllers.AsyncController,
-  // @LINE:71
+  // @LINE:72
   Assets_7: controllers.Assets,
   val prefix: String
 ) extends GeneratedRouter {
@@ -47,15 +47,15 @@ class Routes(
     PostController_6: controllers.PostController,
     // @LINE:40
     AdminController_0: controllers.AdminController,
-    // @LINE:52
+    // @LINE:53
     PasswordResetController_3: controllers.PasswordResetController,
-    // @LINE:57
+    // @LINE:58
     CommentController_5: controllers.CommentController,
-    // @LINE:66
+    // @LINE:67
     CountController_1: controllers.CountController,
-    // @LINE:68
+    // @LINE:69
     AsyncController_4: controllers.AsyncController,
-    // @LINE:71
+    // @LINE:72
     Assets_7: controllers.Assets
   ) = this(errorHandler, HomeController_2, GroupController_8, PostController_6, AdminController_0, PasswordResetController_3, CommentController_5, CountController_1, AsyncController_4, Assets_7, "/")
 
@@ -111,8 +111,8 @@ class Routes(
     ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """admin""", """controllers.AdminController.modifyAdmin"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """admins""", """controllers.AdminController.getAdminUsers"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """setup""", """controllers.AdminController.showSetupPage"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """setuppage""", """controllers.AdminController.showSetup"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """noadminaccess""", """controllers.AdminController.showForbiddenPage"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """newuser""", """controllers.AdminController.newUser"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """forgotpassword""", """controllers.PasswordResetController.changeRequest"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """resetLink""", """controllers.PasswordResetController.resetPasswd"""),
     ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """reset""", """controllers.PasswordResetController.resetUserPassword"""),
@@ -814,10 +814,27 @@ class Routes(
   )
 
   // @LINE:49
-  private[this] lazy val controllers_AdminController_showForbiddenPage40_route = Route("GET",
+  private[this] lazy val controllers_AdminController_showSetup40_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("setuppage")))
+  )
+  private[this] lazy val controllers_AdminController_showSetup40_invoker = createInvoker(
+    AdminController_0.showSetup,
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.AdminController",
+      "showSetup",
+      Nil,
+      "GET",
+      """""",
+      this.prefix + """setuppage"""
+    )
+  )
+
+  // @LINE:50
+  private[this] lazy val controllers_AdminController_showForbiddenPage41_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("noadminaccess")))
   )
-  private[this] lazy val controllers_AdminController_showForbiddenPage40_invoker = createInvoker(
+  private[this] lazy val controllers_AdminController_showForbiddenPage41_invoker = createInvoker(
     AdminController_0.showForbiddenPage,
     HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -830,24 +847,7 @@ class Routes(
     )
   )
 
-  // @LINE:50
-  private[this] lazy val controllers_AdminController_newUser41_route = Route("GET",
-    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("newuser")))
-  )
-  private[this] lazy val controllers_AdminController_newUser41_invoker = createInvoker(
-    AdminController_0.newUser,
-    HandlerDef(this.getClass.getClassLoader,
-      "router",
-      "controllers.AdminController",
-      "newUser",
-      Nil,
-      "GET",
-      """""",
-      this.prefix + """newuser"""
-    )
-  )
-
-  // @LINE:52
+  // @LINE:53
   private[this] lazy val controllers_PasswordResetController_changeRequest42_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("forgotpassword")))
   )
@@ -864,7 +864,7 @@ class Routes(
     )
   )
 
-  // @LINE:53
+  // @LINE:54
   private[this] lazy val controllers_PasswordResetController_resetPasswd43_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("resetLink")))
   )
@@ -881,7 +881,7 @@ class Routes(
     )
   )
 
-  // @LINE:54
+  // @LINE:55
   private[this] lazy val controllers_PasswordResetController_resetUserPassword44_route = Route("PUT",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("reset")))
   )
@@ -898,7 +898,7 @@ class Routes(
     )
   )
 
-  // @LINE:57
+  // @LINE:58
   private[this] lazy val controllers_CommentController_addComment45_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("comment/"), DynamicPart("postId", """[^/]+""",true)))
   )
@@ -915,7 +915,7 @@ class Routes(
     )
   )
 
-  // @LINE:58
+  // @LINE:59
   private[this] lazy val controllers_CommentController_deleteComment46_route = Route("DELETE",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("comment/"), DynamicPart("postId", """[^/]+""",true), StaticPart("/"), DynamicPart("commentId", """[^/]+""",true)))
   )
@@ -932,7 +932,7 @@ class Routes(
     )
   )
 
-  // @LINE:59
+  // @LINE:60
   private[this] lazy val controllers_CommentController_getPreviousPage47_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("comments/before/"), DynamicPart("postId", """[^/]+""",true), StaticPart("/"), DynamicPart("firstId", """[^/]+""",true)))
   )
@@ -949,7 +949,7 @@ class Routes(
     )
   )
 
-  // @LINE:60
+  // @LINE:61
   private[this] lazy val controllers_CommentController_getNextPage48_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("comments/after/"), DynamicPart("postId", """[^/]+""",true), StaticPart("/"), DynamicPart("lastId", """[^/]+""",true)))
   )
@@ -966,7 +966,7 @@ class Routes(
     )
   )
 
-  // @LINE:61
+  // @LINE:62
   private[this] lazy val controllers_CommentController_getFirstPage49_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("comments/first/"), DynamicPart("postId", """[^/]+""",true)))
   )
@@ -983,7 +983,7 @@ class Routes(
     )
   )
 
-  // @LINE:62
+  // @LINE:63
   private[this] lazy val controllers_CommentController_getLastPage50_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("comments/last/"), DynamicPart("postId", """[^/]+""",true)))
   )
@@ -1000,7 +1000,7 @@ class Routes(
     )
   )
 
-  // @LINE:63
+  // @LINE:64
   private[this] lazy val controllers_CommentController_refreshPage51_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("comments/refresh/"), DynamicPart("postId", """[^/]+""",true), StaticPart("/"), DynamicPart("beginId", """[^/]+""",true)))
   )
@@ -1017,7 +1017,7 @@ class Routes(
     )
   )
 
-  // @LINE:66
+  // @LINE:67
   private[this] lazy val controllers_CountController_count52_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("count")))
   )
@@ -1034,7 +1034,7 @@ class Routes(
     )
   )
 
-  // @LINE:68
+  // @LINE:69
   private[this] lazy val controllers_AsyncController_message53_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("message")))
   )
@@ -1051,7 +1051,7 @@ class Routes(
     )
   )
 
-  // @LINE:71
+  // @LINE:72
   private[this] lazy val controllers_Assets_versioned54_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("assets/"), DynamicPart("file", """.+""",false)))
   )
@@ -1312,90 +1312,90 @@ class Routes(
       }
   
     // @LINE:49
-    case controllers_AdminController_showForbiddenPage40_route(params) =>
+    case controllers_AdminController_showSetup40_route(params) =>
       call { 
-        controllers_AdminController_showForbiddenPage40_invoker.call(AdminController_0.showForbiddenPage)
+        controllers_AdminController_showSetup40_invoker.call(AdminController_0.showSetup)
       }
   
     // @LINE:50
-    case controllers_AdminController_newUser41_route(params) =>
+    case controllers_AdminController_showForbiddenPage41_route(params) =>
       call { 
-        controllers_AdminController_newUser41_invoker.call(AdminController_0.newUser)
+        controllers_AdminController_showForbiddenPage41_invoker.call(AdminController_0.showForbiddenPage)
       }
   
-    // @LINE:52
+    // @LINE:53
     case controllers_PasswordResetController_changeRequest42_route(params) =>
       call { 
         controllers_PasswordResetController_changeRequest42_invoker.call(PasswordResetController_3.changeRequest)
       }
   
-    // @LINE:53
+    // @LINE:54
     case controllers_PasswordResetController_resetPasswd43_route(params) =>
       call { 
         controllers_PasswordResetController_resetPasswd43_invoker.call(PasswordResetController_3.resetPasswd)
       }
   
-    // @LINE:54
+    // @LINE:55
     case controllers_PasswordResetController_resetUserPassword44_route(params) =>
       call { 
         controllers_PasswordResetController_resetUserPassword44_invoker.call(PasswordResetController_3.resetUserPassword)
       }
   
-    // @LINE:57
+    // @LINE:58
     case controllers_CommentController_addComment45_route(params) =>
       call(params.fromPath[String]("postId", None)) { (postId) =>
         controllers_CommentController_addComment45_invoker.call(CommentController_5.addComment(postId))
       }
   
-    // @LINE:58
+    // @LINE:59
     case controllers_CommentController_deleteComment46_route(params) =>
       call(params.fromPath[String]("postId", None), params.fromPath[String]("commentId", None)) { (postId, commentId) =>
         controllers_CommentController_deleteComment46_invoker.call(CommentController_5.deleteComment(postId, commentId))
       }
   
-    // @LINE:59
+    // @LINE:60
     case controllers_CommentController_getPreviousPage47_route(params) =>
       call(params.fromPath[String]("postId", None), params.fromPath[String]("firstId", None)) { (postId, firstId) =>
         controllers_CommentController_getPreviousPage47_invoker.call(CommentController_5.getPreviousPage(postId, firstId))
       }
   
-    // @LINE:60
+    // @LINE:61
     case controllers_CommentController_getNextPage48_route(params) =>
       call(params.fromPath[String]("postId", None), params.fromPath[String]("lastId", None)) { (postId, lastId) =>
         controllers_CommentController_getNextPage48_invoker.call(CommentController_5.getNextPage(postId, lastId))
       }
   
-    // @LINE:61
+    // @LINE:62
     case controllers_CommentController_getFirstPage49_route(params) =>
       call(params.fromPath[String]("postId", None)) { (postId) =>
         controllers_CommentController_getFirstPage49_invoker.call(CommentController_5.getFirstPage(postId))
       }
   
-    // @LINE:62
+    // @LINE:63
     case controllers_CommentController_getLastPage50_route(params) =>
       call(params.fromPath[String]("postId", None)) { (postId) =>
         controllers_CommentController_getLastPage50_invoker.call(CommentController_5.getLastPage(postId))
       }
   
-    // @LINE:63
+    // @LINE:64
     case controllers_CommentController_refreshPage51_route(params) =>
       call(params.fromPath[String]("postId", None), params.fromPath[String]("beginId", None)) { (postId, beginId) =>
         controllers_CommentController_refreshPage51_invoker.call(CommentController_5.refreshPage(postId, beginId))
       }
   
-    // @LINE:66
+    // @LINE:67
     case controllers_CountController_count52_route(params) =>
       call { 
         controllers_CountController_count52_invoker.call(CountController_1.count)
       }
   
-    // @LINE:68
+    // @LINE:69
     case controllers_AsyncController_message53_route(params) =>
       call { 
         controllers_AsyncController_message53_invoker.call(AsyncController_4.message)
       }
   
-    // @LINE:71
+    // @LINE:72
     case controllers_Assets_versioned54_route(params) =>
       call(Param[String]("path", Right("/public")), params.fromPath[Asset]("file", None)) { (path, file) =>
         controllers_Assets_versioned54_invoker.call(Assets_7.versioned(path, file))

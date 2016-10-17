@@ -5,6 +5,8 @@ import play.data.format.*;
 import play.data.validation.*;
 
 import java.util.*;
+import java.util.Date;
+import play.data.format.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -35,8 +37,10 @@ public class Usr extends Model {
     public String userDesignation;
 
 
-    @Column(name="date_of_birth")
-    public String userbirth;
+   @Column(name="date_of_birth")
+   @Formats.DateTime(pattern = "dd-MM-yyyy")
+    public Date userbirth;
+   
 
     @Column(name="is_admin")
     public boolean isAdmin;

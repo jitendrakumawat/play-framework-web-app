@@ -47,548 +47,565 @@ Seq[Any](format.raw/*1.31*/("""
 </head>
 
 <body ng-app="posts" ng-controller="postsCtrl">
-    <nav class="fixed-nav-bar ">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <img src="""),_display_(/*22.27*/routes/*22.33*/.Assets.versioned("images/l46.png")),format.raw/*22.68*/(""" """),format.raw/*22.69*/("""class="logo">
+<nav class="fixed-nav-bar ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="""),_display_(/*22.23*/routes/*22.29*/.Assets.versioned("images/l46.png")),format.raw/*22.64*/(""" """),format.raw/*22.65*/("""class="logo">
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">>
+            """),_display_(/*26.14*/if(isAdmin)/*26.25*/ {_display_(Seq[Any](format.raw/*26.27*/("""
+            """),format.raw/*27.13*/("""<li><a href="#" ng-click="showAdminPage($event)"><span class="glyphicon glyphicon-bishop"></span> Admin </a></li>
+            """)))}),format.raw/*28.14*/("""
+            """),format.raw/*29.13*/("""<li><a href="#" ng-click="showGroupsPage($event)">Groups</a></li>
+            <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span>Sign out </a></li>
+
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="modal fade" id="conError" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span>An error occurred transacting with the server.</span>
+                        <button type="button" class="close" data-dimdiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        """),format.raw/*45.25*/("""{"""),format.raw/*45.26*/("""{"""),format.raw/*45.27*/("""conerror"""),format.raw/*45.35*/("""}"""),format.raw/*45.36*/("""}"""),format.raw/*45.37*/("""
+                    """),format.raw/*46.21*/("""</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-7">
+            <div class="text-right">
+                <span class="who">"""),format.raw/*56.35*/("""{"""),format.raw/*56.36*/("""{"""),format.raw/*56.37*/("""loggedInUser()"""),format.raw/*56.51*/("""}"""),format.raw/*56.52*/("""}"""),format.raw/*56.53*/("""</span><span></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 sidenav">
+            <div class="text-center">
+                <h4 id="summarytitle">My groups </h4>
+                <ul class="list-group">
+                    <li><a href="#" ng-click="changeGroup('None')" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right">Home</a></li>
+                    <li ng-repeat="grp in allUserGroups track by grp.groupId"  class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right"><a href="#" ng-click="changeGroup(grp.groupId)">"""),format.raw/*68.221*/("""{"""),format.raw/*68.222*/("""{"""),format.raw/*68.223*/("""grp.groupId"""),format.raw/*68.234*/("""}"""),format.raw/*68.235*/("""}"""),format.raw/*68.236*/("""</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-7 ">
+            <div class="well well-lg">
+                <div id="changegroupError"></div>
+                <h4 id="poststitle">Posts <span class="badge">"""),format.raw/*75.63*/("""{"""),format.raw/*75.64*/("""{"""),format.raw/*75.65*/("""postpage.numPosts"""),format.raw/*75.82*/("""}"""),format.raw/*75.83*/("""}"""),format.raw/*75.84*/("""</span></h4>
+                <form name="apf" role="form">
+                    <div class="form-group">
+                        <textarea name="post" ng-model="post" class="form-control" maxlength="5000" required placeholder="Enter your post here"></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" ng-click="addPost($event)" class="btn btn-primary btn-xs">Post</button>
+                    </div>
+                </form>
+                <div id="addError"></div>
             </div>
 
-            <ul class="nav navbar-nav navbar-right">
-                """),_display_(/*26.18*/if(isAdmin)/*26.29*/ {_display_(Seq[Any](format.raw/*26.31*/("""
-                    """),format.raw/*27.21*/("""<li><a href="#" ng-click="showAdminPage($event)"><span class="glyphicon glyphicon-bishop"></span> Admin </a></li>
-                """)))}),format.raw/*28.18*/("""
-                """),format.raw/*29.17*/("""<li><a href="#" ng-click="showGroupsPage($event)">Groups</a></li>
-                <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span>Sign out </a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="modal fade" id="conError" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span>An error occurred transacting with the server.</span>
-                            <button type="button" class="close" data-dimdiss="modal">&times;</button>
+            <div class="well well-lg">
+                <div class="text-center">
+                    <a href="#" ng-click="loadNextPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                    </a>
+                    <a href="#" ng-if="postpage.endId != '-1'" ng-click="refreshCurrentPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+                    <a href="#" ng-if="!postpage.bLastPage" ng-click="loadPreviousPage($event)" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                    </a>
+                </div>
+                <div id="delError"></div>
+                <div class="well well-lg" ng-repeat="pst in postpage.arr track by pst.id">
+                    <div class="text-right">
+                        <h6 class="postedby"><span class="user">"""),format.raw/*102.65*/("""{"""),format.raw/*102.66*/("""{"""),format.raw/*102.67*/("""pst.userId"""),format.raw/*102.77*/("""}"""),format.raw/*102.78*/("""}"""),format.raw/*102.79*/("""</span> on """),format.raw/*102.90*/("""{"""),format.raw/*102.91*/("""{"""),format.raw/*102.92*/("""pst.postedOn"""),format.raw/*102.104*/("""}"""),format.raw/*102.105*/("""}"""),format.raw/*102.106*/("""</h6>
+                        <a href="#" ng-click="deletePost($event,pst.id)" class="btn btn-info btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+                    <div class="postmsg"><span>"""),format.raw/*107.48*/("""{"""),format.raw/*107.49*/("""{"""),format.raw/*107.50*/("""pst.post"""),format.raw/*107.58*/("""}"""),format.raw/*107.59*/("""}"""),format.raw/*107.60*/("""</span></div>
+
+                    <div class="text-right">
+
+                        <a href="#" ng-click="count= count + 1" ng-init="count=0">Likes</button><span> :"""),format.raw/*111.105*/("""{"""),format.raw/*111.106*/("""{"""),format.raw/*111.107*/("""count"""),format.raw/*111.112*/("""}"""),format.raw/*111.113*/("""}"""),format.raw/*111.114*/("""</span>
+                        </a>
+                        <a href="#" ng-click="toggleCommentsEditor($event, $index)">Comments<span ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(postpage.arr[$index].bShow) || !postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-down"></span>
+                        </a>
+                    </div>
+                    <div class="well well-md" ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow">
+                        <div class="modal fade" id=""""),format.raw/*117.53*/("""{"""),format.raw/*117.54*/("""{"""),format.raw/*117.55*/("""postpage.arr[$index].id"""),format.raw/*117.78*/("""}"""),format.raw/*117.79*/("""}"""),format.raw/*117.80*/("""" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <span>An error occurred transacting with the server.</span>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        """),format.raw/*125.41*/("""{"""),format.raw/*125.42*/("""{"""),format.raw/*125.43*/("""postpage.arr[$index].cconerror"""),format.raw/*125.73*/("""}"""),format.raw/*125.74*/("""}"""),format.raw/*125.75*/("""
+                                    """),format.raw/*126.37*/("""</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            """),format.raw/*44.29*/("""{"""),format.raw/*44.30*/("""{"""),format.raw/*44.31*/("""conerror"""),format.raw/*44.39*/("""}"""),format.raw/*44.40*/("""}"""),format.raw/*44.41*/("""
-                        """),format.raw/*45.25*/("""</div>
+
+                        <div id="delError"""),format.raw/*131.42*/("""{"""),format.raw/*131.43*/("""{"""),format.raw/*131.44*/("""postpage.arr[$index].id"""),format.raw/*131.67*/("""}"""),format.raw/*131.68*/("""}"""),format.raw/*131.69*/(""""></div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <div class="text-center">
+                                    <h4 id="commentstitle">Comments <span class="badge">"""),format.raw/*136.89*/("""{"""),format.raw/*136.90*/("""{"""),format.raw/*136.91*/("""postpage.arr[$index].commentpage.numComments"""),format.raw/*136.135*/("""}"""),format.raw/*136.136*/("""}"""),format.raw/*136.137*/("""</span></h4>
+                                    <a href="#" ng-click="loadCommentNextPage($event, $index)" class="btn btn-success btn-xs">
+                                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                                    </a>
+                                    <a href="#" ng-if="postpage.arr[$index].commentpage.beginId != '-1'" ng-click="refreshCommentCurrentPage($event, $index)" class="btn btn-success btn-xs">
+                                        <span class="glyphicon glyphicon-refresh"></span>
+                                    </a>
+                                    <a href="#" ng-if="!postpage.arr[$index].commentpage.bLastPage" ng-click="loadCommentPreviousPage($event, $index)" class="btn btn-success btn-xs">
+                                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                                    </a>
+                                </div>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="comment in postpage.arr[$index].commentpage.arr track by comment.id">
+                                <td>
+                                    <div class="text-right">
+                                        <h6 class="commentedby"><span class="user">"""),format.raw/*153.84*/("""{"""),format.raw/*153.85*/("""{"""),format.raw/*153.86*/("""comment.userId"""),format.raw/*153.100*/("""}"""),format.raw/*153.101*/("""}"""),format.raw/*153.102*/("""</span> on """),format.raw/*153.113*/("""{"""),format.raw/*153.114*/("""{"""),format.raw/*153.115*/("""comment.commentedOn"""),format.raw/*153.134*/("""}"""),format.raw/*153.135*/("""}"""),format.raw/*153.136*/("""</h6>
+                                        <a href="#" ng-click="deleteComment($event,$parent.$index,comment.id)" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </div>
+                                    <div class="commentmsg">"""),format.raw/*158.61*/("""{"""),format.raw/*158.62*/("""{"""),format.raw/*158.63*/("""comment.comment"""),format.raw/*158.78*/("""}"""),format.raw/*158.79*/("""}"""),format.raw/*158.80*/("""</div>
+                                <td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea id="comment"""),format.raw/*165.54*/("""{"""),format.raw/*165.55*/("""{"""),format.raw/*165.56*/("""postpage.arr[$index].id"""),format.raw/*165.79*/("""}"""),format.raw/*165.80*/("""}"""),format.raw/*165.81*/("""" ng-model="postpage.arr[$index].comment" maxlength="2000" class="form-control" required placeholder="Enter your comment here"></textarea>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" ng-click="addComment($event, $index)" class="btn btn-success btn-xs">Comment</button>
+                            </div>
+                        </form>
+                        <div id="addError"""),format.raw/*171.42*/("""{"""),format.raw/*171.43*/("""{"""),format.raw/*171.44*/("""postpage.arr[$index].id"""),format.raw/*171.67*/("""}"""),format.raw/*171.68*/("""}"""),format.raw/*171.69*/(""""></div>
                     </div>
                 </div>
             </div>
+
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-7">
-                <div class="text-right">
-                    <span class="who">"""),format.raw/*55.39*/("""{"""),format.raw/*55.40*/("""{"""),format.raw/*55.41*/("""loggedInUser()"""),format.raw/*55.55*/("""}"""),format.raw/*55.56*/("""}"""),format.raw/*55.57*/("""</span><span></span>
-                </div>
+        <div class="col-md-3 sidenav ">
+
+            <div class="text-center">
+                <h4 id="summarytitle">users List <span class="badge">"""),format.raw/*180.70*/("""{"""),format.raw/*180.71*/("""{"""),format.raw/*180.72*/("""users.length"""),format.raw/*180.84*/("""}"""),format.raw/*180.85*/("""}"""),format.raw/*180.86*/("""</span></h4>
+
             </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 sidenav">
-                <div class="text-center">
-                    <h4 id="summarytitle">My groups </h4>
-                    <ul class="list-group">
-                        <li><a href="#" ng-click="changeGroup('None')" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right">None</a></li>
-                        <li ng-repeat="grp in allUserGroups track by grp.groupId"  class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right"><a href="#" ng-click="changeGroup(grp.groupId)">"""),format.raw/*67.225*/("""{"""),format.raw/*67.226*/("""{"""),format.raw/*67.227*/("""grp.groupId"""),format.raw/*67.238*/("""}"""),format.raw/*67.239*/("""}"""),format.raw/*67.240*/("""</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-7 ">
-                    <div class="well well-lg">
-                        <div id="changegroupError"></div>
-                        <h4 id="poststitle">Posts <span class="badge">"""),format.raw/*74.71*/("""{"""),format.raw/*74.72*/("""{"""),format.raw/*74.73*/("""postpage.numPosts"""),format.raw/*74.90*/("""}"""),format.raw/*74.91*/("""}"""),format.raw/*74.92*/("""</span></h4>
-                        <form name="apf" role="form">
-                            <div class="form-group">
-                                <textarea name="post" ng-model="post" class="form-control" maxlength="5000" required placeholder="Enter your post here"></textarea>
-                            </div>
-                            <div class="text-right">
-                                <button type="submit" ng-click="addPost($event)" class="btn btn-primary btn-xs">Post</button>
-                            </div>
-                        </form>
-                        <div id="addError"></div>
-                </div>
-
-                    <div class="well well-lg">
-                        <div class="text-center">
-                            <a href="#" ng-click="loadNextPage($event)" class="btn btn-info btn-xs">
-                                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                            </a>
-                            <a href="#" ng-if="postpage.endId != '-1'" ng-click="refreshCurrentPage($event)" class="btn btn-info btn-xs">
-                                <span class="glyphicon glyphicon-refresh"></span>
-                            </a>
-                            <a href="#" ng-if="!postpage.bLastPage" ng-click="loadPreviousPage($event)" class="btn btn-info btn-xs">
-                                <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                            </a>
-                        </div>
-                        <div id="delError"></div>
-                        <div class="well well-lg" ng-repeat="pst in postpage.arr track by pst.id">
-                            <div class="text-right">
-                                <h6 class="postedby"><span class="user">"""),format.raw/*101.73*/("""{"""),format.raw/*101.74*/("""{"""),format.raw/*101.75*/("""pst.userId"""),format.raw/*101.85*/("""}"""),format.raw/*101.86*/("""}"""),format.raw/*101.87*/("""</span> on """),format.raw/*101.98*/("""{"""),format.raw/*101.99*/("""{"""),format.raw/*101.100*/("""pst.postedOn"""),format.raw/*101.112*/("""}"""),format.raw/*101.113*/("""}"""),format.raw/*101.114*/("""</h6>
-                                <a href="#" ng-click="deletePost($event,pst.id)" class="btn btn-info btn-xs">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
-                            </div>
-                            <div class="postmsg"><span>"""),format.raw/*106.56*/("""{"""),format.raw/*106.57*/("""{"""),format.raw/*106.58*/("""pst.post"""),format.raw/*106.66*/("""}"""),format.raw/*106.67*/("""}"""),format.raw/*106.68*/("""</span></div>
-                            <div class="text-right">
-                                <a href="#" ng-click="toggleCommentsEditor($event, $index)">Comments<span ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-up"></span><span ng-show="angular.isUndefined(postpage.arr[$index].bShow) || !postpage.arr[$index].bShow" class="glyphicon glyphicon-menu-down"></span>
-                                </a>
-                            </div>
-                            <div class="well well-md" ng-show="!angular.isUndefined(postpage.arr[$index].bShow) && postpage.arr[$index].bShow">
-                                <div class="modal fade" id=""""),format.raw/*112.61*/("""{"""),format.raw/*112.62*/("""{"""),format.raw/*112.63*/("""postpage.arr[$index].id"""),format.raw/*112.86*/("""}"""),format.raw/*112.87*/("""}"""),format.raw/*112.88*/("""" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <span>An error occurred transacting with the server.</span>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                """),format.raw/*120.49*/("""{"""),format.raw/*120.50*/("""{"""),format.raw/*120.51*/("""postpage.arr[$index].cconerror"""),format.raw/*120.81*/("""}"""),format.raw/*120.82*/("""}"""),format.raw/*120.83*/("""
-                                            """),format.raw/*121.45*/("""</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="delError"""),format.raw/*126.50*/("""{"""),format.raw/*126.51*/("""{"""),format.raw/*126.52*/("""postpage.arr[$index].id"""),format.raw/*126.75*/("""}"""),format.raw/*126.76*/("""}"""),format.raw/*126.77*/(""""></div>
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <div class="text-center">
-                                            <h4 id="commentstitle">Comments <span class="badge">"""),format.raw/*131.97*/("""{"""),format.raw/*131.98*/("""{"""),format.raw/*131.99*/("""postpage.arr[$index].commentpage.numComments"""),format.raw/*131.143*/("""}"""),format.raw/*131.144*/("""}"""),format.raw/*131.145*/("""</span></h4>
-                                            <a href="#" ng-click="loadCommentNextPage($event, $index)" class="btn btn-success btn-xs">
-                                                <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                                            </a>
-                                            <a href="#" ng-if="postpage.arr[$index].commentpage.beginId != '-1'" ng-click="refreshCommentCurrentPage($event, $index)" class="btn btn-success btn-xs">
-                                                <span class="glyphicon glyphicon-refresh"></span>
-                                            </a>
-                                            <a href="#" ng-if="!postpage.arr[$index].commentpage.bLastPage" ng-click="loadCommentPreviousPage($event, $index)" class="btn btn-success btn-xs">
-                                                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                                            </a>
-                                        </div>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="comment in postpage.arr[$index].commentpage.arr track by comment.id">
-                                        <td>
-                                            <div class="text-right">
-                                                <h6 class="commentedby"><span class="user">"""),format.raw/*148.92*/("""{"""),format.raw/*148.93*/("""{"""),format.raw/*148.94*/("""comment.userId"""),format.raw/*148.108*/("""}"""),format.raw/*148.109*/("""}"""),format.raw/*148.110*/("""</span> on """),format.raw/*148.121*/("""{"""),format.raw/*148.122*/("""{"""),format.raw/*148.123*/("""comment.commentedOn"""),format.raw/*148.142*/("""}"""),format.raw/*148.143*/("""}"""),format.raw/*148.144*/("""</h6>
-                                                <a href="#" ng-click="deleteComment($event,$parent.$index,comment.id)" class="btn btn-success btn-xs">
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                </a>
-                                            </div>
-                                            <div class="commentmsg">"""),format.raw/*153.69*/("""{"""),format.raw/*153.70*/("""{"""),format.raw/*153.71*/("""comment.comment"""),format.raw/*153.86*/("""}"""),format.raw/*153.87*/("""}"""),format.raw/*153.88*/("""</div>
-                                        <td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <form role="form">
-                                    <div class="form-group">
-                                        <textarea id="comment"""),format.raw/*160.62*/("""{"""),format.raw/*160.63*/("""{"""),format.raw/*160.64*/("""postpage.arr[$index].id"""),format.raw/*160.87*/("""}"""),format.raw/*160.88*/("""}"""),format.raw/*160.89*/("""" ng-model="postpage.arr[$index].comment" maxlength="2000" class="form-control" required placeholder="Enter your comment here"></textarea>
-                                    </div>
-                                    <div class="text-right">
-                                        <button type="submit" ng-click="addComment($event, $index)" class="btn btn-success btn-xs">Comment</button>
-                                    </div>
-                                </form>
-                                <div id="addError"""),format.raw/*166.50*/("""{"""),format.raw/*166.51*/("""{"""),format.raw/*166.52*/("""postpage.arr[$index].id"""),format.raw/*166.75*/("""}"""),format.raw/*166.76*/("""}"""),format.raw/*166.77*/(""""></div>
-                            </div>
-                        </div>
-                   </div>
-
-           </div>
-            <div class="col-md-3 sidenav ">
-
-                <div class="text-center">
-                    <h4 id="summarytitle">Active users <span class="badge">"""),format.raw/*175.76*/("""{"""),format.raw/*175.77*/("""{"""),format.raw/*175.78*/("""users.length"""),format.raw/*175.90*/("""}"""),format.raw/*175.91*/("""}"""),format.raw/*175.92*/("""</span></h4>
-                    <a href="#" ng-click="loadUserSummary()" class="btn btn-info btn-xs">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                    </a>
-                </div>
+            <div class="text-left">
                 <ul class="list-group">
-                    <li ng-repeat="x in users" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right" title=""""),format.raw/*181.148*/("""{"""),format.raw/*181.149*/("""{"""),format.raw/*181.150*/("""x.userId"""),format.raw/*181.158*/("""}"""),format.raw/*181.159*/("""}"""),format.raw/*181.160*/("""">
-                        """),format.raw/*182.25*/("""{"""),format.raw/*182.26*/("""{"""),format.raw/*182.27*/("""x.userId"""),format.raw/*182.35*/("""}"""),format.raw/*182.36*/("""}"""),format.raw/*182.37*/("""<span class="badge">"""),format.raw/*182.57*/("""{"""),format.raw/*182.58*/("""{"""),format.raw/*182.59*/("""x.nSessions"""),format.raw/*182.70*/("""}"""),format.raw/*182.71*/("""}"""),format.raw/*182.72*/("""</span>
-                    </li>
-                </ul>
+                    <li ng-repeat="x in users | orderBy : 'userId':false" class="list-group-item list-group-item-success" data-toggle="tooltip" data-placement="right" title=""""),format.raw/*185.175*/("""{"""),format.raw/*185.176*/("""{"""),format.raw/*185.177*/("""x.userId"""),format.raw/*185.185*/("""}"""),format.raw/*185.186*/("""}"""),format.raw/*185.187*/("""">
+                        """),format.raw/*186.25*/("""{"""),format.raw/*186.26*/("""{"""),format.raw/*186.27*/("""x.userId"""),format.raw/*186.35*/("""}"""),format.raw/*186.36*/("""}"""),format.raw/*186.37*/("""
 
+                    """),format.raw/*188.21*/("""</li>
+                </ul>
             </div>
+            </td>
         </div>
     </div>
+</div>
 </body>
 <script type="text/javascript">
         //todo: progress indicator
         //todo: error message timing
 
         var app = angular.module('posts',  ["ngCookies"]);
-        app.config(['$locationProvider', function AppConfig($locationProvider) """),format.raw/*195.80*/("""{"""),format.raw/*195.81*/("""
-            """),format.raw/*196.13*/("""$locationProvider.html5Mode("""),format.raw/*196.41*/("""{"""),format.raw/*196.42*/("""enabled: true, requireBase: false"""),format.raw/*196.75*/("""}"""),format.raw/*196.76*/(""").hashPrefix('*');
-        """),format.raw/*197.9*/("""}"""),format.raw/*197.10*/("""]);
+        app.config(['$locationProvider', function AppConfig($locationProvider) """),format.raw/*201.80*/("""{"""),format.raw/*201.81*/("""
+            """),format.raw/*202.13*/("""$locationProvider.html5Mode("""),format.raw/*202.41*/("""{"""),format.raw/*202.42*/("""enabled: true, requireBase: false"""),format.raw/*202.75*/("""}"""),format.raw/*202.76*/(""").hashPrefix('*');
+        """),format.raw/*203.9*/("""}"""),format.raw/*203.10*/("""]);
 
-         app.service("GroupSvc", function ($http, $q) """),format.raw/*199.55*/("""{"""),format.raw/*199.56*/("""
-            """),format.raw/*200.13*/("""var deferred;
-            this.getMyGroups = function (uId) """),format.raw/*201.47*/("""{"""),format.raw/*201.48*/("""
-                """),format.raw/*202.17*/("""deferred = $q.defer();
-                return $http("""),format.raw/*203.30*/("""{"""),format.raw/*203.31*/("""
-                        """),format.raw/*204.25*/("""method : "GET",
+         app.service("GroupSvc", function($http, $q) """),format.raw/*205.54*/("""{"""),format.raw/*205.55*/("""
+            """),format.raw/*206.13*/("""var deferred;
+            this.getMyGroups = function (uId) """),format.raw/*207.47*/("""{"""),format.raw/*207.48*/("""
+                """),format.raw/*208.17*/("""deferred = $q.defer();
+                return $http("""),format.raw/*209.30*/("""{"""),format.raw/*209.31*/("""
+                        """),format.raw/*210.25*/("""method : "GET",
                         url : "/mygroups/" + uId,
-                        headers : """),format.raw/*206.35*/("""{"""),format.raw/*206.36*/("""
-                        """),format.raw/*207.25*/(""""Content-Type" : "application/json"
-                        """),format.raw/*208.25*/("""}"""),format.raw/*208.26*/("""
-                    """),format.raw/*209.21*/("""}"""),format.raw/*209.22*/(""")
-                    .then(function (response) """),format.raw/*210.47*/("""{"""),format.raw/*210.48*/("""
-                        """),format.raw/*211.25*/("""deferred.resolve(response);
+                        headers : """),format.raw/*212.35*/("""{"""),format.raw/*212.36*/("""
+                        """),format.raw/*213.25*/(""""Content-Type" : "application/json"
+                        """),format.raw/*214.25*/("""}"""),format.raw/*214.26*/("""
+                    """),format.raw/*215.21*/("""}"""),format.raw/*215.22*/(""")
+                    .then(function (response) """),format.raw/*216.47*/("""{"""),format.raw/*216.48*/("""
+                        """),format.raw/*217.25*/("""deferred.resolve(response);
                         return deferred.promise;
-                    """),format.raw/*213.21*/("""}"""),format.raw/*213.22*/(""", function (response) """),format.raw/*213.44*/("""{"""),format.raw/*213.45*/("""
-                        """),format.raw/*214.25*/("""deferred.reject(response);
+                    """),format.raw/*219.21*/("""}"""),format.raw/*219.22*/(""", function (response) """),format.raw/*219.44*/("""{"""),format.raw/*219.45*/("""
+                        """),format.raw/*220.25*/("""deferred.reject(response);
                         return deferred.promise;
-                    """),format.raw/*216.21*/("""}"""),format.raw/*216.22*/(""");
-            """),format.raw/*217.13*/("""}"""),format.raw/*217.14*/(""";
-        """),format.raw/*218.9*/("""}"""),format.raw/*218.10*/(""");
+                    """),format.raw/*222.21*/("""}"""),format.raw/*222.22*/(""");
+            """),format.raw/*223.13*/("""}"""),format.raw/*223.14*/(""";
+        """),format.raw/*224.9*/("""}"""),format.raw/*224.10*/(""");
 
-        app.controller('postsCtrl', function($scope, $http, $location, $cookies, $window,GroupSvc) """),format.raw/*220.100*/("""{"""),format.raw/*220.101*/("""
+        app.controller('postsCtrl', function($scope, $http, $location, $cookies, $window,GroupSvc) """),format.raw/*226.100*/("""{"""),format.raw/*226.101*/("""
 
 
-            """),format.raw/*223.13*/("""$scope.loggedInUser = function() """),format.raw/*223.46*/("""{"""),format.raw/*223.47*/("""
-                """),format.raw/*224.17*/("""return $cookies.get("userId");
-            """),format.raw/*225.13*/("""}"""),format.raw/*225.14*/(""";
+            """),format.raw/*229.13*/("""$scope.loggedInUser = function() """),format.raw/*229.46*/("""{"""),format.raw/*229.47*/("""
+                """),format.raw/*230.17*/("""return $cookies.get("userId");
+            """),format.raw/*231.13*/("""}"""),format.raw/*231.14*/(""";
 
-            $scope.showForbiddenPage = function() """),format.raw/*227.51*/("""{"""),format.raw/*227.52*/("""
-                """),format.raw/*228.17*/("""$cookies.remove("userId");
+            $scope.showForbiddenPage = function() """),format.raw/*233.51*/("""{"""),format.raw/*233.52*/("""
+                """),format.raw/*234.17*/("""$cookies.remove("userId");
                 $cookies.remove("groupId");
                 $cookies.remove("tzoffset");
-                $location.path(""""),_display_(/*231.34*/routes/*231.40*/.HomeController.showForbiddenPage),format.raw/*231.73*/("""").replace();
+                $location.path(""""),_display_(/*237.34*/routes/*237.40*/.HomeController.showForbiddenPage),format.raw/*237.73*/("""").replace();
                 $window.location.href = $location.absUrl();
-            """),format.raw/*233.13*/("""}"""),format.raw/*233.14*/(""";
+            """),format.raw/*239.13*/("""}"""),format.raw/*239.14*/(""";
 
-            $scope.signOut = function(event) """),format.raw/*235.46*/("""{"""),format.raw/*235.47*/("""
-                """),format.raw/*236.17*/("""event.preventDefault();
+            $scope.signOut = function(event) """),format.raw/*241.46*/("""{"""),format.raw/*241.47*/("""
+                """),format.raw/*242.17*/("""event.preventDefault();
                 $cookies.remove("userId");
                 $cookies.remove("groupId");
                 $cookies.remove("tzoffset");
-                $location.path(""""),_display_(/*240.34*/routes/*240.40*/.HomeController.logout),format.raw/*240.62*/("""").replace();
-                $window.location.href = $location.absUrl();
-            """),format.raw/*242.13*/("""}"""),format.raw/*242.14*/(""";
-
-            $scope.showAdminPage = function(event) """),format.raw/*244.52*/("""{"""),format.raw/*244.53*/("""
-                """),format.raw/*245.17*/("""event.preventDefault();
-                $location.path(""""),_display_(/*246.34*/routes/*246.40*/.AdminController.showAdminPage),format.raw/*246.70*/("""").replace();
+                $location.path(""""),_display_(/*246.34*/routes/*246.40*/.HomeController.logout),format.raw/*246.62*/("""").replace();
                 $window.location.href = $location.absUrl();
             """),format.raw/*248.13*/("""}"""),format.raw/*248.14*/(""";
 
-            $scope.showGroupsPage = function(event) """),format.raw/*250.53*/("""{"""),format.raw/*250.54*/("""
+            $scope.showAdminPage = function(event) """),format.raw/*250.52*/("""{"""),format.raw/*250.53*/("""
                 """),format.raw/*251.17*/("""event.preventDefault();
-                $location.path(""""),_display_(/*252.34*/routes/*252.40*/.GroupController.showGroupsPage),format.raw/*252.71*/("""").replace();
+                $location.path(""""),_display_(/*252.34*/routes/*252.40*/.AdminController.showAdminPage),format.raw/*252.70*/("""").replace();
                 $window.location.href = $location.absUrl();
             """),format.raw/*254.13*/("""}"""),format.raw/*254.14*/(""";
 
-            $scope.changeGroup= function(gId) """),format.raw/*256.47*/("""{"""),format.raw/*256.48*/("""
-                """),format.raw/*257.17*/("""// change the group
+            $scope.showGroupsPage = function(event) """),format.raw/*256.53*/("""{"""),format.raw/*256.54*/("""
+                """),format.raw/*257.17*/("""event.preventDefault();
+                $location.path(""""),_display_(/*258.34*/routes/*258.40*/.GroupController.showGroupsPage),format.raw/*258.71*/("""").replace();
+                $window.location.href = $location.absUrl();
+            """),format.raw/*260.13*/("""}"""),format.raw/*260.14*/(""";
+
+             // change the group post
+
+                $scope.changeGroup= function(gId) """),format.raw/*264.51*/("""{"""),format.raw/*264.52*/("""
+
+                """),format.raw/*266.17*/("""if($scope.gId == "")
+                    $scope.loadAllUsers();
+                else
+                    $scope.loadAllGroupUsers(gId);
+
+
                 $scope.conerror = "";
                 $scope.changegrouperror = "";
                 $("#changegroupError").html("");
-                $http("""),format.raw/*261.23*/("""{"""),format.raw/*261.24*/("""
-                        """),format.raw/*262.25*/("""method : "PUT",
+                $http("""),format.raw/*275.23*/("""{"""),format.raw/*275.24*/("""
+                        """),format.raw/*276.25*/("""method : "PUT",
                         url : "/usergroup" + '/' + gId,
-                        headers : """),format.raw/*264.35*/("""{"""),format.raw/*264.36*/("""
-                            """),format.raw/*265.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*266.25*/("""}"""),format.raw/*266.26*/("""
-                    """),format.raw/*267.21*/("""}"""),format.raw/*267.22*/(""").then(function successCallback(response) """),format.raw/*267.64*/("""{"""),format.raw/*267.65*/("""
-                        """),format.raw/*268.25*/("""$scope.InitPostView();
-                    """),format.raw/*269.21*/("""}"""),format.raw/*269.22*/(""", function errorCallback(response) """),format.raw/*269.57*/("""{"""),format.raw/*269.58*/("""
-                        """),format.raw/*270.25*/("""if (response.status == 400) """),format.raw/*270.53*/("""{"""),format.raw/*270.54*/("""
-                            """),format.raw/*271.29*/("""$scope.changegrouperror = response.data.error;
-                            $("#changegroupError").html("<div id='cgErr' class='alert alert-danger'><a class='close' data-dismiss='alert'>&times;</a>" + $scope.changegrouperror + "</div>");
-                        """),format.raw/*273.25*/("""}"""),format.raw/*273.26*/(""" """),format.raw/*273.27*/("""else """),format.raw/*273.32*/("""{"""),format.raw/*273.33*/("""
-                            """),format.raw/*274.29*/("""if (response.status == 403)
-                                $scope.showForbiddenPage();
-                            else """),format.raw/*276.34*/("""{"""),format.raw/*276.35*/("""
-                                """),format.raw/*277.33*/("""$scope.conerror = "Error changing the group. Retry";
-                                $('#conError').modal('show');
-                            """),format.raw/*279.29*/("""}"""),format.raw/*279.30*/("""
+                        headers : """),format.raw/*278.35*/("""{"""),format.raw/*278.36*/("""
+                            """),format.raw/*279.29*/(""""Content-Type" : "application/json"
                         """),format.raw/*280.25*/("""}"""),format.raw/*280.26*/("""
-                    """),format.raw/*281.21*/("""}"""),format.raw/*281.22*/(""");
-             """),format.raw/*282.14*/("""}"""),format.raw/*282.15*/("""
+                    """),format.raw/*281.21*/("""}"""),format.raw/*281.22*/(""").then(function successCallback(response) """),format.raw/*281.64*/("""{"""),format.raw/*281.65*/("""
+                        """),format.raw/*282.25*/("""$scope.InitPostView();
 
-             """),format.raw/*284.14*/("""// loads all the groups in which this user is a member
-            $scope.loadUserGroups = function(event) """),format.raw/*285.53*/("""{"""),format.raw/*285.54*/("""
-                """),format.raw/*286.17*/("""//if (lf.userId.$error.required || lf.userId.$error.email)
+                    """),format.raw/*284.21*/("""}"""),format.raw/*284.22*/(""", function errorCallback(response) """),format.raw/*284.57*/("""{"""),format.raw/*284.58*/("""
+                        """),format.raw/*285.25*/("""if (response.status == 400) """),format.raw/*285.53*/("""{"""),format.raw/*285.54*/("""
+                            """),format.raw/*286.29*/("""$scope.changegrouperror = response.data.error;
+                            $("#changegroupError").html("<div id='cgErr' class='alert alert-danger'><a class='close' data-dismiss='alert'>&times;</a>" + $scope.changegrouperror + "</div>");
+                        """),format.raw/*288.25*/("""}"""),format.raw/*288.26*/(""" """),format.raw/*288.27*/("""else """),format.raw/*288.32*/("""{"""),format.raw/*288.33*/("""
+                            """),format.raw/*289.29*/("""if (response.status == 403)
+                                $scope.showForbiddenPage();
+                            else """),format.raw/*291.34*/("""{"""),format.raw/*291.35*/("""
+                                """),format.raw/*292.33*/("""$scope.conerror = "Error changing the group. Retry";
+                                $('#conError').modal('show');
+                            """),format.raw/*294.29*/("""}"""),format.raw/*294.30*/("""
+                        """),format.raw/*295.25*/("""}"""),format.raw/*295.26*/("""
+                    """),format.raw/*296.21*/("""}"""),format.raw/*296.22*/(""");
+             """),format.raw/*297.14*/("""}"""),format.raw/*297.15*/("""
+
+
+             """),format.raw/*300.14*/("""// loads all the groups in which this user is a member
+            $scope.loadUserGroups = function(event) """),format.raw/*301.53*/("""{"""),format.raw/*301.54*/("""
+                """),format.raw/*302.17*/("""//if (lf.userId.$error.required || lf.userId.$error.email)
                    // return;
 
                 $scope.conerror = "";
                 $scope.allUserGroups = [];
-                GroupSvc.getMyGroups($scope.loggedInUser()).then(function successCallback(response) """),format.raw/*291.101*/("""{"""),format.raw/*291.102*/("""
-                        """),format.raw/*292.25*/("""$scope.allUserGroups = response.data;
-                    """),format.raw/*293.21*/("""}"""),format.raw/*293.22*/(""", function errorCallback(response) """),format.raw/*293.57*/("""{"""),format.raw/*293.58*/("""
-                        """),format.raw/*294.25*/("""if (response.status == 400) """),format.raw/*294.53*/("""{"""),format.raw/*294.54*/("""
-                            """),format.raw/*295.29*/("""//do nothing
-                        """),format.raw/*296.25*/("""}"""),format.raw/*296.26*/(""" """),format.raw/*296.27*/("""else if (response.status == 403)
+                GroupSvc.getMyGroups($scope.loggedInUser()).then(function successCallback(response) """),format.raw/*307.101*/("""{"""),format.raw/*307.102*/("""
+                        """),format.raw/*308.25*/("""$scope.allUserGroups = response.data;
+                    """),format.raw/*309.21*/("""}"""),format.raw/*309.22*/(""", function errorCallback(response) """),format.raw/*309.57*/("""{"""),format.raw/*309.58*/("""
+                        """),format.raw/*310.25*/("""if (response.status == 400) """),format.raw/*310.53*/("""{"""),format.raw/*310.54*/("""
+                            """),format.raw/*311.29*/("""//do nothing
+                        """),format.raw/*312.25*/("""}"""),format.raw/*312.26*/(""" """),format.raw/*312.27*/("""else if (response.status == 403)
                             $scope.showForbiddenPage();
-                        else """),format.raw/*298.30*/("""{"""),format.raw/*298.31*/("""
-                            """),format.raw/*299.29*/("""$scope.conerror = "Error refreshing the list of groups in which the user is a member. Retry.";
+                        else """),format.raw/*314.30*/("""{"""),format.raw/*314.31*/("""
+                            """),format.raw/*315.29*/("""$scope.conerror = "Error refreshing the list of groups in which the user is a member. Retry.";
                             $('#conError').modal('show');
-                        """),format.raw/*301.25*/("""}"""),format.raw/*301.26*/("""
-                    """),format.raw/*302.21*/("""}"""),format.raw/*302.22*/("""
-                """),format.raw/*303.17*/(""");
-            """),format.raw/*304.13*/("""}"""),format.raw/*304.14*/(""";
+                        """),format.raw/*317.25*/("""}"""),format.raw/*317.26*/("""
+                    """),format.raw/*318.21*/("""}"""),format.raw/*318.22*/("""
+                """),format.raw/*319.17*/(""");
+            """),format.raw/*320.13*/("""}"""),format.raw/*320.14*/(""";
+
 
             // add post event handler
-            $scope.addPost = function(event) """),format.raw/*307.46*/("""{"""),format.raw/*307.47*/("""
-                """),format.raw/*308.17*/("""event.preventDefault();
+            $scope.addPost = function(event) """),format.raw/*324.46*/("""{"""),format.raw/*324.47*/("""
+                """),format.raw/*325.17*/("""event.preventDefault();
 
                 // validate the posts form
-                if ($scope.apf.post.$error.required) """),format.raw/*311.54*/("""{"""),format.raw/*311.55*/("""
-                    """),format.raw/*312.21*/("""return;
-                """),format.raw/*313.17*/("""}"""),format.raw/*313.18*/("""
+                if ($scope.apf.post.$error.required) """),format.raw/*328.54*/("""{"""),format.raw/*328.55*/("""
+                    """),format.raw/*329.21*/("""return;
+                """),format.raw/*330.17*/("""}"""),format.raw/*330.18*/("""
 
-                """),format.raw/*315.17*/("""// post the message
+                """),format.raw/*332.17*/("""// post the message
                 $scope.conerror = "";
                 $scope.adderror = "";
                 $("#addError").html("");
-                $http("""),format.raw/*319.23*/("""{"""),format.raw/*319.24*/("""
-                        """),format.raw/*320.25*/("""method : "POST",
-                        url : """"),_display_(/*321.33*/routes/*321.39*/.PostController.addPost),format.raw/*321.62*/("""",
-                        data : """),format.raw/*322.32*/("""{"""),format.raw/*322.33*/(""""post" : $scope.post"""),format.raw/*322.53*/("""}"""),format.raw/*322.54*/(""",
-                        headers : """),format.raw/*323.35*/("""{"""),format.raw/*323.36*/("""
-                            """),format.raw/*324.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*325.25*/("""}"""),format.raw/*325.26*/("""
-                    """),format.raw/*326.21*/("""}"""),format.raw/*326.22*/(""").then(function successCallback(response) """),format.raw/*326.64*/("""{"""),format.raw/*326.65*/("""
-                        """),format.raw/*327.25*/("""$scope.post = "";
+                $http("""),format.raw/*336.23*/("""{"""),format.raw/*336.24*/("""
+                        """),format.raw/*337.25*/("""method : "POST",
+                        url : """"),_display_(/*338.33*/routes/*338.39*/.PostController.addPost),format.raw/*338.62*/("""",
+                        data : """),format.raw/*339.32*/("""{"""),format.raw/*339.33*/(""""post" : $scope.post"""),format.raw/*339.53*/("""}"""),format.raw/*339.54*/(""",
+                        headers : """),format.raw/*340.35*/("""{"""),format.raw/*340.36*/("""
+                            """),format.raw/*341.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*342.25*/("""}"""),format.raw/*342.26*/("""
+                    """),format.raw/*343.21*/("""}"""),format.raw/*343.22*/(""").then(function successCallback(response) """),format.raw/*343.64*/("""{"""),format.raw/*343.65*/("""
+                        """),format.raw/*344.25*/("""$scope.post = "";
                         $scope.loadFirstPage();
-                    """),format.raw/*329.21*/("""}"""),format.raw/*329.22*/(""", function errorCallback(response) """),format.raw/*329.57*/("""{"""),format.raw/*329.58*/("""
-                        """),format.raw/*330.25*/("""if (response.status == 400) """),format.raw/*330.53*/("""{"""),format.raw/*330.54*/("""
-                            """),format.raw/*331.29*/("""$scope.adderror = response.data.error;
+                    """),format.raw/*346.21*/("""}"""),format.raw/*346.22*/(""", function errorCallback(response) """),format.raw/*346.57*/("""{"""),format.raw/*346.58*/("""
+                        """),format.raw/*347.25*/("""if (response.status == 400) """),format.raw/*347.53*/("""{"""),format.raw/*347.54*/("""
+                            """),format.raw/*348.29*/("""$scope.adderror = response.data.error;
                             $("#addError").html("<div id='aErr' class='alert alert-danger'><a class='close' data-dismiss='alert'>&times;</a>" + $scope.adderror + "</div>");
-                        """),format.raw/*333.25*/("""}"""),format.raw/*333.26*/(""" """),format.raw/*333.27*/("""else """),format.raw/*333.32*/("""{"""),format.raw/*333.33*/("""
-                            """),format.raw/*334.29*/("""if (response.status == 403)
+                        """),format.raw/*350.25*/("""}"""),format.raw/*350.26*/(""" """),format.raw/*350.27*/("""else """),format.raw/*350.32*/("""{"""),format.raw/*350.33*/("""
+                            """),format.raw/*351.29*/("""if (response.status == 403)
                                 $scope.showForbiddenPage();
-                            else """),format.raw/*336.34*/("""{"""),format.raw/*336.35*/("""
-                                """),format.raw/*337.33*/("""$scope.conerror = "Error posting the message. Retry";
+                            else """),format.raw/*353.34*/("""{"""),format.raw/*353.35*/("""
+                                """),format.raw/*354.33*/("""$scope.conerror = "Error posting the message. Retry";
                                 $('#conError').modal('show');
-                            """),format.raw/*339.29*/("""}"""),format.raw/*339.30*/("""
-                        """),format.raw/*340.25*/("""}"""),format.raw/*340.26*/("""
-                    """),format.raw/*341.21*/("""}"""),format.raw/*341.22*/(""");
-            """),format.raw/*342.13*/("""}"""),format.raw/*342.14*/(""";
+                            """),format.raw/*356.29*/("""}"""),format.raw/*356.30*/("""
+                        """),format.raw/*357.25*/("""}"""),format.raw/*357.26*/("""
+                    """),format.raw/*358.21*/("""}"""),format.raw/*358.22*/(""");
+            """),format.raw/*359.13*/("""}"""),format.raw/*359.14*/(""";
 
             // delete post event handler
-            $scope.deletePost = function(event, postId) """),format.raw/*345.57*/("""{"""),format.raw/*345.58*/("""
-                """),format.raw/*346.17*/("""event.preventDefault();
+            $scope.deletePost = function(event, postId) """),format.raw/*362.57*/("""{"""),format.raw/*362.58*/("""
+                """),format.raw/*363.17*/("""event.preventDefault();
 
                 // delete the post
                 $scope.conerror = "";
                 $scope.delerror = "";
                 $("#delError").html("");
-                $http("""),format.raw/*352.23*/("""{"""),format.raw/*352.24*/("""
-                        """),format.raw/*353.25*/("""method : "DELETE",
+                $http("""),format.raw/*369.23*/("""{"""),format.raw/*369.24*/("""
+                        """),format.raw/*370.25*/("""method : "DELETE",
                         url : "/post/" + postId,
-                        headers : """),format.raw/*355.35*/("""{"""),format.raw/*355.36*/("""
-                            """),format.raw/*356.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*357.25*/("""}"""),format.raw/*357.26*/("""
-                    """),format.raw/*358.21*/("""}"""),format.raw/*358.22*/(""").then(function successCallback(response) """),format.raw/*358.64*/("""{"""),format.raw/*358.65*/("""
-                        """),format.raw/*359.25*/("""$scope.refreshCurrentPage(null);
-                    """),format.raw/*360.21*/("""}"""),format.raw/*360.22*/(""", function errorCallback(response) """),format.raw/*360.57*/("""{"""),format.raw/*360.58*/("""
-                        """),format.raw/*361.25*/("""if (response.status == 400) """),format.raw/*361.53*/("""{"""),format.raw/*361.54*/("""
-                            """),format.raw/*362.29*/("""$scope.delerror = response.data.error + ". Refresh the current page if post does not exist.";
+                        headers : """),format.raw/*372.35*/("""{"""),format.raw/*372.36*/("""
+                            """),format.raw/*373.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*374.25*/("""}"""),format.raw/*374.26*/("""
+                    """),format.raw/*375.21*/("""}"""),format.raw/*375.22*/(""").then(function successCallback(response) """),format.raw/*375.64*/("""{"""),format.raw/*375.65*/("""
+                        """),format.raw/*376.25*/("""$scope.refreshCurrentPage(null);
+                    """),format.raw/*377.21*/("""}"""),format.raw/*377.22*/(""", function errorCallback(response) """),format.raw/*377.57*/("""{"""),format.raw/*377.58*/("""
+                        """),format.raw/*378.25*/("""if (response.status == 400) """),format.raw/*378.53*/("""{"""),format.raw/*378.54*/("""
+                            """),format.raw/*379.29*/("""$scope.delerror = response.data.error + ". Refresh the current page if post does not exist.";
                             $("#delError").html("<div id='dErr' class='alert alert-danger'><a class='close' data-dismiss='alert'>&times;</a>" + $scope.delerror + "</div>");
-                        """),format.raw/*364.25*/("""}"""),format.raw/*364.26*/(""" """),format.raw/*364.27*/("""else """),format.raw/*364.32*/("""{"""),format.raw/*364.33*/("""
-                            """),format.raw/*365.29*/("""if (response.status == 403)
+                        """),format.raw/*381.25*/("""}"""),format.raw/*381.26*/(""" """),format.raw/*381.27*/("""else """),format.raw/*381.32*/("""{"""),format.raw/*381.33*/("""
+                            """),format.raw/*382.29*/("""if (response.status == 403)
                                 $scope.showForbiddenPage();
-                            else """),format.raw/*367.34*/("""{"""),format.raw/*367.35*/("""
-                                """),format.raw/*368.33*/("""$scope.conerror = "Error deleting the message. Retry.";
+                            else """),format.raw/*384.34*/("""{"""),format.raw/*384.35*/("""
+                                """),format.raw/*385.33*/("""$scope.conerror = "Error deleting the message. Retry.";
                                 $('#conError').modal('show');
-                            """),format.raw/*370.29*/("""}"""),format.raw/*370.30*/("""
-                        """),format.raw/*371.25*/("""}"""),format.raw/*371.26*/("""
-                    """),format.raw/*372.21*/("""}"""),format.raw/*372.22*/(""");
-            """),format.raw/*373.13*/("""}"""),format.raw/*373.14*/(""";
+                            """),format.raw/*387.29*/("""}"""),format.raw/*387.30*/("""
+                        """),format.raw/*388.25*/("""}"""),format.raw/*388.26*/("""
+                    """),format.raw/*389.21*/("""}"""),format.raw/*389.22*/(""");
+            """),format.raw/*390.13*/("""}"""),format.raw/*390.14*/(""";
 
             // page loader
-            $scope.loadPage = function(url) """),format.raw/*376.45*/("""{"""),format.raw/*376.46*/("""
-                """),format.raw/*377.17*/("""$scope.delerror = "";
+            $scope.loadPage = function(url) """),format.raw/*393.45*/("""{"""),format.raw/*393.46*/("""
+                """),format.raw/*394.17*/("""$scope.delerror = "";
                 $("#delError").html("");
                 $scope.conerror = "";
-                $http("""),format.raw/*380.23*/("""{"""),format.raw/*380.24*/("""
-                        """),format.raw/*381.25*/("""method : "GET",
+                $http("""),format.raw/*397.23*/("""{"""),format.raw/*397.24*/("""
+                        """),format.raw/*398.25*/("""method : "GET",
                         url : url,
-                        headers : """),format.raw/*383.35*/("""{"""),format.raw/*383.36*/("""
-                            """),format.raw/*384.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*385.25*/("""}"""),format.raw/*385.26*/("""
-                    """),format.raw/*386.21*/("""}"""),format.raw/*386.22*/(""").then(function successCallback(response) """),format.raw/*386.64*/("""{"""),format.raw/*386.65*/("""
-                        """),format.raw/*387.25*/("""$scope.postpage = response.data;
-                    """),format.raw/*388.21*/("""}"""),format.raw/*388.22*/(""", function errorCallback(response) """),format.raw/*388.57*/("""{"""),format.raw/*388.58*/("""
-                         """),format.raw/*389.26*/("""if (response.status == 403)
+                        headers : """),format.raw/*400.35*/("""{"""),format.raw/*400.36*/("""
+                            """),format.raw/*401.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*402.25*/("""}"""),format.raw/*402.26*/("""
+                    """),format.raw/*403.21*/("""}"""),format.raw/*403.22*/(""").then(function successCallback(response) """),format.raw/*403.64*/("""{"""),format.raw/*403.65*/("""
+                        """),format.raw/*404.25*/("""$scope.postpage = response.data;
+                    """),format.raw/*405.21*/("""}"""),format.raw/*405.22*/(""", function errorCallback(response) """),format.raw/*405.57*/("""{"""),format.raw/*405.58*/("""
+                         """),format.raw/*406.26*/("""if (response.status == 403)
                             $scope.showForbiddenPage();
-                         else """),format.raw/*391.31*/("""{"""),format.raw/*391.32*/("""
-                            """),format.raw/*392.29*/("""$scope.conerror = "Error retrieving the page from the server. Retry.";
+                         else """),format.raw/*408.31*/("""{"""),format.raw/*408.32*/("""
+                            """),format.raw/*409.29*/("""$scope.conerror = "Error retrieving the page from the server. Retry.";
                             $('#conError').modal('show');
-                         """),format.raw/*394.26*/("""}"""),format.raw/*394.27*/("""
-                    """),format.raw/*395.21*/("""}"""),format.raw/*395.22*/(""");
-            """),format.raw/*396.13*/("""}"""),format.raw/*396.14*/(""";
+                         """),format.raw/*411.26*/("""}"""),format.raw/*411.27*/("""
+                    """),format.raw/*412.21*/("""}"""),format.raw/*412.22*/(""");
+            """),format.raw/*413.13*/("""}"""),format.raw/*413.14*/(""";
 
             // refreshes the current page
-            $scope.refreshCurrentPage = function(event) """),format.raw/*399.57*/("""{"""),format.raw/*399.58*/("""
-                """),format.raw/*400.17*/("""if (event != null)
+            $scope.refreshCurrentPage = function(event) """),format.raw/*416.57*/("""{"""),format.raw/*416.58*/("""
+                """),format.raw/*417.17*/("""if (event != null)
                     event.preventDefault();
                 $scope.loadPage("/posts/refresh/" + $scope.postpage.endId);
-            """),format.raw/*403.13*/("""}"""),format.raw/*403.14*/(""";
+            """),format.raw/*420.13*/("""}"""),format.raw/*420.14*/(""";
 
             // next page event handler
-            $scope.loadNextPage = function(event) """),format.raw/*406.51*/("""{"""),format.raw/*406.52*/("""
-                """),format.raw/*407.17*/("""event.preventDefault();
+            $scope.loadNextPage = function(event) """),format.raw/*423.51*/("""{"""),format.raw/*423.52*/("""
+                """),format.raw/*424.17*/("""event.preventDefault();
                 $scope.loadPage("/posts/after/" + $scope.postpage.beginId);
-            """),format.raw/*409.13*/("""}"""),format.raw/*409.14*/(""";
+            """),format.raw/*426.13*/("""}"""),format.raw/*426.14*/(""";
 
             // previous page event handler
-            $scope.loadPreviousPage = function(event) """),format.raw/*412.55*/("""{"""),format.raw/*412.56*/("""
-                """),format.raw/*413.17*/("""event.preventDefault();
+            $scope.loadPreviousPage = function(event) """),format.raw/*429.55*/("""{"""),format.raw/*429.56*/("""
+                """),format.raw/*430.17*/("""event.preventDefault();
                 $scope.loadPage("/posts/before/" + $scope.postpage.endId);
-            """),format.raw/*415.13*/("""}"""),format.raw/*415.14*/(""";
+            """),format.raw/*432.13*/("""}"""),format.raw/*432.14*/(""";
 
             // loads the first page
-            $scope.loadFirstPage = function() """),format.raw/*418.47*/("""{"""),format.raw/*418.48*/("""
-                """),format.raw/*419.17*/("""$scope.postpage.numPosts = "0";
+            $scope.loadFirstPage = function() """),format.raw/*435.47*/("""{"""),format.raw/*435.48*/("""
+                """),format.raw/*436.17*/("""$scope.postpage.numPosts = "0";
                 $scope.postpage.bLastPage = false;
                 $scope.postpage.arr = [];
                 $scope.postpage.beginId = "-1";
                 $scope.postpage.endId = "-1";
                 $scope.loadPage("/posts/first");
-            """),format.raw/*425.13*/("""}"""),format.raw/*425.14*/(""";
+            """),format.raw/*442.13*/("""}"""),format.raw/*442.14*/(""";
 
             // add comment event handler
-            $scope.addComment = function(event, index) """),format.raw/*428.56*/("""{"""),format.raw/*428.57*/("""
-                """),format.raw/*429.17*/("""event.preventDefault();
+            $scope.addComment = function(event, index) """),format.raw/*445.56*/("""{"""),format.raw/*445.57*/("""
+                """),format.raw/*446.17*/("""event.preventDefault();
 
                 // validate the comments form
-                if ($scope.postpage.arr[index].comment == "") """),format.raw/*432.63*/("""{"""),format.raw/*432.64*/("""
-                    """),format.raw/*433.21*/("""return;
-                """),format.raw/*434.17*/("""}"""),format.raw/*434.18*/("""
+                if ($scope.postpage.arr[index].comment == "") """),format.raw/*449.63*/("""{"""),format.raw/*449.64*/("""
+                    """),format.raw/*450.21*/("""return;
+                """),format.raw/*451.17*/("""}"""),format.raw/*451.18*/("""
 
-                """),format.raw/*436.17*/("""// add the comment
+                """),format.raw/*453.17*/("""// add the comment
                 $scope.postpage.arr[index].cconerror = "";
                 $scope.postpage.arr[index].cadderror = "";
                 $("#addError" + $scope.postpage.arr[index].id).html("");
-                $http("""),format.raw/*440.23*/("""{"""),format.raw/*440.24*/("""
-                        """),format.raw/*441.25*/("""method : "POST",
+                $http("""),format.raw/*457.23*/("""{"""),format.raw/*457.24*/("""
+                        """),format.raw/*458.25*/("""method : "POST",
                         url : "/comment/" + $scope.postpage.arr[index].id,
-                        data : """),format.raw/*443.32*/("""{"""),format.raw/*443.33*/(""""comment" : $scope.postpage.arr[index].comment"""),format.raw/*443.79*/("""}"""),format.raw/*443.80*/(""",
-                        headers : """),format.raw/*444.35*/("""{"""),format.raw/*444.36*/("""
-                            """),format.raw/*445.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*446.25*/("""}"""),format.raw/*446.26*/("""
-                    """),format.raw/*447.21*/("""}"""),format.raw/*447.22*/(""").then(function successCallback(response) """),format.raw/*447.64*/("""{"""),format.raw/*447.65*/("""
-                        """),format.raw/*448.25*/("""$scope.postpage.arr[index].comment = "";
+                        data : """),format.raw/*460.32*/("""{"""),format.raw/*460.33*/(""""comment" : $scope.postpage.arr[index].comment"""),format.raw/*460.79*/("""}"""),format.raw/*460.80*/(""",
+                        headers : """),format.raw/*461.35*/("""{"""),format.raw/*461.36*/("""
+                            """),format.raw/*462.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*463.25*/("""}"""),format.raw/*463.26*/("""
+                    """),format.raw/*464.21*/("""}"""),format.raw/*464.22*/(""").then(function successCallback(response) """),format.raw/*464.64*/("""{"""),format.raw/*464.65*/("""
+                        """),format.raw/*465.25*/("""$scope.postpage.arr[index].comment = "";
                         $scope.loadCommentLastPage(null, index);
-                    """),format.raw/*450.21*/("""}"""),format.raw/*450.22*/(""", function errorCallback(response) """),format.raw/*450.57*/("""{"""),format.raw/*450.58*/("""
-                        """),format.raw/*451.25*/("""if (response.status == 400) """),format.raw/*451.53*/("""{"""),format.raw/*451.54*/("""
-                            """),format.raw/*452.29*/("""$scope.postpage.arr[index].cadderror = response.data.error;
+                    """),format.raw/*467.21*/("""}"""),format.raw/*467.22*/(""", function errorCallback(response) """),format.raw/*467.57*/("""{"""),format.raw/*467.58*/("""
+                        """),format.raw/*468.25*/("""if (response.status == 400) """),format.raw/*468.53*/("""{"""),format.raw/*468.54*/("""
+                            """),format.raw/*469.29*/("""$scope.postpage.arr[index].cadderror = response.data.error;
                             $("#addError" + $scope.postpage.arr[index].id).html("<div id='aErr" + $scope.postpage.arr[index].id + "' class='alert alert-danger'><a class='close' data-dismiss='alert'>&times;</a>" + $scope.postpage.arr[index].cadderror + "</div>");
-                        """),format.raw/*454.25*/("""}"""),format.raw/*454.26*/(""" """),format.raw/*454.27*/("""else """),format.raw/*454.32*/("""{"""),format.raw/*454.33*/("""
-                            """),format.raw/*455.29*/("""if (response.status == 403)
+                        """),format.raw/*471.25*/("""}"""),format.raw/*471.26*/(""" """),format.raw/*471.27*/("""else """),format.raw/*471.32*/("""{"""),format.raw/*471.33*/("""
+                            """),format.raw/*472.29*/("""if (response.status == 403)
                                $scope.showForbiddenPage();
-                            else """),format.raw/*457.34*/("""{"""),format.raw/*457.35*/("""
-                                """),format.raw/*458.33*/("""$scope.postpage.arr[index].cconerror = "Error posting the comment. Retry";
+                            else """),format.raw/*474.34*/("""{"""),format.raw/*474.35*/("""
+                                """),format.raw/*475.33*/("""$scope.postpage.arr[index].cconerror = "Error posting the comment. Retry";
                                 $('#' + $scope.postpage.arr[index].id).modal('show');
-                            """),format.raw/*460.29*/("""}"""),format.raw/*460.30*/("""
-                        """),format.raw/*461.25*/("""}"""),format.raw/*461.26*/("""
-                    """),format.raw/*462.21*/("""}"""),format.raw/*462.22*/(""");
-            """),format.raw/*463.13*/("""}"""),format.raw/*463.14*/(""";
+                            """),format.raw/*477.29*/("""}"""),format.raw/*477.30*/("""
+                        """),format.raw/*478.25*/("""}"""),format.raw/*478.26*/("""
+                    """),format.raw/*479.21*/("""}"""),format.raw/*479.22*/(""");
+            """),format.raw/*480.13*/("""}"""),format.raw/*480.14*/(""";
 
             // delete comment event handler
-            $scope.deleteComment = function(event, index, commentId) """),format.raw/*466.70*/("""{"""),format.raw/*466.71*/("""
-                """),format.raw/*467.17*/("""event.preventDefault();
+            $scope.deleteComment = function(event, index, commentId) """),format.raw/*483.70*/("""{"""),format.raw/*483.71*/("""
+                """),format.raw/*484.17*/("""event.preventDefault();
 
                 // delete the comment
                 $scope.postpage.arr[index].cconerror = "";
                 $scope.postpage.arr[index].cdelerror = "";
                 $("#delError" + $scope.postpage.arr[index].id).html("");
-                $http("""),format.raw/*473.23*/("""{"""),format.raw/*473.24*/("""
-                        """),format.raw/*474.25*/("""method : "DELETE",
+                $http("""),format.raw/*490.23*/("""{"""),format.raw/*490.24*/("""
+                        """),format.raw/*491.25*/("""method : "DELETE",
                         url : "/comment/" + $scope.postpage.arr[index].id + "/" + commentId,
-                        headers : """),format.raw/*476.35*/("""{"""),format.raw/*476.36*/("""
-                            """),format.raw/*477.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*478.25*/("""}"""),format.raw/*478.26*/("""
-                    """),format.raw/*479.21*/("""}"""),format.raw/*479.22*/(""").then(function successCallback(response) """),format.raw/*479.64*/("""{"""),format.raw/*479.65*/("""
-                        """),format.raw/*480.25*/("""$scope.refreshCommentCurrentPage(null, index);
-                    """),format.raw/*481.21*/("""}"""),format.raw/*481.22*/(""", function errorCallback(response) """),format.raw/*481.57*/("""{"""),format.raw/*481.58*/("""
-                        """),format.raw/*482.25*/("""if (response.status == 400) """),format.raw/*482.53*/("""{"""),format.raw/*482.54*/("""
-                            """),format.raw/*483.29*/("""$scope.postpage.arr[index].cdelerror = response.data.error + ". Refresh the current comment page if comment does not exist.";
+                        headers : """),format.raw/*493.35*/("""{"""),format.raw/*493.36*/("""
+                            """),format.raw/*494.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*495.25*/("""}"""),format.raw/*495.26*/("""
+                    """),format.raw/*496.21*/("""}"""),format.raw/*496.22*/(""").then(function successCallback(response) """),format.raw/*496.64*/("""{"""),format.raw/*496.65*/("""
+                        """),format.raw/*497.25*/("""$scope.refreshCommentCurrentPage(null, index);
+                    """),format.raw/*498.21*/("""}"""),format.raw/*498.22*/(""", function errorCallback(response) """),format.raw/*498.57*/("""{"""),format.raw/*498.58*/("""
+                        """),format.raw/*499.25*/("""if (response.status == 400) """),format.raw/*499.53*/("""{"""),format.raw/*499.54*/("""
+                            """),format.raw/*500.29*/("""$scope.postpage.arr[index].cdelerror = response.data.error + ". Refresh the current comment page if comment does not exist.";
                             $("#delError" + $scope.postpage.arr[index].id).html("<div id='dErr" + $scope.postpage.arr[index].id + "' class='alert alert-danger'><a class='close' data-dismiss='alert'>&times;</a>" + $scope.postpage.arr[index].cdelerror + "</div>");
-                        """),format.raw/*485.25*/("""}"""),format.raw/*485.26*/(""" """),format.raw/*485.27*/("""else """),format.raw/*485.32*/("""{"""),format.raw/*485.33*/("""
-                             """),format.raw/*486.30*/("""if (response.status == 403)
+                        """),format.raw/*502.25*/("""}"""),format.raw/*502.26*/(""" """),format.raw/*502.27*/("""else """),format.raw/*502.32*/("""{"""),format.raw/*502.33*/("""
+                             """),format.raw/*503.30*/("""if (response.status == 403)
                                 $scope.showForbiddenPage();
-                             else """),format.raw/*488.35*/("""{"""),format.raw/*488.36*/("""
-                                """),format.raw/*489.33*/("""$scope.postpage.arr[index].cconerror = "Error deleting the comment. Retry.";
+                             else """),format.raw/*505.35*/("""{"""),format.raw/*505.36*/("""
+                                """),format.raw/*506.33*/("""$scope.postpage.arr[index].cconerror = "Error deleting the comment. Retry.";
                                 $('#' + $scope.postpage.arr[index].id).modal('show');
-                             """),format.raw/*491.30*/("""}"""),format.raw/*491.31*/("""
-                        """),format.raw/*492.25*/("""}"""),format.raw/*492.26*/("""
-                    """),format.raw/*493.21*/("""}"""),format.raw/*493.22*/(""");
-            """),format.raw/*494.13*/("""}"""),format.raw/*494.14*/(""";
+                             """),format.raw/*508.30*/("""}"""),format.raw/*508.31*/("""
+                        """),format.raw/*509.25*/("""}"""),format.raw/*509.26*/("""
+                    """),format.raw/*510.21*/("""}"""),format.raw/*510.22*/(""");
+            """),format.raw/*511.13*/("""}"""),format.raw/*511.14*/(""";
 
             // comment page loader
-            $scope.loadCommentPage = function(url, index) """),format.raw/*497.59*/("""{"""),format.raw/*497.60*/("""
-                """),format.raw/*498.17*/("""$scope.postpage.arr[index].cdelerror = "";
+            $scope.loadCommentPage = function(url, index) """),format.raw/*514.59*/("""{"""),format.raw/*514.60*/("""
+                """),format.raw/*515.17*/("""$scope.postpage.arr[index].cdelerror = "";
                 $("#delError" + $scope.postpage.arr[index].id).html("");
                 $scope.postpage.arr[index].cconerror = "";
-                $http("""),format.raw/*501.23*/("""{"""),format.raw/*501.24*/("""
-                        """),format.raw/*502.25*/("""method : "GET",
+                $http("""),format.raw/*518.23*/("""{"""),format.raw/*518.24*/("""
+                        """),format.raw/*519.25*/("""method : "GET",
                         url : url,
-                        headers : """),format.raw/*504.35*/("""{"""),format.raw/*504.36*/("""
-                            """),format.raw/*505.29*/(""""Content-Type" : "application/json"
-                        """),format.raw/*506.25*/("""}"""),format.raw/*506.26*/("""
-                    """),format.raw/*507.21*/("""}"""),format.raw/*507.22*/(""").then(function successCallback(response) """),format.raw/*507.64*/("""{"""),format.raw/*507.65*/("""
-                        """),format.raw/*508.25*/("""$scope.postpage.arr[index].commentpage = response.data;
-                    """),format.raw/*509.21*/("""}"""),format.raw/*509.22*/(""", function errorCallback(response) """),format.raw/*509.57*/("""{"""),format.raw/*509.58*/("""
-                        """),format.raw/*510.25*/("""if (response.status == 403)
+                        headers : """),format.raw/*521.35*/("""{"""),format.raw/*521.36*/("""
+                            """),format.raw/*522.29*/(""""Content-Type" : "application/json"
+                        """),format.raw/*523.25*/("""}"""),format.raw/*523.26*/("""
+                    """),format.raw/*524.21*/("""}"""),format.raw/*524.22*/(""").then(function successCallback(response) """),format.raw/*524.64*/("""{"""),format.raw/*524.65*/("""
+                        """),format.raw/*525.25*/("""$scope.postpage.arr[index].commentpage = response.data;
+                    """),format.raw/*526.21*/("""}"""),format.raw/*526.22*/(""", function errorCallback(response) """),format.raw/*526.57*/("""{"""),format.raw/*526.58*/("""
+                        """),format.raw/*527.25*/("""if (response.status == 403)
                             $scope.showForbiddenPage();
-                        else """),format.raw/*512.30*/("""{"""),format.raw/*512.31*/("""
-                            """),format.raw/*513.29*/("""$scope.postpage.arr[index].cconerror = "Error retrieving the comment page from the server. Retry.";
+                        else """),format.raw/*529.30*/("""{"""),format.raw/*529.31*/("""
+                            """),format.raw/*530.29*/("""$scope.postpage.arr[index].cconerror = "Error retrieving the comment page from the server. Retry.";
                             $('#' + $scope.postpage.arr[index].id).modal('show');
-                        """),format.raw/*515.25*/("""}"""),format.raw/*515.26*/("""
-                    """),format.raw/*516.21*/("""}"""),format.raw/*516.22*/(""");
-            """),format.raw/*517.13*/("""}"""),format.raw/*517.14*/(""";
+                        """),format.raw/*532.25*/("""}"""),format.raw/*532.26*/("""
+                    """),format.raw/*533.21*/("""}"""),format.raw/*533.22*/(""");
+            """),format.raw/*534.13*/("""}"""),format.raw/*534.14*/(""";
 
             // refreshes the current comment page
-            $scope.refreshCommentCurrentPage = function(event, index) """),format.raw/*520.71*/("""{"""),format.raw/*520.72*/("""
-                """),format.raw/*521.17*/("""if (event != null)
+            $scope.refreshCommentCurrentPage = function(event, index) """),format.raw/*537.71*/("""{"""),format.raw/*537.72*/("""
+                """),format.raw/*538.17*/("""if (event != null)
                     event.preventDefault();
                 $scope.loadCommentPage("/comments/refresh/" + $scope.postpage.arr[index].id + "/" + $scope.postpage.arr[index].commentpage.beginId, index);
-            """),format.raw/*524.13*/("""}"""),format.raw/*524.14*/(""";
+            """),format.raw/*541.13*/("""}"""),format.raw/*541.14*/(""";
 
             // next comment page event handler
-            $scope.loadCommentNextPage = function(event, index) """),format.raw/*527.65*/("""{"""),format.raw/*527.66*/("""
-                """),format.raw/*528.17*/("""event.preventDefault();
+            $scope.loadCommentNextPage = function(event, index) """),format.raw/*544.65*/("""{"""),format.raw/*544.66*/("""
+                """),format.raw/*545.17*/("""event.preventDefault();
                 $scope.loadCommentPage("/comments/after/" + $scope.postpage.arr[index].id + "/" + $scope.postpage.arr[index].commentpage.endId, index);
-            """),format.raw/*530.13*/("""}"""),format.raw/*530.14*/(""";
+            """),format.raw/*547.13*/("""}"""),format.raw/*547.14*/(""";
 
             // previous comment page event handler
-            $scope.loadCommentPreviousPage = function(event, index) """),format.raw/*533.69*/("""{"""),format.raw/*533.70*/("""
-                """),format.raw/*534.17*/("""event.preventDefault();
+            $scope.loadCommentPreviousPage = function(event, index) """),format.raw/*550.69*/("""{"""),format.raw/*550.70*/("""
+                """),format.raw/*551.17*/("""event.preventDefault();
                 $scope.loadCommentPage("/comments/before/" + $scope.postpage.arr[index].id + "/" + $scope.postpage.arr[index].commentpage.beginId, index);
-            """),format.raw/*536.13*/("""}"""),format.raw/*536.14*/(""";
+            """),format.raw/*553.13*/("""}"""),format.raw/*553.14*/(""";
 
-            $scope.loadCommentLastPage = function(event, index) """),format.raw/*538.65*/("""{"""),format.raw/*538.66*/("""
-                """),format.raw/*539.17*/("""if (event != null)
+            $scope.loadCommentLastPage = function(event, index) """),format.raw/*555.65*/("""{"""),format.raw/*555.66*/("""
+                """),format.raw/*556.17*/("""if (event != null)
                     event.preventDefault();
                 $scope.loadCommentPage("/comments/last/" + $scope.postpage.arr[index].id, index);
-            """),format.raw/*542.13*/("""}"""),format.raw/*542.14*/(""";
+            """),format.raw/*559.13*/("""}"""),format.raw/*559.14*/(""";
 
 
             // loads the first comment page
-            $scope.loadCommentFirstPage = function(index) """),format.raw/*546.59*/("""{"""),format.raw/*546.60*/("""
-                """),format.raw/*547.17*/("""$scope.postpage.arr[index].commentpage.numComments = "0";
+            $scope.loadCommentFirstPage = function(index) """),format.raw/*563.59*/("""{"""),format.raw/*563.60*/("""
+                """),format.raw/*564.17*/("""$scope.postpage.arr[index].commentpage.numComments = "0";
                 $scope.postpage.arr[index].commentpage.bLastPage = false;
                 $scope.postpage.arr[index].commentpage.arr = [];
                 $scope.postpage.arr[index].commentpage.beginId = "-1";
                 $scope.postpage.arr[index].commentpage.endId = "-1";
 
                 $scope.loadCommentPage("/comments/first/" + $scope.postpage.arr[index].id, index);
-            """),format.raw/*554.13*/("""}"""),format.raw/*554.14*/(""";
+            """),format.raw/*571.13*/("""}"""),format.raw/*571.14*/(""";
 
             // toggles the comment editor for a post
-            $scope.toggleCommentsEditor = function(event, index) """),format.raw/*557.66*/("""{"""),format.raw/*557.67*/("""
-                """),format.raw/*558.17*/("""event.preventDefault();
-                if(angular.isUndefined($scope.postpage.arr[index].bShow)) """),format.raw/*559.75*/("""{"""),format.raw/*559.76*/("""
-                    """),format.raw/*560.21*/("""$scope.postpage.arr[index].commentpage = new Object();
+            $scope.toggleCommentsEditor = function(event, index) """),format.raw/*574.66*/("""{"""),format.raw/*574.67*/("""
+                """),format.raw/*575.17*/("""event.preventDefault();
+                if(angular.isUndefined($scope.postpage.arr[index].bShow)) """),format.raw/*576.75*/("""{"""),format.raw/*576.76*/("""
+                    """),format.raw/*577.21*/("""$scope.postpage.arr[index].commentpage = new Object();
 
                     // initialize error state
                     $scope.postpage.arr[index].cdelerror = "";
@@ -598,50 +615,105 @@ Seq[Any](format.raw/*1.31*/("""
                     $scope.postpage.arr[index].comment = "";
                     $scope.postpage.arr[index].bShow = true;
                     $scope.loadCommentFirstPage(index);
-                """),format.raw/*570.17*/("""}"""),format.raw/*570.18*/(""" """),format.raw/*570.19*/("""else """),format.raw/*570.24*/("""{"""),format.raw/*570.25*/("""
-                    """),format.raw/*571.21*/("""$scope.postpage.arr[index].bShow = !$scope.postpage.arr[index].bShow;
-                """),format.raw/*572.17*/("""}"""),format.raw/*572.18*/("""
-            """),format.raw/*573.13*/("""}"""),format.raw/*573.14*/(""";
+                """),format.raw/*587.17*/("""}"""),format.raw/*587.18*/(""" """),format.raw/*587.19*/("""else """),format.raw/*587.24*/("""{"""),format.raw/*587.25*/("""
+                    """),format.raw/*588.21*/("""$scope.postpage.arr[index].bShow = !$scope.postpage.arr[index].bShow;
+                """),format.raw/*589.17*/("""}"""),format.raw/*589.18*/("""
+            """),format.raw/*590.13*/("""}"""),format.raw/*590.14*/(""";
 
 
             // Initialize the view
-            $scope.InitPostView = function() """),format.raw/*577.46*/("""{"""),format.raw/*577.47*/("""
-                """),format.raw/*578.17*/("""$scope.adderror = "";
+            $scope.InitPostView = function() """),format.raw/*594.46*/("""{"""),format.raw/*594.47*/("""
+                """),format.raw/*595.17*/("""$scope.adderror = "";
                 $scope.delerror = "";
                 $scope.conerror = "";
                 $scope.bConerror = false;
                 $scope.postpage = new Object();
                 $scope.loadFirstPage();
+
                 $scope.addSuccess = false;
                 $scope.delSuccess = false;
-            """),format.raw/*586.13*/("""}"""),format.raw/*586.14*/("""
+            """),format.raw/*604.13*/("""}"""),format.raw/*604.14*/(""";
 
-             """),format.raw/*588.14*/("""$scope.loadUserSummary = function() """),format.raw/*588.50*/("""{"""),format.raw/*588.51*/("""
-                """),format.raw/*589.17*/("""$scope.conerror = "";
-                $scope.users=[];
-                $http("""),format.raw/*591.23*/("""{"""),format.raw/*591.24*/("""
-                        """),format.raw/*592.25*/("""method : "GET",
-                        url : """"),_display_(/*593.33*/routes/*593.39*/.HomeController.getUserSummary),format.raw/*593.69*/("""",
-                        headers : """),format.raw/*594.35*/("""{"""),format.raw/*594.36*/("""
-                        """),format.raw/*595.25*/(""""Content-Type" : "application/json"
-                        """),format.raw/*596.25*/("""}"""),format.raw/*596.26*/("""
-                    """),format.raw/*597.21*/("""}"""),format.raw/*597.22*/(""").then(function successCallback(response) """),format.raw/*597.64*/("""{"""),format.raw/*597.65*/("""
-                        """),format.raw/*598.25*/("""$scope.users = response.data;
-                    """),format.raw/*599.21*/("""}"""),format.raw/*599.22*/(""", function errorCallback(response) """),format.raw/*599.57*/("""{"""),format.raw/*599.58*/("""
-                        """),format.raw/*600.25*/("""if (response.status == 403)
+             $scope.loadUserSummary = function() """),format.raw/*606.50*/("""{"""),format.raw/*606.51*/("""
+                """),format.raw/*607.17*/("""$scope.conerror = "";
+                $scope.activeusers=[];
+                $http("""),format.raw/*609.23*/("""{"""),format.raw/*609.24*/("""
+                        """),format.raw/*610.25*/("""method : "GET",
+                        url : """"),_display_(/*611.33*/routes/*611.39*/.HomeController.getUserSummary),format.raw/*611.69*/("""",
+                        headers : """),format.raw/*612.35*/("""{"""),format.raw/*612.36*/("""
+                        """),format.raw/*613.25*/(""""Content-Type" : "application/json"
+                        """),format.raw/*614.25*/("""}"""),format.raw/*614.26*/("""
+                    """),format.raw/*615.21*/("""}"""),format.raw/*615.22*/(""").then(function successCallback(response) """),format.raw/*615.64*/("""{"""),format.raw/*615.65*/("""
+                        """),format.raw/*616.25*/("""$scope.activeusers = response.data;
+                    """),format.raw/*617.21*/("""}"""),format.raw/*617.22*/(""", function errorCallback(response) """),format.raw/*617.57*/("""{"""),format.raw/*617.58*/("""
+                        """),format.raw/*618.25*/("""if (response.status == 403)
                             $scope.showForbiddenPage();
-                        else """),format.raw/*602.30*/("""{"""),format.raw/*602.31*/("""
-                            """),format.raw/*603.29*/("""$scope.conerror = "Error refreshing the user summary. Retry.";
+                        else """),format.raw/*620.30*/("""{"""),format.raw/*620.31*/("""
+                            """),format.raw/*621.29*/("""$scope.conerror = "Error refreshing the user summary. Retry.";
                             $('#conError').modal('show');
-                        """),format.raw/*605.25*/("""}"""),format.raw/*605.26*/("""
-                    """),format.raw/*606.21*/("""}"""),format.raw/*606.22*/("""
-                """),format.raw/*607.17*/(""");
-            """),format.raw/*608.13*/("""}"""),format.raw/*608.14*/(""";
-            $scope.InitPostView()
-            $scope.loadUserSummary();
-            $scope.loadUserGroups(null);
+                        """),format.raw/*623.25*/("""}"""),format.raw/*623.26*/("""
+                    """),format.raw/*624.21*/("""}"""),format.raw/*624.22*/("""
+                """),format.raw/*625.17*/(""");
+            """),format.raw/*626.13*/("""}"""),format.raw/*626.14*/(""";
 
-        """),format.raw/*613.9*/("""}"""),format.raw/*613.10*/(""");
+
+
+            $scope.loadAllUsers = function() """),format.raw/*630.46*/("""{"""),format.raw/*630.47*/("""
+                """),format.raw/*631.17*/("""$scope.conerror = "";
+                $scope.users = [];
+                $http("""),format.raw/*633.23*/("""{"""),format.raw/*633.24*/("""
+                        """),format.raw/*634.25*/("""method : "GET",
+                        url : """"),_display_(/*635.33*/routes/*635.39*/.GroupController.getUsers),format.raw/*635.64*/("""",
+                        headers : """),format.raw/*636.35*/("""{"""),format.raw/*636.36*/("""
+                        """),format.raw/*637.25*/(""""Content-Type" : "application/json"
+                        """),format.raw/*638.25*/("""}"""),format.raw/*638.26*/("""
+                    """),format.raw/*639.21*/("""}"""),format.raw/*639.22*/(""").then(function successCallback(response) """),format.raw/*639.64*/("""{"""),format.raw/*639.65*/("""
+                            """),format.raw/*640.29*/("""$scope.users = response.data;
+                    """),format.raw/*641.21*/("""}"""),format.raw/*641.22*/(""", function errorCallback(response) """),format.raw/*641.57*/("""{"""),format.raw/*641.58*/("""
+                        """),format.raw/*642.25*/("""if (response.status == 403)
+                            $scope.showForbiddenPage();
+                        else """),format.raw/*644.30*/("""{"""),format.raw/*644.31*/("""
+                            """),format.raw/*645.29*/("""$scope.conerror = "Error refreshing the list of all users. Retry.";
+                            $('#conError').modal('show');
+                        """),format.raw/*647.25*/("""}"""),format.raw/*647.26*/("""
+                    """),format.raw/*648.21*/("""}"""),format.raw/*648.22*/("""
+                """),format.raw/*649.17*/(""");
+            """),format.raw/*650.13*/("""}"""),format.raw/*650.14*/(""";
+
+
+            $scope.loadAllGroupUsers = function(gId) """),format.raw/*653.54*/("""{"""),format.raw/*653.55*/("""
+                """),format.raw/*654.17*/("""$scope.conerror = "";
+                $scope.users = [];
+                $http("""),format.raw/*656.23*/("""{"""),format.raw/*656.24*/("""
+                        """),format.raw/*657.25*/("""method : "GET",
+                        url : "/groupusers" + "/" + gId,
+                        headers : """),format.raw/*659.35*/("""{"""),format.raw/*659.36*/("""
+                        """),format.raw/*660.25*/(""""Content-Type" : "application/json"
+                        """),format.raw/*661.25*/("""}"""),format.raw/*661.26*/("""
+                    """),format.raw/*662.21*/("""}"""),format.raw/*662.22*/(""").then(function successCallback(response) """),format.raw/*662.64*/("""{"""),format.raw/*662.65*/("""
+                            """),format.raw/*663.29*/("""$scope.users  = response.data;
+                    """),format.raw/*664.21*/("""}"""),format.raw/*664.22*/(""", function errorCallback(response) """),format.raw/*664.57*/("""{"""),format.raw/*664.58*/("""
+                        """),format.raw/*665.25*/("""if (response.status == 403)
+                            $scope.showForbiddenPage();
+                        else """),format.raw/*667.30*/("""{"""),format.raw/*667.31*/("""
+                            """),format.raw/*668.29*/("""if (response.status == 400)
+                                $scope.conerror = response.data.error;
+                            else
+                                $scope.conerror = "Error refreshing the list of all group users. Retry.";
+                            $('#conError').modal('show');
+                        """),format.raw/*673.25*/("""}"""),format.raw/*673.26*/("""
+                    """),format.raw/*674.21*/("""}"""),format.raw/*674.22*/("""
+                """),format.raw/*675.17*/(""");
+            """),format.raw/*676.13*/("""}"""),format.raw/*676.14*/(""";
+
+
+
+            $scope.InitPostView()
+            //$scope.loadUserSummary();
+               $scope.loadUserGroups(null);
+               $scope.loadAllUsers();
+
+        """),format.raw/*685.9*/("""}"""),format.raw/*685.10*/(""");
 </script>
 </body>
 </html>
@@ -665,11 +737,11 @@ Seq[Any](format.raw/*1.31*/("""
 object posts extends posts_Scope0.posts
               /*
                   -- GENERATED --
-                  DATE: Tue Sep 27 11:19:18 IST 2016
-                  SOURCE: /home/si2chip/temp/si2chip2/si2chip/app/views/posts.scala.html
-                  HASH: 812b8843f96694cac282284e952756c4634799dd
-                  MATRIX: 756->1|880->30|908->32|1211->309|1225->315|1293->363|1355->398|1370->404|1433->446|2078->1064|2093->1070|2149->1105|2178->1106|2309->1210|2329->1221|2369->1223|2418->1244|2580->1375|2625->1392|3449->2188|3478->2189|3507->2190|3543->2198|3572->2199|3601->2200|3654->2225|3968->2511|3997->2512|4026->2513|4068->2527|4097->2528|4126->2529|4887->3261|4917->3262|4947->3263|4987->3274|5017->3275|5047->3276|5364->3565|5393->3566|5422->3567|5467->3584|5496->3585|5525->3586|7330->5362|7360->5363|7390->5364|7429->5374|7459->5375|7489->5376|7529->5387|7559->5388|7590->5389|7632->5401|7663->5402|7694->5403|8051->5731|8081->5732|8111->5733|8148->5741|8178->5742|8208->5743|8959->6465|8989->6466|9019->6467|9071->6490|9101->6491|9131->6492|9777->7109|9807->7110|9837->7111|9896->7141|9926->7142|9956->7143|10030->7188|10245->7374|10275->7375|10305->7376|10357->7399|10387->7400|10417->7401|10756->7711|10786->7712|10816->7713|10890->7757|10921->7758|10952->7759|12481->9259|12511->9260|12541->9261|12585->9275|12616->9276|12647->9277|12688->9288|12719->9289|12750->9290|12799->9309|12830->9310|12861->9311|13320->9741|13350->9742|13380->9743|13424->9758|13454->9759|13484->9760|13866->10113|13896->10114|13926->10115|13978->10138|14008->10139|14038->10140|14590->10663|14620->10664|14650->10665|14702->10688|14732->10689|14762->10690|15073->10972|15103->10973|15133->10974|15174->10986|15204->10987|15234->10988|15676->11400|15707->11401|15738->11402|15776->11410|15807->11411|15838->11412|15894->11439|15924->11440|15954->11441|15991->11449|16021->11450|16051->11451|16100->11471|16130->11472|16160->11473|16200->11484|16230->11485|16260->11486|16642->11839|16672->11840|16714->11853|16771->11881|16801->11882|16863->11915|16893->11916|16948->11943|16978->11944|17066->12003|17096->12004|17138->12017|17227->12077|17257->12078|17303->12095|17384->12147|17414->12148|17468->12173|17597->12273|17627->12274|17681->12299|17770->12359|17800->12360|17850->12381|17880->12382|17957->12430|17987->12431|18041->12456|18167->12553|18197->12554|18248->12576|18278->12577|18332->12602|18457->12698|18487->12699|18531->12714|18561->12715|18599->12725|18629->12726|18762->12829|18793->12830|18837->12845|18899->12878|18929->12879|18975->12896|19047->12939|19077->12940|19159->12993|19189->12994|19235->13011|19412->13160|19428->13166|19483->13199|19598->13285|19628->13286|19705->13334|19735->13335|19781->13352|19998->13541|20014->13547|20058->13569|20173->13655|20203->13656|20286->13710|20316->13711|20362->13728|20447->13785|20463->13791|20515->13821|20630->13907|20660->13908|20744->13963|20774->13964|20820->13981|20905->14038|20921->14044|20974->14075|21089->14161|21119->14162|21197->14211|21227->14212|21273->14229|21477->14404|21507->14405|21561->14430|21696->14536|21726->14537|21784->14566|21873->14626|21903->14627|21953->14648|21983->14649|22054->14691|22084->14692|22138->14717|22210->14760|22240->14761|22304->14796|22334->14797|22388->14822|22445->14850|22475->14851|22533->14880|22823->15141|22853->15142|22883->15143|22917->15148|22947->15149|23005->15178|23155->15299|23185->15300|23247->15333|23419->15476|23449->15477|23503->15502|23533->15503|23583->15524|23613->15525|23658->15541|23688->15542|23732->15557|23868->15664|23898->15665|23944->15682|24245->15953|24276->15954|24330->15979|24417->16037|24447->16038|24511->16073|24541->16074|24595->16099|24652->16127|24682->16128|24740->16157|24806->16194|24836->16195|24866->16196|25013->16314|25043->16315|25101->16344|25307->16521|25337->16522|25387->16543|25417->16544|25463->16561|25507->16576|25537->16577|25652->16663|25682->16664|25728->16681|25878->16802|25908->16803|25958->16824|26011->16848|26041->16849|26088->16867|26276->17026|26306->17027|26360->17052|26437->17101|26453->17107|26498->17130|26561->17164|26591->17165|26640->17185|26670->17186|26735->17222|26765->17223|26823->17252|26912->17312|26942->17313|26992->17334|27022->17335|27093->17377|27123->17378|27177->17403|27292->17489|27322->17490|27386->17525|27416->17526|27470->17551|27527->17579|27557->17580|27615->17609|27880->17845|27910->17846|27940->17847|27974->17852|28004->17853|28062->17882|28212->18003|28242->18004|28304->18037|28477->18181|28507->18182|28561->18207|28591->18208|28641->18229|28671->18230|28715->18245|28745->18246|28874->18346|28904->18347|28950->18364|29178->18563|29208->18564|29262->18589|29393->18691|29423->18692|29481->18721|29570->18781|29600->18782|29650->18803|29680->18804|29751->18846|29781->18847|29835->18872|29917->18925|29947->18926|30011->18961|30041->18962|30095->18987|30152->19015|30182->19016|30240->19045|30560->19336|30590->19337|30620->19338|30654->19343|30684->19344|30742->19373|30892->19494|30922->19495|30984->19528|31159->19674|31189->19675|31243->19700|31273->19701|31323->19722|31353->19723|31397->19738|31427->19739|31530->19813|31560->19814|31606->19831|31758->19954|31788->19955|31842->19980|31956->20065|31986->20066|32044->20095|32133->20155|32163->20156|32213->20177|32243->20178|32314->20220|32344->20221|32398->20246|32480->20299|32510->20300|32574->20335|32604->20336|32659->20362|32802->20476|32832->20477|32890->20506|33073->20660|33103->20661|33153->20682|33183->20683|33227->20698|33257->20699|33387->20800|33417->20801|33463->20818|33643->20969|33673->20970|33794->21062|33824->21063|33870->21080|34011->21192|34041->21193|34170->21293|34200->21294|34246->21311|34386->21422|34416->21423|34530->21508|34560->21509|34606->21526|34915->21806|34945->21807|35073->21906|35103->21907|35149->21924|35311->22057|35341->22058|35391->22079|35444->22103|35474->22104|35521->22122|35782->22354|35812->22355|35866->22380|36018->22503|36048->22504|36123->22550|36153->22551|36218->22587|36248->22588|36306->22617|36395->22677|36425->22678|36475->22699|36505->22700|36576->22742|36606->22743|36660->22768|36815->22894|36845->22895|36909->22930|36939->22931|36993->22956|37050->22984|37080->22985|37138->23014|37514->23361|37544->23362|37574->23363|37608->23368|37638->23369|37696->23398|37845->23518|37875->23519|37937->23552|38155->23741|38185->23742|38239->23767|38269->23768|38319->23789|38349->23790|38393->23805|38423->23806|38568->23922|38598->23923|38644->23940|38949->24216|38979->24217|39033->24242|39208->24388|39238->24389|39296->24418|39385->24478|39415->24479|39465->24500|39495->24501|39566->24543|39596->24544|39650->24569|39746->24636|39776->24637|39840->24672|39870->24673|39924->24698|39981->24726|40011->24727|40069->24756|40511->25169|40541->25170|40571->25171|40605->25176|40635->25177|40694->25207|40845->25329|40875->25330|40937->25363|41158->25555|41188->25556|41242->25581|41272->25582|41322->25603|41352->25604|41396->25619|41426->25620|41551->25716|41581->25717|41627->25734|41853->25931|41883->25932|41937->25957|42051->26042|42081->26043|42139->26072|42228->26132|42258->26133|42308->26154|42338->26155|42409->26197|42439->26198|42493->26223|42598->26299|42628->26300|42692->26335|42722->26336|42776->26361|42918->26474|42948->26475|43006->26504|43241->26710|43271->26711|43321->26732|43351->26733|43395->26748|43425->26749|43577->26872|43607->26873|43653->26890|43913->27121|43943->27122|44086->27236|44116->27237|44162->27254|44379->27442|44409->27443|44560->27565|44590->27566|44636->27583|44856->27774|44886->27775|44982->27842|45012->27843|45058->27860|45260->28033|45290->28034|45425->28140|45455->28141|45501->28158|45979->28607|46009->28608|46159->28729|46189->28730|46235->28747|46362->28845|46392->28846|46442->28867|46957->29353|46987->29354|47017->29355|47051->29360|47081->29361|47131->29382|47246->29468|47276->29469|47318->29482|47348->29483|47461->29567|47491->29568|47537->29585|47892->29911|47922->29912|47966->29927|48031->29963|48061->29964|48107->29981|48213->30058|48243->30059|48297->30084|48373->30132|48389->30138|48441->30168|48507->30205|48537->30206|48591->30231|48680->30291|48710->30292|48760->30313|48790->30314|48861->30356|48891->30357|48945->30382|49024->30432|49054->30433|49118->30468|49148->30469|49202->30494|49344->30607|49374->30608|49432->30637|49606->30782|49636->30783|49686->30804|49716->30805|49762->30822|49806->30837|49836->30838|49988->30962|50018->30963
-                  LINES: 27->1|32->1|34->3|40->9|40->9|40->9|41->10|41->10|41->10|53->22|53->22|53->22|53->22|57->26|57->26|57->26|58->27|59->28|60->29|75->44|75->44|75->44|75->44|75->44|75->44|76->45|86->55|86->55|86->55|86->55|86->55|86->55|98->67|98->67|98->67|98->67|98->67|98->67|105->74|105->74|105->74|105->74|105->74|105->74|132->101|132->101|132->101|132->101|132->101|132->101|132->101|132->101|132->101|132->101|132->101|132->101|137->106|137->106|137->106|137->106|137->106|137->106|143->112|143->112|143->112|143->112|143->112|143->112|151->120|151->120|151->120|151->120|151->120|151->120|152->121|157->126|157->126|157->126|157->126|157->126|157->126|162->131|162->131|162->131|162->131|162->131|162->131|179->148|179->148|179->148|179->148|179->148|179->148|179->148|179->148|179->148|179->148|179->148|179->148|184->153|184->153|184->153|184->153|184->153|184->153|191->160|191->160|191->160|191->160|191->160|191->160|197->166|197->166|197->166|197->166|197->166|197->166|206->175|206->175|206->175|206->175|206->175|206->175|212->181|212->181|212->181|212->181|212->181|212->181|213->182|213->182|213->182|213->182|213->182|213->182|213->182|213->182|213->182|213->182|213->182|213->182|226->195|226->195|227->196|227->196|227->196|227->196|227->196|228->197|228->197|230->199|230->199|231->200|232->201|232->201|233->202|234->203|234->203|235->204|237->206|237->206|238->207|239->208|239->208|240->209|240->209|241->210|241->210|242->211|244->213|244->213|244->213|244->213|245->214|247->216|247->216|248->217|248->217|249->218|249->218|251->220|251->220|254->223|254->223|254->223|255->224|256->225|256->225|258->227|258->227|259->228|262->231|262->231|262->231|264->233|264->233|266->235|266->235|267->236|271->240|271->240|271->240|273->242|273->242|275->244|275->244|276->245|277->246|277->246|277->246|279->248|279->248|281->250|281->250|282->251|283->252|283->252|283->252|285->254|285->254|287->256|287->256|288->257|292->261|292->261|293->262|295->264|295->264|296->265|297->266|297->266|298->267|298->267|298->267|298->267|299->268|300->269|300->269|300->269|300->269|301->270|301->270|301->270|302->271|304->273|304->273|304->273|304->273|304->273|305->274|307->276|307->276|308->277|310->279|310->279|311->280|311->280|312->281|312->281|313->282|313->282|315->284|316->285|316->285|317->286|322->291|322->291|323->292|324->293|324->293|324->293|324->293|325->294|325->294|325->294|326->295|327->296|327->296|327->296|329->298|329->298|330->299|332->301|332->301|333->302|333->302|334->303|335->304|335->304|338->307|338->307|339->308|342->311|342->311|343->312|344->313|344->313|346->315|350->319|350->319|351->320|352->321|352->321|352->321|353->322|353->322|353->322|353->322|354->323|354->323|355->324|356->325|356->325|357->326|357->326|357->326|357->326|358->327|360->329|360->329|360->329|360->329|361->330|361->330|361->330|362->331|364->333|364->333|364->333|364->333|364->333|365->334|367->336|367->336|368->337|370->339|370->339|371->340|371->340|372->341|372->341|373->342|373->342|376->345|376->345|377->346|383->352|383->352|384->353|386->355|386->355|387->356|388->357|388->357|389->358|389->358|389->358|389->358|390->359|391->360|391->360|391->360|391->360|392->361|392->361|392->361|393->362|395->364|395->364|395->364|395->364|395->364|396->365|398->367|398->367|399->368|401->370|401->370|402->371|402->371|403->372|403->372|404->373|404->373|407->376|407->376|408->377|411->380|411->380|412->381|414->383|414->383|415->384|416->385|416->385|417->386|417->386|417->386|417->386|418->387|419->388|419->388|419->388|419->388|420->389|422->391|422->391|423->392|425->394|425->394|426->395|426->395|427->396|427->396|430->399|430->399|431->400|434->403|434->403|437->406|437->406|438->407|440->409|440->409|443->412|443->412|444->413|446->415|446->415|449->418|449->418|450->419|456->425|456->425|459->428|459->428|460->429|463->432|463->432|464->433|465->434|465->434|467->436|471->440|471->440|472->441|474->443|474->443|474->443|474->443|475->444|475->444|476->445|477->446|477->446|478->447|478->447|478->447|478->447|479->448|481->450|481->450|481->450|481->450|482->451|482->451|482->451|483->452|485->454|485->454|485->454|485->454|485->454|486->455|488->457|488->457|489->458|491->460|491->460|492->461|492->461|493->462|493->462|494->463|494->463|497->466|497->466|498->467|504->473|504->473|505->474|507->476|507->476|508->477|509->478|509->478|510->479|510->479|510->479|510->479|511->480|512->481|512->481|512->481|512->481|513->482|513->482|513->482|514->483|516->485|516->485|516->485|516->485|516->485|517->486|519->488|519->488|520->489|522->491|522->491|523->492|523->492|524->493|524->493|525->494|525->494|528->497|528->497|529->498|532->501|532->501|533->502|535->504|535->504|536->505|537->506|537->506|538->507|538->507|538->507|538->507|539->508|540->509|540->509|540->509|540->509|541->510|543->512|543->512|544->513|546->515|546->515|547->516|547->516|548->517|548->517|551->520|551->520|552->521|555->524|555->524|558->527|558->527|559->528|561->530|561->530|564->533|564->533|565->534|567->536|567->536|569->538|569->538|570->539|573->542|573->542|577->546|577->546|578->547|585->554|585->554|588->557|588->557|589->558|590->559|590->559|591->560|601->570|601->570|601->570|601->570|601->570|602->571|603->572|603->572|604->573|604->573|608->577|608->577|609->578|617->586|617->586|619->588|619->588|619->588|620->589|622->591|622->591|623->592|624->593|624->593|624->593|625->594|625->594|626->595|627->596|627->596|628->597|628->597|628->597|628->597|629->598|630->599|630->599|630->599|630->599|631->600|633->602|633->602|634->603|636->605|636->605|637->606|637->606|638->607|639->608|639->608|644->613|644->613
+                  DATE: Fri Oct 14 15:46:17 IST 2016
+                  SOURCE: /home/si2chip/si2chip/app/views/posts.scala.html
+                  HASH: 796ae49b6efc26fa99c59ff7e582310d5f6fcf9d
+                  MATRIX: 756->1|880->30|908->32|1211->309|1225->315|1293->363|1355->398|1370->404|1433->446|2062->1048|2077->1054|2133->1089|2162->1090|2282->1183|2302->1194|2342->1196|2383->1209|2541->1336|2582->1349|3347->2086|3376->2087|3405->2088|3441->2096|3470->2097|3499->2098|3548->2119|3822->2365|3851->2366|3880->2367|3922->2381|3951->2382|3980->2383|4693->3067|4723->3068|4753->3069|4793->3080|4823->3081|4853->3082|5130->3331|5159->3332|5188->3333|5233->3350|5262->3351|5291->3352|6892->4924|6922->4925|6952->4926|6991->4936|7021->4937|7051->4938|7091->4949|7121->4950|7151->4951|7193->4963|7224->4964|7255->4965|7572->5253|7602->5254|7632->5255|7669->5263|7699->5264|7729->5265|7924->5430|7955->5431|7986->5432|8021->5437|8052->5438|8083->5439|8764->6091|8794->6092|8824->6093|8876->6116|8906->6117|8936->6118|9518->6671|9548->6672|9578->6673|9637->6703|9667->6704|9697->6705|9763->6742|9946->6896|9976->6897|10006->6898|10058->6921|10088->6922|10118->6923|10417->7193|10447->7194|10477->7195|10551->7239|10582->7240|10613->7241|12006->8605|12036->8606|12066->8607|12110->8621|12141->8622|12172->8623|12213->8634|12244->8635|12275->8636|12324->8655|12355->8656|12386->8657|12805->9047|12835->9048|12865->9049|12909->9064|12939->9065|12969->9066|13295->9363|13325->9364|13355->9365|13407->9388|13437->9389|13467->9390|13971->9865|14001->9866|14031->9867|14083->9890|14113->9891|14143->9892|14414->10134|14444->10135|14474->10136|14515->10148|14545->10149|14575->10150|14888->10433|14919->10434|14950->10435|14988->10443|15019->10444|15050->10445|15106->10472|15136->10473|15166->10474|15203->10482|15233->10483|15263->10484|15314->10506|15692->10855|15722->10856|15764->10869|15821->10897|15851->10898|15913->10931|15943->10932|15998->10959|16028->10960|16115->11018|16145->11019|16187->11032|16276->11092|16306->11093|16352->11110|16433->11162|16463->11163|16517->11188|16646->11288|16676->11289|16730->11314|16819->11374|16849->11375|16899->11396|16929->11397|17006->11445|17036->11446|17090->11471|17216->11568|17246->11569|17297->11591|17327->11592|17381->11617|17506->11713|17536->11714|17580->11729|17610->11730|17648->11740|17678->11741|17811->11844|17842->11845|17886->11860|17948->11893|17978->11894|18024->11911|18096->11954|18126->11955|18208->12008|18238->12009|18284->12026|18461->12175|18477->12181|18532->12214|18647->12300|18677->12301|18754->12349|18784->12350|18830->12367|19047->12556|19063->12562|19107->12584|19222->12670|19252->12671|19335->12725|19365->12726|19411->12743|19496->12800|19512->12806|19564->12836|19679->12922|19709->12923|19793->12978|19823->12979|19869->12996|19954->13053|19970->13059|20023->13090|20138->13176|20168->13177|20289->13269|20319->13270|20366->13288|20688->13581|20718->13582|20772->13607|20907->13713|20937->13714|20995->13743|21084->13803|21114->13804|21164->13825|21194->13826|21265->13868|21295->13869|21349->13894|21422->13938|21452->13939|21516->13974|21546->13975|21600->14000|21657->14028|21687->14029|21745->14058|22035->14319|22065->14320|22095->14321|22129->14326|22159->14327|22217->14356|22367->14477|22397->14478|22459->14511|22631->14654|22661->14655|22715->14680|22745->14681|22795->14702|22825->14703|22870->14719|22900->14720|22945->14736|23081->14843|23111->14844|23157->14861|23458->15132|23489->15133|23543->15158|23630->15216|23660->15217|23724->15252|23754->15253|23808->15278|23865->15306|23895->15307|23953->15336|24019->15373|24049->15374|24079->15375|24226->15493|24256->15494|24314->15523|24520->15700|24550->15701|24600->15722|24630->15723|24676->15740|24720->15755|24750->15756|24866->15843|24896->15844|24942->15861|25092->15982|25122->15983|25172->16004|25225->16028|25255->16029|25302->16047|25490->16206|25520->16207|25574->16232|25651->16281|25667->16287|25712->16310|25775->16344|25805->16345|25854->16365|25884->16366|25949->16402|25979->16403|26037->16432|26126->16492|26156->16493|26206->16514|26236->16515|26307->16557|26337->16558|26391->16583|26506->16669|26536->16670|26600->16705|26630->16706|26684->16731|26741->16759|26771->16760|26829->16789|27094->17025|27124->17026|27154->17027|27188->17032|27218->17033|27276->17062|27426->17183|27456->17184|27518->17217|27691->17361|27721->17362|27775->17387|27805->17388|27855->17409|27885->17410|27929->17425|27959->17426|28088->17526|28118->17527|28164->17544|28392->17743|28422->17744|28476->17769|28607->17871|28637->17872|28695->17901|28784->17961|28814->17962|28864->17983|28894->17984|28965->18026|28995->18027|29049->18052|29131->18105|29161->18106|29225->18141|29255->18142|29309->18167|29366->18195|29396->18196|29454->18225|29774->18516|29804->18517|29834->18518|29868->18523|29898->18524|29956->18553|30106->18674|30136->18675|30198->18708|30373->18854|30403->18855|30457->18880|30487->18881|30537->18902|30567->18903|30611->18918|30641->18919|30744->18993|30774->18994|30820->19011|30972->19134|31002->19135|31056->19160|31170->19245|31200->19246|31258->19275|31347->19335|31377->19336|31427->19357|31457->19358|31528->19400|31558->19401|31612->19426|31694->19479|31724->19480|31788->19515|31818->19516|31873->19542|32016->19656|32046->19657|32104->19686|32287->19840|32317->19841|32367->19862|32397->19863|32441->19878|32471->19879|32601->19980|32631->19981|32677->19998|32857->20149|32887->20150|33008->20242|33038->20243|33084->20260|33225->20372|33255->20373|33384->20473|33414->20474|33460->20491|33600->20602|33630->20603|33744->20688|33774->20689|33820->20706|34129->20986|34159->20987|34287->21086|34317->21087|34363->21104|34525->21237|34555->21238|34605->21259|34658->21283|34688->21284|34735->21302|34996->21534|35026->21535|35080->21560|35232->21683|35262->21684|35337->21730|35367->21731|35432->21767|35462->21768|35520->21797|35609->21857|35639->21858|35689->21879|35719->21880|35790->21922|35820->21923|35874->21948|36029->22074|36059->22075|36123->22110|36153->22111|36207->22136|36264->22164|36294->22165|36352->22194|36728->22541|36758->22542|36788->22543|36822->22548|36852->22549|36910->22578|37059->22698|37089->22699|37151->22732|37369->22921|37399->22922|37453->22947|37483->22948|37533->22969|37563->22970|37607->22985|37637->22986|37782->23102|37812->23103|37858->23120|38163->23396|38193->23397|38247->23422|38422->23568|38452->23569|38510->23598|38599->23658|38629->23659|38679->23680|38709->23681|38780->23723|38810->23724|38864->23749|38960->23816|38990->23817|39054->23852|39084->23853|39138->23878|39195->23906|39225->23907|39283->23936|39725->24349|39755->24350|39785->24351|39819->24356|39849->24357|39908->24387|40059->24509|40089->24510|40151->24543|40372->24735|40402->24736|40456->24761|40486->24762|40536->24783|40566->24784|40610->24799|40640->24800|40765->24896|40795->24897|40841->24914|41067->25111|41097->25112|41151->25137|41265->25222|41295->25223|41353->25252|41442->25312|41472->25313|41522->25334|41552->25335|41623->25377|41653->25378|41707->25403|41812->25479|41842->25480|41906->25515|41936->25516|41990->25541|42132->25654|42162->25655|42220->25684|42455->25890|42485->25891|42535->25912|42565->25913|42609->25928|42639->25929|42791->26052|42821->26053|42867->26070|43127->26301|43157->26302|43300->26416|43330->26417|43376->26434|43593->26622|43623->26623|43774->26745|43804->26746|43850->26763|44070->26954|44100->26955|44196->27022|44226->27023|44272->27040|44474->27213|44504->27214|44639->27320|44669->27321|44715->27338|45193->27787|45223->27788|45373->27909|45403->27910|45449->27927|45576->28025|45606->28026|45656->28047|46171->28533|46201->28534|46231->28535|46265->28540|46295->28541|46345->28562|46460->28648|46490->28649|46532->28662|46562->28663|46675->28747|46705->28748|46751->28765|47107->29092|47137->29093|47218->29145|47248->29146|47294->29163|47406->29246|47436->29247|47490->29272|47566->29320|47582->29326|47634->29356|47700->29393|47730->29394|47784->29419|47873->29479|47903->29480|47953->29501|47983->29502|48054->29544|48084->29545|48138->29570|48223->29626|48253->29627|48317->29662|48347->29663|48401->29688|48543->29801|48573->29802|48631->29831|48805->29976|48835->29977|48885->29998|48915->29999|48961->30016|49005->30031|49035->30032|49114->30082|49144->30083|49190->30100|49298->30179|49328->30180|49382->30205|49458->30253|49474->30259|49521->30284|49587->30321|49617->30322|49671->30347|49760->30407|49790->30408|49840->30429|49870->30430|49941->30472|49971->30473|50029->30502|50108->30552|50138->30553|50202->30588|50232->30589|50286->30614|50428->30727|50458->30728|50516->30757|50695->30907|50725->30908|50775->30929|50805->30930|50851->30947|50895->30962|50925->30963|51011->31020|51041->31021|51087->31038|51195->31117|51225->31118|51279->31143|51415->31250|51445->31251|51499->31276|51588->31336|51618->31337|51668->31358|51698->31359|51769->31401|51799->31402|51857->31431|51937->31482|51967->31483|52031->31518|52061->31519|52115->31544|52257->31657|52287->31658|52345->31687|52694->32007|52724->32008|52774->32029|52804->32030|52850->32047|52894->32062|52924->32063|53122->32233|53152->32234
+                  LINES: 27->1|32->1|34->3|40->9|40->9|40->9|41->10|41->10|41->10|53->22|53->22|53->22|53->22|57->26|57->26|57->26|58->27|59->28|60->29|76->45|76->45|76->45|76->45|76->45|76->45|77->46|87->56|87->56|87->56|87->56|87->56|87->56|99->68|99->68|99->68|99->68|99->68|99->68|106->75|106->75|106->75|106->75|106->75|106->75|133->102|133->102|133->102|133->102|133->102|133->102|133->102|133->102|133->102|133->102|133->102|133->102|138->107|138->107|138->107|138->107|138->107|138->107|142->111|142->111|142->111|142->111|142->111|142->111|148->117|148->117|148->117|148->117|148->117|148->117|156->125|156->125|156->125|156->125|156->125|156->125|157->126|162->131|162->131|162->131|162->131|162->131|162->131|167->136|167->136|167->136|167->136|167->136|167->136|184->153|184->153|184->153|184->153|184->153|184->153|184->153|184->153|184->153|184->153|184->153|184->153|189->158|189->158|189->158|189->158|189->158|189->158|196->165|196->165|196->165|196->165|196->165|196->165|202->171|202->171|202->171|202->171|202->171|202->171|211->180|211->180|211->180|211->180|211->180|211->180|216->185|216->185|216->185|216->185|216->185|216->185|217->186|217->186|217->186|217->186|217->186|217->186|219->188|232->201|232->201|233->202|233->202|233->202|233->202|233->202|234->203|234->203|236->205|236->205|237->206|238->207|238->207|239->208|240->209|240->209|241->210|243->212|243->212|244->213|245->214|245->214|246->215|246->215|247->216|247->216|248->217|250->219|250->219|250->219|250->219|251->220|253->222|253->222|254->223|254->223|255->224|255->224|257->226|257->226|260->229|260->229|260->229|261->230|262->231|262->231|264->233|264->233|265->234|268->237|268->237|268->237|270->239|270->239|272->241|272->241|273->242|277->246|277->246|277->246|279->248|279->248|281->250|281->250|282->251|283->252|283->252|283->252|285->254|285->254|287->256|287->256|288->257|289->258|289->258|289->258|291->260|291->260|295->264|295->264|297->266|306->275|306->275|307->276|309->278|309->278|310->279|311->280|311->280|312->281|312->281|312->281|312->281|313->282|315->284|315->284|315->284|315->284|316->285|316->285|316->285|317->286|319->288|319->288|319->288|319->288|319->288|320->289|322->291|322->291|323->292|325->294|325->294|326->295|326->295|327->296|327->296|328->297|328->297|331->300|332->301|332->301|333->302|338->307|338->307|339->308|340->309|340->309|340->309|340->309|341->310|341->310|341->310|342->311|343->312|343->312|343->312|345->314|345->314|346->315|348->317|348->317|349->318|349->318|350->319|351->320|351->320|355->324|355->324|356->325|359->328|359->328|360->329|361->330|361->330|363->332|367->336|367->336|368->337|369->338|369->338|369->338|370->339|370->339|370->339|370->339|371->340|371->340|372->341|373->342|373->342|374->343|374->343|374->343|374->343|375->344|377->346|377->346|377->346|377->346|378->347|378->347|378->347|379->348|381->350|381->350|381->350|381->350|381->350|382->351|384->353|384->353|385->354|387->356|387->356|388->357|388->357|389->358|389->358|390->359|390->359|393->362|393->362|394->363|400->369|400->369|401->370|403->372|403->372|404->373|405->374|405->374|406->375|406->375|406->375|406->375|407->376|408->377|408->377|408->377|408->377|409->378|409->378|409->378|410->379|412->381|412->381|412->381|412->381|412->381|413->382|415->384|415->384|416->385|418->387|418->387|419->388|419->388|420->389|420->389|421->390|421->390|424->393|424->393|425->394|428->397|428->397|429->398|431->400|431->400|432->401|433->402|433->402|434->403|434->403|434->403|434->403|435->404|436->405|436->405|436->405|436->405|437->406|439->408|439->408|440->409|442->411|442->411|443->412|443->412|444->413|444->413|447->416|447->416|448->417|451->420|451->420|454->423|454->423|455->424|457->426|457->426|460->429|460->429|461->430|463->432|463->432|466->435|466->435|467->436|473->442|473->442|476->445|476->445|477->446|480->449|480->449|481->450|482->451|482->451|484->453|488->457|488->457|489->458|491->460|491->460|491->460|491->460|492->461|492->461|493->462|494->463|494->463|495->464|495->464|495->464|495->464|496->465|498->467|498->467|498->467|498->467|499->468|499->468|499->468|500->469|502->471|502->471|502->471|502->471|502->471|503->472|505->474|505->474|506->475|508->477|508->477|509->478|509->478|510->479|510->479|511->480|511->480|514->483|514->483|515->484|521->490|521->490|522->491|524->493|524->493|525->494|526->495|526->495|527->496|527->496|527->496|527->496|528->497|529->498|529->498|529->498|529->498|530->499|530->499|530->499|531->500|533->502|533->502|533->502|533->502|533->502|534->503|536->505|536->505|537->506|539->508|539->508|540->509|540->509|541->510|541->510|542->511|542->511|545->514|545->514|546->515|549->518|549->518|550->519|552->521|552->521|553->522|554->523|554->523|555->524|555->524|555->524|555->524|556->525|557->526|557->526|557->526|557->526|558->527|560->529|560->529|561->530|563->532|563->532|564->533|564->533|565->534|565->534|568->537|568->537|569->538|572->541|572->541|575->544|575->544|576->545|578->547|578->547|581->550|581->550|582->551|584->553|584->553|586->555|586->555|587->556|590->559|590->559|594->563|594->563|595->564|602->571|602->571|605->574|605->574|606->575|607->576|607->576|608->577|618->587|618->587|618->587|618->587|618->587|619->588|620->589|620->589|621->590|621->590|625->594|625->594|626->595|635->604|635->604|637->606|637->606|638->607|640->609|640->609|641->610|642->611|642->611|642->611|643->612|643->612|644->613|645->614|645->614|646->615|646->615|646->615|646->615|647->616|648->617|648->617|648->617|648->617|649->618|651->620|651->620|652->621|654->623|654->623|655->624|655->624|656->625|657->626|657->626|661->630|661->630|662->631|664->633|664->633|665->634|666->635|666->635|666->635|667->636|667->636|668->637|669->638|669->638|670->639|670->639|670->639|670->639|671->640|672->641|672->641|672->641|672->641|673->642|675->644|675->644|676->645|678->647|678->647|679->648|679->648|680->649|681->650|681->650|684->653|684->653|685->654|687->656|687->656|688->657|690->659|690->659|691->660|692->661|692->661|693->662|693->662|693->662|693->662|694->663|695->664|695->664|695->664|695->664|696->665|698->667|698->667|699->668|704->673|704->673|705->674|705->674|706->675|707->676|707->676|716->685|716->685
                   -- GENERATED --
               */
           

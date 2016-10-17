@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,160 +7,155 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href=@routes.Assets.versioned("stylesheets/common/view.css")>
     <link rel="stylesheet" href=@routes.Assets.versioned("stylesheets/admin.css")>
-    <link rel="stylesheet" href=@routes.Assets.versioned("stylesheets/posts.css")>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.min.js"></script>
-    <title>SI2Chip Admin</title>
+    <title>SI2Chip Setup</title>
 </head>
-<body ng-app="newuser" ng-controller="userCtrl">
+<body ng-app="admin" ng-controller="adminCtrl">
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
             <img src=@routes.Assets.versioned("images/l46.png") class="logo">
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#"> Admin </a></li>
             <li><a href="#" ng-click="showPosts($event)"> Home </a></li>
-            <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span> Sign out </a></li>
+            <li><a href="#" ng-click="Signout($event)"><span class="glyphicon glyphicon-log-out"></span> Signout </a></li>
         </ul>
     </div>
 </nav>
-
 <div class="container">
     <div class="row">
-       <div class="col-md-5 col-md-offset-3">
-        <div class="panel panel-primary">
-            <div class="panel-body">
-
-                    <div class="text-center">
-                        <div class="form-group">
-                           <h2>Create account</h2>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="modal fade" id="conError" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span>An error occurred transacting with the server.</span>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            {{conerror}}
                         </div>
                     </div>
-                <form role="form" name="uf">
-                    <div class="form-group">
-                        <label class="control-label" for="signupName">Your name</label>
-                        <input type="name" class="form-control" maxlength="20" ng-model="nUserName" placeholder="Full Name" required name="nUserName">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="signupEmail">Email</label>
-                        <input type="email" class="form-control" maxlength="255" ng-model="nUserId" placeholder="email" required name="userId">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="signupPassword">Password</label>
-                        <input type="Password" type="password" maxlength="25" class="form-control" ng-model="nPassword" placeholder="Password" >
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="Designation">Designation</label>
-                        <input type="text"  maxlength="25" class="form-control" ng-model="nDesignation" placeholder="Designation" >
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="birthDate">Date of Birth</label>
-                        <input type="date" maxlength="25" class="form-control" ng-model="nbirthdate" placeholder="dd/mm/yyyy" >
-                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well well-lg">
+                <table class="table">
+                    <thead>
+                            <div class="text-center">
+                                <h4 id="adminmgmttitle">Create Account</h4>
+                            </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-info btn-block" ng-click="addUsers($event)">Submit</button>
-                    </div>
-                </form>
-                <span ng-show="uf.userId.$error.email" class="editmsgs">Not a valid e-mail address</span><br>
-                <span ng-show="uf.userId.$touched && uf.userId.$error.required" class="editmsgs">UserId required. Enter a valid email id</span><br>
-                <span ng-if="!(uf.userId.$dirty || uf.password.$dirty)" ng-bind="adderror" class="error"></span>
-                <span ng-if="!(uf.userId.$touched || uf.password.$touched) && addSuccess" class="success">User added successfully</span>
+                            <div class="well well-md">
+                                <form role="form" name="lf">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" maxlength="25" ng-model="nUserName" placeholder="Enter name" required name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" maxlength="255" ng-model="nUserId" placeholder="Enter email id here" required name="userId">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" ng-model="nPassword" placeholder="Enter password here" name="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" maxlength="25" ng-model="nuserDesignation" placeholder="Designation" required name="userDesignation">
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="form-group">
+                                            <input type="date" class="form-control" maxlength="255" ng-model="nuserbirth" placeholder="dd/mm/yyyy" required name="userbirth">
+                                        </div>
+                                        <button type="submit" class="btn btn-default btn-md" ng-click="addUser($event)">Add</button>
+                                    </div>
+                                </form>
+                                <span ng-show="lf.userId.$error.email" class="editmsgs">Not a valid e-mail address</span><br>
+                                <span ng-show="lf.userId.$touched && lf.userId.$error.required" class="editmsgs">UserId required. Enter a valid email id</span><br>
+                                <span ng-if="!(lf.userId.$dirty || lf.password.$dirty)" ng-bind="adderror" class="error"></span>
+                                <span ng-if="!(lf.userId.$touched || lf.password.$touched) && addSuccess" class="success">Admin added successfully</span>
+                            </div>
+                    </thead>
+                </table>
 
             </div>
         </div>
-       </div>
     </div>
 </div>
-
-
 <script type="text/javascript">
-        var app = angular.module('newuser',  ["ngCookies"]);
+        var app = angular.module('admin',  []);
         app.config(['$locationProvider', function AppConfig($locationProvider) {
             $locationProvider.html5Mode({enabled: true, requireBase: false}).hashPrefix('*');
         }]);
 
-        app.controller('userCtrl', function($scope, $http, $location, $window, $cookies) {
+
+
+        app.controller('adminCtrl', function($scope, $http, $location, $window) {
             // Initialize the view
+            $scope.adderror="";
+            $scope.moderror="";
             $scope.conerror = "";
-            $scope.adderror= "";
-            $scope.delerror = "";
-            $scope.moderror = "";
+            $scope.allAdmins=[];
+            $scope.nPassword = "";
+            $scope.mPassword = "";
             $scope.addSuccess = false;
             $scope.modSuccess = false;
 
 
-            $scope.showForbiddenPage = function() {
-                $cookies.remove("userId");
-                $cookies.remove("groupId");
-                $cookies.remove("tzoffset");
-                $location.path("@routes.AdminController.showForbiddenPage").replace();
-                $window.location.href = $location.absUrl();
-            };
-
-             $scope.showPosts = function(event) {
+                // goto posts page
+            $scope.showPosts = function(event) {
                 event.preventDefault();
                 $location.path("@routes.PostController.getPosts").replace();
                 $window.location.href = $location.absUrl();
             };
-
-              $scope.signOut = function(event) {
+               $scope.signOut = function(event) {
                 event.preventDefault();
                 $cookies.remove("userId");
-                $cookies.remove("groupId");
                 $cookies.remove("tzoffset");
                 $location.path("@routes.HomeController.logout").replace();
                 $window.location.href = $location.absUrl();
             };
 
-
-            $scope.addUsers  = function(event) {
+            $scope.addUser  = function(event) {
                 event.preventDefault();
+                   
 
                 // validate the add user form
-                if ($scope.uf.userId.$error.required || $scope.uf.userId.$error.email || !($scope.uf.userId.$dirty || $scope.uf.password.$dirty)) {
-                    $scope.uf.userId.$touched = true;
+                if ($scope.lf.userId.$error.required || $scope.lf.userId.$error.email || !($scope.lf.userId.$dirty || $scope.lf.password.$dirty)) {
+                  alert('fine2')
+                    $scope.lf.userId.$touched = true;
                     return;
                 }
 
                 $scope.conerror = "";
                 $scope.adderror = "";
                 $scope.addSuccess = false;
+                 alert('fine3')
                 $http({
                         method : "POST",
                         url : "@routes.AdminController.addUser",
-                        data : {"username" : $scope.nUserName,  "userId" : $scope.nUserId, "password" : $scope.nPassword, "userDesignation" : $scope:nDesignation, "userbirth" : $scope.nbirthdate},
+                        data : {"name" : $scope.nUserName, "userId" : $scope.nUserId, "password" : $scope.nPassword, "userDesignation" : $scope.nuserDesignation, "userbirth" : $scope.nuserbirth},
                         headers : {
                             "Content-Type" : "application/json"
                         }
                     }).then(function successCallback(response) {
                         $scope.nUserId = "";
                         $scope.nPassword = "";
-                        $scope.nUserName ="";
-                        $scope.userDesignation ="";
-                        $scope.nbirthdate ="";
-                        $scope.auf.userId.$touched = false;
-                        $scope.auf.password.$touched = false;
+                        $scope.lf.userId.$touched = false;
+                        $scope.lf.password.$touched = false;
                         $scope.addSuccess = true;
                     }, function errorCallback(response) {
                         if (response.status == 400) {
                             $scope.adderror = response.data.error;
-                            $scope.auf.$setPristine();
+                            $scope.lf.$setPristine();
                         } else {
-                            if (response.status == 403)
-                                $scope.showForbiddenPage();
-                            else {
-                                $scope.conerror = "Error trying to add the user. Retry.";
-                                $('#conError').modal('show');
-                            }
+                            $scope.conerror = "Error trying to add the admin user. Retry.";
+                            $('#conError').modal('show');
                         }
                     });
             };
-
-
 
         });
     </script>

@@ -20,11 +20,13 @@ public class Secured extends Security.Authenticator {
         @Override
         public String getUsername(Http.Context ctx) {
             String u = ctx.session().get("userId");
+
             String g = ctx.session().get("groupId");
 
             int vC = SessionUser.validateSessionUser(u, g, false);
             if (vC == SessionUser.U_NO) {
                 ctx.session().remove("userId");
+                ctx.session().remove("name");
                 ctx.session().remove("groupId");
                 uC.forceRemoveUserInCache(u);
                 u = null;

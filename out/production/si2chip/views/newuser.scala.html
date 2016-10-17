@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href=@routes.Assets.versioned("stylesheets/common/view.css")>
+    <link rel="stylesheet" href=@routes.Assets.versioned("stylesheets/admin.css")>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>SI2Chip Setup</title>
+</head>
+<body ng-app="newuser" ng-controller="userCtrl">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src=@routes.Assets.versioned("images/l46.png") class="logo">
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" ng-click="showHome($event)"></span> Home</a></li>
+            <li><a href="#" ng-click="signOut($event)"><span class="glyphicon glyphicon-log-out"></span> Sign out </a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="modal fade" id="conError" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span>An error occurred transacting with the server.</span>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            {{conerror}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well well-lg">
+
+                    <form role="form" name="uf">
+                        <div class="form-group">
+                            <input type="text" class="form-control" maxlength="25" ng-model="nUserName" placeholder="Enter name" required name="name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" maxlength="255" ng-model="nUserId" placeholder="Enter email id here" required name="userId">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" ng-model="nPassword" placeholder="Enter password here" name="password">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" maxlength="25" ng-model="nuserDesignation" placeholder="Designation" required name="userDesignation">
+                        </div>
+                        <div class="text-center">
+                            <div class="form-group">
+                                <input type="date" class="form-control" maxlength="255" ng-model="nuserbirth" placeholder="dd/mm/yyyy" required name="userbirth">
+                            </div>
+                            <button type="submit" class="btn btn-default btn-md" ng-click="addUser($event)">Add</button>
+                        </div>
+                    </form>
+                    <span ng-show="uf.userId.$error.email" class="editmsgs">Not a valid e-mail address</span><br>
+                    <span ng-show="uf.userId.$touched && uf.userId.$error.required" class="editmsgs">UserId required. Enter a valid email id</span><br>
+                    <span ng-if="!(uf.userId.$dirty || uf.password.$dirty)" ng-bind="adderror" class="error"></span>
+                    <span ng-if="!(uf.userId.$touched || uf.password.$touched) && addSuccess" class="success">Admin added successfully</span>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        var app = angular.module('newuser',  []);
+        app.config(['$locationProvider', function AppConfig($locationProvider) {
+            $locationProvider.html5Mode({enabled: true, requireBase: false}).hashPrefix('*');
+        }]);
+
+
+
+        app.controller('userCtrl', function($scope, $http, $location, $window) {
+            // Initialize the view
+            $scope.adderror="";
+            $scope.moderror="";
+            $scope.conerror = "";
+
+            $scope.nPassword = "";
+            $scope.mPassword = "";
+            $scope.addSuccess = false;
+            $scope.modSuccess = false;
+
+
+             $scope.signOut = function(event) {
+                event.preventDefault();
+                $cookies.remove("userId");
+                $cookies.remove("groupId");
+                $cookies.remove("tzoffset");
+                $location.path("@routes.HomeController.logout").replace();
+                $window.location.href = $location.absUrl();
+            };
+            // goto posts page
+            $scope.showPosts = function(event) {
+                event.preventDefault();
+                $location.path("@routes.PostController.getPosts").replace();
+                $window.location.href = $location.absUrl();
+            };
+            $scope.addUser  = function(event) {
+
+               aleart('fine')
+                event.preventDefault();
+
+                // validate the add user form
+                if ($scope.uf.userId.$error.required || $scope.uf.userId.$error.email || !($scope.uf.userId.$dirty || $scope.uf.password.$dirty)) {
+                    $scope.uf.userId.$touched = true;
+                    return;
+                }
+
+                $scope.conerror = "";
+                $scope.adderror = "";
+                $scope.addSuccess = false;
+                $http({
+                        method : "POST",
+                        url : "@routes.AdminController.addUser",
+                        data : {"name" : $scope.nUserName, "userId" : $scope.nUserId, "password" : $scope.nPassword, "userDesignation" : $scope.nuserDesignation, "userbirth" : $scope.nuserbirth},
+                        headers : {
+                            "Content-Type" : "application/json"
+                        }
+                    }).then(function successCallback(response) {
+                        $scope.nUserId = "";
+                        $scope.nPassword = "";
+                        $scope.auf.userId.$touched = false;
+                        $scope.auf.password.$touched = false;
+                        $scope.addSuccess = true;
+                    }, function errorCallback(response) {
+                        if (response.status == 400) {
+                            $scope.adderror = response.data.error;
+                            $scope.auf.$setPristine();
+                        } else {
+                            $scope.conerror = "Error trying to add the admin user. Retry.";
+                            $('#conError').modal('show');
+                        }
+                    });
+            };
+        });
+    </script>
+</body>
+</html>

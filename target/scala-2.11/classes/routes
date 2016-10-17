@@ -46,8 +46,9 @@ POST    /admin                      controllers.AdminController.addAdmin
 PUT     /admin                      controllers.AdminController.modifyAdmin
 GET     /admins                     controllers.AdminController.getAdminUsers
 GET     /setup                      controllers.AdminController.showSetupPage
+GET     /setuppage                  controllers.AdminController.showSetup
 GET     /noadminaccess              controllers.AdminController.showForbiddenPage
-GET     /newuser                    controllers.AdminController.newUser
+
 
 POST    /forgotpassword             controllers.PasswordResetController.changeRequest
 GET    /resetLink                   controllers.PasswordResetController.resetPasswd

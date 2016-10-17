@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/si2chip/test/si2chip1/si2chip/conf/routes
-// @DATE:Fri Oct 07 12:57:05 IST 2016
+// @SOURCE:/home/si2chip/si2chip/conf/routes
+// @DATE:Sat Oct 15 13:45:01 IST 2016
 
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
 import play.core.routing.{ HandlerDef, ReverseRouteContext, queryString, dynamicString }
@@ -13,14 +13,14 @@ import _root_.play.libs.F
 // @LINE:5
 package controllers {
 
-  // @LINE:71
+  // @LINE:72
   class ReverseAssets(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:71
+    // @LINE:72
     def versioned(file:Asset): Call = {
       implicit val _rrc = new ReverseRouteContext(Map(("path", "/public")))
       Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[PathBindable[Asset]].unbind("file", file))
@@ -34,6 +34,12 @@ package controllers {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
+  
+    // @LINE:49
+    def showSetup(): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "setuppage")
+    }
   
     // @LINE:42
     def addUser(): Call = {
@@ -65,7 +71,7 @@ package controllers {
       Call("PUT", _prefix + { _defaultPrefix } + "admin")
     }
   
-    // @LINE:49
+    // @LINE:50
     def showForbiddenPage(): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "noadminaccess")
@@ -89,12 +95,6 @@ package controllers {
       Call("DELETE", _prefix + { _defaultPrefix } + "user/" + implicitly[PathBindable[String]].unbind("userId", dynamicString(userId)))
     }
   
-    // @LINE:50
-    def newUser(): Call = {
-      import ReverseRouteContext.empty
-      Call("GET", _prefix + { _defaultPrefix } + "newuser")
-    }
-  
     // @LINE:48
     def showSetupPage(): Call = {
       import ReverseRouteContext.empty
@@ -103,26 +103,26 @@ package controllers {
   
   }
 
-  // @LINE:52
+  // @LINE:53
   class ReversePasswordResetController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:52
+    // @LINE:53
     def changeRequest(): Call = {
       import ReverseRouteContext.empty
       Call("POST", _prefix + { _defaultPrefix } + "forgotpassword")
     }
   
-    // @LINE:53
+    // @LINE:54
     def resetPasswd(): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "resetLink")
     }
   
-    // @LINE:54
+    // @LINE:55
     def resetUserPassword(): Call = {
       import ReverseRouteContext.empty
       Call("PUT", _prefix + { _defaultPrefix } + "reset")
@@ -130,14 +130,14 @@ package controllers {
   
   }
 
-  // @LINE:66
+  // @LINE:67
   class ReverseCountController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:66
+    // @LINE:67
     def count(): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "count")
@@ -253,14 +253,14 @@ package controllers {
   
   }
 
-  // @LINE:68
+  // @LINE:69
   class ReverseAsyncController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:68
+    // @LINE:69
     def message(): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "message")
@@ -373,50 +373,50 @@ package controllers {
   
   }
 
-  // @LINE:57
+  // @LINE:58
   class ReverseCommentController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:62
+    // @LINE:63
     def getLastPage(postId:String): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "comments/last/" + implicitly[PathBindable[String]].unbind("postId", dynamicString(postId)))
     }
   
-    // @LINE:61
+    // @LINE:62
     def getFirstPage(postId:String): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "comments/first/" + implicitly[PathBindable[String]].unbind("postId", dynamicString(postId)))
     }
   
-    // @LINE:57
+    // @LINE:58
     def addComment(postId:String): Call = {
       import ReverseRouteContext.empty
       Call("POST", _prefix + { _defaultPrefix } + "comment/" + implicitly[PathBindable[String]].unbind("postId", dynamicString(postId)))
     }
   
-    // @LINE:58
+    // @LINE:59
     def deleteComment(postId:String, commentId:String): Call = {
       import ReverseRouteContext.empty
       Call("DELETE", _prefix + { _defaultPrefix } + "comment/" + implicitly[PathBindable[String]].unbind("postId", dynamicString(postId)) + "/" + implicitly[PathBindable[String]].unbind("commentId", dynamicString(commentId)))
     }
   
-    // @LINE:59
+    // @LINE:60
     def getPreviousPage(postId:String, firstId:String): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "comments/before/" + implicitly[PathBindable[String]].unbind("postId", dynamicString(postId)) + "/" + implicitly[PathBindable[String]].unbind("firstId", dynamicString(firstId)))
     }
   
-    // @LINE:63
+    // @LINE:64
     def refreshPage(postId:String, beginId:String): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "comments/refresh/" + implicitly[PathBindable[String]].unbind("postId", dynamicString(postId)) + "/" + implicitly[PathBindable[String]].unbind("beginId", dynamicString(beginId)))
     }
   
-    // @LINE:60
+    // @LINE:61
     def getNextPage(postId:String, lastId:String): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "comments/after/" + implicitly[PathBindable[String]].unbind("postId", dynamicString(postId)) + "/" + implicitly[PathBindable[String]].unbind("lastId", dynamicString(lastId)))
